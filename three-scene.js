@@ -1,14 +1,160 @@
 // ----------------------------------------------------
-// THREE.JS 3D SCENE SETUPS (Revamped Color Systems)
+// THREE.JS UNIFIED FULL-SCREEN WEBGL STORYTELLING CORE
 // ----------------------------------------------------
 
 document.addEventListener('DOMContentLoaded', () => {
   if (typeof THREE === 'undefined') {
-    console.error('Three.js failed to load via CDN.');
+    console.error('Three.js failed to load. Storytelling Space unavailable.');
     return;
   }
 
-  // Common tracking mouse coordinates
+  const container = document.getElementById('canvas-3d');
+  if (!container) return;
+
+  let width = window.innerWidth;
+  let height = window.innerHeight;
+
+  const scene = new THREE.Scene();
+
+  // Perspective Camera for deep volumetric space depth
+  const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
+  camera.position.set(0, 0, 6.5); // Resting Hero camera distance
+  window.heroCamera = camera;
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
+  renderer.setSize(width, height);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  container.appendChild(renderer.domElement);
+
+  // --------------------------------------------------
+  // 1. MODELING THE HOLOGRAPHIC 3D NFC PLAQUE (CARD)
+  // --------------------------------------------------
+  const objectGroup = new THREE.Group();
+  scene.add(objectGroup);
+  window.heroObjectGroup = objectGroup;
+
+  // Bevelled metallic dark blue physical glass plate
+  const cardGeo = new THREE.BoxGeometry(2.4, 1.48, 0.08);
+  const cardMat = new THREE.MeshPhysicalMaterial({
+    color: 0x050a2b,          // Cosmic void deep blue
+    metalness: 0.95,
+    roughness: 0.08,
+    transparent: true,
+    opacity: 0.88,
+    transmission: 0.82,       // Refraction depth
+    thickness: 0.6,
+    roughnessMap: null,
+    clearcoat: 1.0,           // Gloss reflection layer
+    clearcoatRoughness: 0.05,
+    side: THREE.DoubleSide
+  });
+  const cardMesh = new THREE.Mesh(cardGeo, cardMat);
+  objectGroup.add(cardMesh);
+
+  // Golden NFC Microchip
+  const chipGeo = new THREE.BoxGeometry(0.35, 0.3, 0.015);
+  const chipMat = new THREE.MeshPhysicalMaterial({
+    color: 0xDDA520,          // Golden reflect
+    metalness: 0.95,
+    roughness: 0.15,
+    clearcoat: 0.8
+  });
+  const chipMesh = new THREE.Mesh(chipGeo, chipMat);
+  chipMesh.position.set(-0.7, 0.2, 0.045); // Left-center chip placement
+  objectGroup.add(chipMesh);
+
+  // Holographic neon cyan wireframe overlay
+  const wireframeMat = new THREE.MeshBasicMaterial({
+    color: 0x00FFDB,          // Neon Cyan
+    wireframe: true,
+    transparent: true,
+    opacity: 0.45,
+    blending: THREE.AdditiveBlending
+  });
+  const wireframeMesh = new THREE.Mesh(cardGeo, wireframeMat);
+  wireframeMesh.scale.setScalar(1.004); // Avoid z-fighting z-overlap
+  objectGroup.add(wireframeMesh);
+
+  // Pulsing Electromagnetic NFC wireless rings group
+  const nfcRingsGroup = new THREE.Group();
+  nfcRingsGroup.position.set(-0.7, 0.2, 0.05); // Centered over chip
+  objectGroup.add(nfcRingsGroup);
+  window.heroNfcRings = nfcRingsGroup;
+
+  const ringCount = 3;
+  const rings = [];
+  for (let i = 0; i < ringCount; i++) {
+    const ringGeo = new THREE.RingGeometry(0.18 * (i + 1), 0.18 * (i + 1) + 0.012, 32);
+    const ringMat = new THREE.MeshBasicMaterial({
+      color: 0x00FFDB,
+      transparent: true,
+      opacity: 0.85 - (i * 0.22),
+      side: THREE.DoubleSide,
+      blending: THREE.AdditiveBlending
+    });
+    const ringMesh = new THREE.Mesh(ringGeo, ringMat);
+    nfcRingsGroup.add(ringMesh);
+    rings.push({
+      mesh: ringMesh,
+      baseScale: i * 0.4 + 1.0,
+      speed: 1.5 + (i * 0.2)
+    });
+  }
+
+  // --------------------------------------------------
+  // 2. VOLUMETRIC SPACE PARTICLES SYSTEM (Background Starfield)
+  // --------------------------------------------------
+  const particleCount = 420;
+  const particleGeo = new THREE.BufferGeometry();
+  const positions = new Float32Array(particleCount * 3);
+  const speeds = [];
+
+  for (let i = 0; i < particleCount * 3; i += 3) {
+    positions[i] = (Math.random() - 0.5) * 16;
+    positions[i + 1] = (Math.random() - 0.5) * 16;
+    positions[i + 2] = (Math.random() - 0.5) * 16;
+
+    speeds.push({
+      x: (Math.random() - 0.5) * 0.003,
+      y: Math.random() * 0.006 + 0.002, // Drift downwards
+      z: (Math.random() - 0.5) * 0.003
+    });
+  }
+
+  particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+  const particleMat = new THREE.PointsMaterial({
+    color: 0x00FFDB,          // cyan star highlights
+    size: 0.045,
+    transparent: true,
+    opacity: 0.5,
+    blending: THREE.AdditiveBlending
+  });
+  window.heroParticleMat = particleMat;
+
+  const particles = new THREE.Points(particleGeo, particleMat);
+  scene.add(particles);
+  window.heroParticles = particles;
+
+  // --------------------------------------------------
+  // 3. SCI-FI LIGHTING ENVIRONMENTS
+  // --------------------------------------------------
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.45);
+  scene.add(ambientLight);
+
+  const keyLight = new THREE.DirectionalLight(0xffffff, 1.2);
+  keyLight.position.set(5, 8, 5);
+  scene.add(keyLight);
+
+  const cyanLight = new THREE.PointLight(0x00FFDB, 3.5, 15);
+  cyanLight.position.set(-4, -4, 4);
+  scene.add(cyanLight);
+
+  const royalLight = new THREE.PointLight(0x1B38C4, 4.5, 15);
+  royalLight.position.set(4, 4, 4);
+  scene.add(royalLight);
+
+  // Mouse tilt panning references
   let mouseX = 0, mouseY = 0;
   let targetMouseX = 0, targetMouseY = 0;
 
@@ -17,422 +163,124 @@ document.addEventListener('DOMContentLoaded', () => {
     targetMouseY = -(e.clientY / window.innerHeight) * 2 + 1;
   });
 
+  // Device orientation / gyroscope support for mobile immersion!
+  window.addEventListener('deviceorientation', (e) => {
+    if (e.gamma !== null && e.beta !== null) {
+      targetMouseX = Math.min(1, Math.max(-1, e.gamma / 30));
+      targetMouseY = Math.min(1, Math.max(-1, (e.beta - 45) / 30));
+    }
+  });
+
   // --------------------------------------------------
-  // 1. HERO CANVAS SCENE (Electric Blue & Neon Cyan)
+  // 4. ANIMATION FRAME TICK LOOP
   // --------------------------------------------------
-  const initHeroScene = () => {
-    const container = document.getElementById('canvas-3d');
-    if (!container) return;
+  const clock = new THREE.Clock();
 
-    let width = container.clientWidth;
-    let height = container.clientHeight;
+  const animate = () => {
+    requestAnimationFrame(animate);
 
-    const scene = new THREE.Scene();
+    const elapsedTime = clock.getElapsedTime();
+    const delta = clock.getDelta();
 
-    // Perspective Camera (Spherical view)
-    const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
-    camera.position.z = 7;
+    // 1. Electromagnetic NFC rings wave pulse animation
+    rings.forEach(ring => {
+      let scaleVal = 1.0 + ((elapsedTime * ring.speed) % 1.5);
+      ring.mesh.scale.setScalar(scaleVal);
+      ring.mesh.material.opacity = Math.max(0, 0.85 - (scaleVal / 2.5));
+    });
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    // 2. Slow base card floating drift rotation
+    cardMesh.position.y = Math.sin(elapsedTime * 1.5) * 0.06;
+    wireframeMesh.position.y = cardMesh.position.y;
+    chipMesh.position.y = 0.2 + cardMesh.position.y;
+    nfcRingsGroup.position.y = 0.2 + cardMesh.position.y;
+
+    // 3. Smooth mouse tilt interpolation with inertia
+    mouseX += (targetMouseX - mouseX) * 0.08;
+    mouseY += (targetMouseY - mouseY) * 0.08;
+
+    objectGroup.rotation.y = mouseX * 0.38 + (elapsedTime * 0.06); // slowly orbits over time
+    objectGroup.rotation.x = -mouseY * 0.38;
+
+    // 4. Starfield cosmic particles drift
+    const positionsArr = particleGeo.attributes.position.array;
+    let speedMult = window.starSpeedMultiplier || 1.0;
+
+    for (let i = 0; i < particleCount; i++) {
+      const i3 = i * 3;
+      positionsArr[i3 + 1] -= speeds[i].y * speedMult; // drift down
+      positionsArr[i3] += speeds[i].x * (speedMult * 0.2);
+      positionsArr[i3 + 2] += speeds[i].z * (speedMult * 0.2);
+
+      // Reset coordinates if traveled past bounds
+      if (positionsArr[i3 + 1] < -8) {
+        positionsArr[i3 + 1] = 8;
+        positionsArr[i3] = (Math.random() - 0.5) * 16;
+        positionsArr[i3 + 2] = (Math.random() - 0.5) * 16;
+      }
+    }
+    particleGeo.attributes.position.needsUpdate = true;
+
+    // Slow revolve the background constellation
+    particles.rotation.z += 0.0006 * speedMult;
+
+    renderer.render(scene, camera);
+  };
+
+  animate();
+
+  // --------------------------------------------------
+  // 5. RESIZING WINDOW BOUNDS CONTROLLER
+  // --------------------------------------------------
+  window.addEventListener('resize', () => {
+    width = window.innerWidth;
+    height = window.innerHeight;
+
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    container.appendChild(renderer.domElement);
+  });
 
-    const objectGroup = new THREE.Group();
-    scene.add(objectGroup);
+  // Expose global triggers for events (shockwaves)
+  window.triggerHeroCinematicTransition = () => {
+    if (!objectGroup || !camera) return;
 
-    // Geodesic icosahedron
-    const geometry = new THREE.IcosahedronGeometry(2, 1);
-    
-    // Core physical translucent material in 70-20-10 palette colors (Royal blue base)
-    const physicalMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0x1E3EC4,          // Royal electric blue
-      metalness: 0.9,
-      roughness: 0.1,
-      transparent: true,
-      opacity: 0.3,
-      transmission: 0.7,        // Glass refracted light depth
-      thickness: 1.3,
-      side: THREE.DoubleSide
+    // Double-spin rotation loop
+    gsap.to(objectGroup.rotation, {
+      y: objectGroup.rotation.y + Math.PI * 2,
+      x: objectGroup.rotation.x + Math.PI,
+      duration: 2.2,
+      ease: 'power3.inOut'
     });
 
-    // Glowing neon wireframe overlay
-    const wireframeMaterial = new THREE.MeshBasicMaterial({
-      color: 0x00FFDB,          // Neon Cyan
-      wireframe: true,
-      transparent: true,
-      opacity: 0.75,
-      blending: THREE.AdditiveBlending
-    });
-
-    const coreMesh = new THREE.Mesh(geometry, physicalMaterial);
-    const wireframeMesh = new THREE.Mesh(geometry, wireframeMaterial);
-    wireframeMesh.scale.setScalar(1.002); // Avoid visual overlap z-fight
-
-    // Glowing inner sphere
-    const innerGeo = new THREE.SphereGeometry(0.7, 16, 16);
-    const innerMat = new THREE.MeshBasicMaterial({
-      color: 0xA78BFA,          // Soft violet core
-      transparent: true,
-      opacity: 0.65
-    });
-    const innerMesh = new THREE.Mesh(innerGeo, innerMat);
-
-    objectGroup.add(coreMesh);
-    objectGroup.add(wireframeMesh);
-    objectGroup.add(innerMesh);
-
-    // Particles system
-    const particleCount = 200;
-    const particleGeo = new THREE.BufferGeometry();
-    const positions = new Float32Array(particleCount * 3);
-    const speeds = [];
-
-    for (let i = 0; i < particleCount * 3; i += 3) {
-      positions[i] = (Math.random() - 0.5) * 12;
-      positions[i + 1] = (Math.random() - 0.5) * 12;
-      positions[i + 2] = (Math.random() - 0.5) * 12;
-
-      speeds.push({
-        x: (Math.random() - 0.5) * 0.004,
-        y: Math.random() * 0.008 + 0.002,
-        z: (Math.random() - 0.5) * 0.004
-      });
-    }
-
-    particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-
-    const particleMat = new THREE.PointsMaterial({
-      color: 0xA78BFA,
-      size: 0.05,
-      transparent: true,
-      opacity: 0.6,
-      blending: THREE.AdditiveBlending
-    });
-
-    const particles = new THREE.Points(particleGeo, particleMat);
-    scene.add(particles);
-
-    // Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
-    scene.add(ambientLight);
-
-    const pointLight1 = new THREE.PointLight(0x1E3EC4, 2.5, 20);
-    pointLight1.position.set(5, 5, 5);
-    scene.add(pointLight1);
-
-    const pointLight2 = new THREE.PointLight(0x00FFDB, 2, 20);
-    pointLight2.position.set(-5, -5, 5);
-    scene.add(pointLight2);
-
-    // Interactive Hover States
-    let isHovered = false;
-    let targetScale = 1.0;
-    let pulseTime = 0;
-
-    container.addEventListener('mouseenter', () => {
-      isHovered = true;
-      targetScale = 1.15;
-      wireframeMaterial.color.setHex(0xFFFFFF); // White glow
-    });
-
-    container.addEventListener('mouseleave', () => {
-      isHovered = false;
-      targetScale = 1.0;
-      wireframeMaterial.color.setHex(0x00FFDB); // Reset neon cyan
-    });
-
-    // Frame Loop
-    const clock = new THREE.Clock();
-
-    const animate = () => {
-      requestAnimationFrame(animate);
-
-      const delta = clock.getDelta();
-      const elapsedTime = clock.getElapsedTime();
-
-      // Core rotation
-      coreMesh.rotation.x += 0.002;
-      coreMesh.rotation.y += 0.003;
-      wireframeMesh.rotation.x += 0.002;
-      wireframeMesh.rotation.y += 0.003;
-
-      // Inner sphere pulse
-      const innerScaleVal = 1.0 + Math.sin(elapsedTime * 3) * 0.12;
-      innerMesh.scale.setScalar(innerScaleVal);
-
-      // Lerp mouse coordinates
-      mouseX += (targetMouseX - mouseX) * 0.08;
-      mouseY += (targetMouseY - mouseY) * 0.08;
-
-      objectGroup.rotation.y = mouseX * 0.5;
-      objectGroup.rotation.x = -mouseY * 0.5;
-
-      // Scale transition
-      const currentScale = objectGroup.scale.x;
-      const nextScale = currentScale + (targetScale - currentScale) * 0.12;
-      objectGroup.scale.setScalar(nextScale);
-
-      // Radial hover signal pulse
-      if (isHovered) {
-        pulseTime += delta * 6;
-        physicalMaterial.opacity = 0.3 + Math.sin(pulseTime) * 0.12;
-      } else {
-        physicalMaterial.opacity = 0.3;
-      }
-
-      // Animate particles
-      const positionsArr = particleGeo.attributes.position.array;
-      for (let i = 0; i < particleCount; i++) {
-        const i3 = i * 3;
-        positionsArr[i3 + 1] += speeds[i].y;
-        positionsArr[i3] += speeds[i].x;
-        positionsArr[i3 + 2] += speeds[i].z;
-
-        // Reset if drifted away
-        if (positionsArr[i3 + 1] > 6) {
-          positionsArr[i3 + 1] = -6;
-          positionsArr[i3] = (Math.random() - 0.5) * 12;
-          positionsArr[i3 + 2] = (Math.random() - 0.5) * 12;
-        }
-      }
-      particleGeo.attributes.position.needsUpdate = true;
-
-      // Scroll transition
-      const scrollFraction = window.scrollY / window.innerHeight;
-      objectGroup.position.y = -scrollFraction * 2.2;
-
-      renderer.render(scene, camera);
-    };
-
-    // Expose global cinematic transition trigger for the 3-second Cosmic Awakening
-    window.triggerHeroCinematicTransition = () => {
-      // 1. Perspective Camera zoom in and out
-      gsap.timeline()
-        .to(camera.position, {
-          z: 4.5,
-          duration: 1.0,
-          ease: 'power2.inOut'
-        })
-        .to(camera.position, {
-          z: 7,
-          duration: 1.6,
-          ease: 'power3.out'
-        });
-
-      // 2. 3D double rotation sweep of objectGroup
-      gsap.to(objectGroup.rotation, {
-        y: objectGroup.rotation.y + Math.PI * 2,
-        x: objectGroup.rotation.x + Math.PI,
-        duration: 2.2,
-        ease: 'power3.inOut'
-      });
-
-      // 3. Explosive wireframe white flash and scale pulse
-      wireframeMaterial.color.setHex(0xffffff);
-      gsap.to(objectGroup.scale, {
-        x: 1.45,
-        y: 1.45,
-        z: 1.45,
+    // Camera zoom-in and return
+    gsap.timeline()
+      .to(camera.position, {
+        z: 4.0,
         duration: 1.0,
-        yoyo: true,
-        repeat: 1,
-        ease: 'power2.inOut',
-        onComplete: () => {
-          wireframeMaterial.color.setHex(0x00FFDB);
-        }
+        ease: 'power2.inOut'
+      })
+      .to(camera.position, {
+        z: 6.5,
+        duration: 1.5,
+        ease: 'power3.out'
       });
-    };
 
-    animate();
-
-    // Resize Handler
-    window.addEventListener('resize', () => {
-      width = container.clientWidth;
-      height = container.clientHeight;
-
-      camera.aspect = width / height;
-      camera.updateProjectionMatrix();
-
-      renderer.setSize(width, height);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    });
-  };
-
-  // --------------------------------------------------
-  // 2. CTA WAITLIST CANVAS SCENE (Contrast Dark Style)
-  // --------------------------------------------------
-  const initCtaScene = () => {
-    const container = document.getElementById('cta-canvas-3d');
-    if (!container) return;
-
-    let width = container.clientWidth;
-    let height = container.clientHeight;
-
-    const scene = new THREE.Scene();
-
-    const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
-    camera.position.z = 6;
-
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    container.appendChild(renderer.domElement);
-
-    const objectGroup = new THREE.Group();
-    scene.add(objectGroup);
-
-    const geometry = new THREE.IcosahedronGeometry(2.2, 1);
-    
-    // Physical cyan glass material
-    const physicalMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0x00FFDB,          // Cyan highlights
-      metalness: 0.95,
-      roughness: 0.1,
-      transparent: true,
-      opacity: 0.25,
-      transmission: 0.75,
-      thickness: 1.5,
-      side: THREE.DoubleSide
-    });
-
-    // Royal blue wireframe
-    const wireframeMaterial = new THREE.MeshBasicMaterial({
-      color: 0x1E3EC4,          // Royal blue
-      wireframe: true,
-      transparent: true,
-      opacity: 0.8,
-      blending: THREE.AdditiveBlending
-    });
-
-    const coreMesh = new THREE.Mesh(geometry, physicalMaterial);
-    const wireframeMesh = new THREE.Mesh(geometry, wireframeMaterial);
-    wireframeMesh.scale.setScalar(1.002);
-
-    const innerGeo = new THREE.IcosahedronGeometry(0.8, 0);
-    const innerMat = new THREE.MeshBasicMaterial({
-      color: 0xA78BFA,
-      wireframe: true,
-      transparent: true,
-      opacity: 0.5
-    });
-    const innerMesh = new THREE.Mesh(innerGeo, innerMat);
-
-    objectGroup.add(coreMesh);
-    objectGroup.add(wireframeMesh);
-    objectGroup.add(innerMesh);
-
-    // Particle Ring
-    const particleCount = 120;
-    const particleGeo = new THREE.BufferGeometry();
-    const positions = new Float32Array(particleCount * 3);
-
-    for (let i = 0; i < particleCount * 3; i += 3) {
-      const angle = Math.random() * Math.PI * 2;
-      const radius = 3.2 + Math.random() * 1.8;
-      positions[i] = Math.cos(angle) * radius;
-      positions[i + 1] = Math.sin(angle) * radius;
-      positions[i + 2] = (Math.random() - 0.5) * 1.5;
-    }
-
-    particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-
-    const particleMat = new THREE.PointsMaterial({
-      color: 0x00FFDB,
-      size: 0.04,
-      transparent: true,
-      opacity: 0.55,
-      blending: THREE.AdditiveBlending
-    });
-
-    const particles = new THREE.Points(particleGeo, particleMat);
-    scene.add(particles);
-
-    // Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
-    scene.add(ambientLight);
-
-    const pointLight = new THREE.PointLight(0x00FFDB, 3, 20);
-    pointLight.position.set(0, 0, 4);
-    scene.add(pointLight);
-
-    // Interactive Hover States
-    let isHovered = false;
-    let targetScale = 1.0;
-    let pulseTime = 0;
-
-    container.addEventListener('mouseenter', () => {
-      isHovered = true;
-      targetScale = 1.12;
-      wireframeMaterial.color.setHex(0x00FFDB); // Reverse cyan/royal
-      physicalMaterial.color.setHex(0x1E3EC4);
-    });
-
-    container.addEventListener('mouseleave', () => {
-      isHovered = false;
-      targetScale = 1.0;
-      wireframeMaterial.color.setHex(0x1E3EC4);
-      physicalMaterial.color.setHex(0x00FFDB);
-    });
-
-    // Frame loop
-    const clock = new THREE.Clock();
-
-    const animate = () => {
-      requestAnimationFrame(animate);
-
-      const delta = clock.getDelta();
-      const elapsedTime = clock.getElapsedTime();
-
-      // Rotations
-      coreMesh.rotation.x -= 0.003;
-      coreMesh.rotation.y -= 0.002;
-      wireframeMesh.rotation.x -= 0.003;
-      wireframeMesh.rotation.y -= 0.002;
-      innerMesh.rotation.z += 0.004;
-
-      // Mouse lerping
-      mouseX += (targetMouseX - mouseX) * 0.06;
-      mouseY += (targetMouseY - mouseY) * 0.06;
-
-      objectGroup.rotation.y = mouseX * 0.4;
-      objectGroup.rotation.x = -mouseY * 0.4;
-
-      // Scale
-      const currentScale = objectGroup.scale.x;
-      const nextScale = currentScale + (targetScale - currentScale) * 0.1;
-      objectGroup.scale.setScalar(nextScale);
-
-      // Rotate particle ring
-      particles.rotation.z += 0.002;
-
-      // Blink pulse
-      if (isHovered) {
-        pulseTime += delta * 8;
-        physicalMaterial.opacity = 0.25 + Math.sin(pulseTime) * 0.12;
-      } else {
-        physicalMaterial.opacity = 0.25;
+    // Explosive white glow on wireframe card
+    wireframeMat.color.setHex(0xffffff);
+    gsap.to(objectGroup.scale, {
+      x: 1.35,
+      y: 1.35,
+      z: 1.35,
+      duration: 0.9,
+      yoyo: true,
+      repeat: 1,
+      ease: 'power2.inOut',
+      onComplete: () => {
+        wireframeMat.color.setHex(0x00FFDB);
       }
-
-      renderer.render(scene, camera);
-    };
-
-    animate();
-
-    // Resize Handler
-    window.addEventListener('resize', () => {
-      width = container.clientWidth;
-      height = container.clientHeight;
-
-      camera.aspect = width / height;
-      camera.updateProjectionMatrix();
-
-      renderer.setSize(width, height);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     });
   };
-
-  // Initialize Scenes
-  initHeroScene();
-  initCtaScene();
 });

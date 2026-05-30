@@ -1,17 +1,44 @@
 // ----------------------------------------------------
-// KONECTA2.IO — COMPONENT CONTROLLER & GSAP ANIMATIONS
+// KONECTA2.IO — COMPONENT CONTROLLER & WEBGL STORYTELLING ENGINE
 // ----------------------------------------------------
 
 document.addEventListener('DOMContentLoaded', () => {
   // Ensure GSAP and ScrollTrigger are loaded
   if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-    console.error('GSAP or ScrollTrigger is missing. Standard scrolling is used.');
+    console.error('GSAP or ScrollTrigger is missing. Storytelling Core offline.');
     return;
   }
   gsap.registerPlugin(ScrollTrigger);
   if (typeof ScrollToPlugin !== 'undefined') {
     gsap.registerPlugin(ScrollToPlugin);
-  }  // State Management
+  }
+
+  // --------------------------------------------------
+  // 1. LENIS SMOOTH MOMENTUM SCROLL ENGINE (Wero Wallet Feel)
+  // --------------------------------------------------
+  let lenis;
+  if (typeof Lenis !== 'undefined') {
+    lenis = new Lenis({
+      duration: 1.3,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // smooth exponential decay
+      direction: 'vertical',
+      gestureDirection: 'vertical',
+      smooth: true,
+      mouseMultiplier: 1.0,
+      smoothTouch: false, // touch screens keep native smooth scrolling
+      touchMultiplier: 2.0,
+      infinite: false
+    });
+
+    // Connect Lenis scroll ticking to GSAP ScrollTrigger
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000);
+    });
+    gsap.ticker.lagSmoothing(0);
+  }
+
+  // State Management
   let currentLang = 'es'; // default Spanish
 
   // Custom Cursor variables
@@ -71,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Cursor Hover Actions
   const updateCursorHoverListeners = () => {
-    const hoverElements = document.querySelectorAll('a, button, .glass-card, .case-card, .wipe-comparison-inner, .sector-arrow, input');
+    const hoverElements = document.querySelectorAll('a, button, .glass-card, .case-card, .sector-arrow, input');
     hoverElements.forEach(el => {
       el.removeEventListener('mouseenter', addCursorHover);
       el.removeEventListener('mouseleave', removeCursorHover);
@@ -84,9 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const addCursorHover = () => cursor && cursor.classList.add('hovered');
   const removeCursorHover = () => cursor && cursor.classList.remove('hovered');
 
-  // --------------------------------------------------
-  // SMART HEADER NAVIGATION MENU (Hide/Show on Scroll)
-  // --------------------------------------------------
+  // Smart header navigation menu (Hide/Show on Scroll)
   const initSmartHeader = () => {
     const navWrap = document.getElementById('header-nav-wrap');
     if (!navWrap) return;
@@ -107,114 +132,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
   };
   initSmartHeader();
-
-  // --------------------------------------------------
-  // THREE-LAYER DUST STARFIELD ENGINE (Parallax Depth)
-  // --------------------------------------------------
-  const initSpaceStarfield = () => {
-    const canvas = document.getElementById('bg-space-canvas');
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    let width = (canvas.width = window.innerWidth);
-    let height = (canvas.height = window.innerHeight);
-
-    // Three layers of stars representing parallax travel
-    const stars = [];
-
-    // Layer 1: Foreground bright stars (50 stars, travel fast)
-    for (let i = 0; i < 40; i++) {
-      stars.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        size: Math.random() * 1.8 + 1.2,
-        speed: 0.12,
-        opacity: Math.random() * 0.4 + 0.6,
-        color: '#FFFFFF',
-        twinkleRate: 0.02,
-        twinkleDir: 1
-      });
-    }
-
-    // Layer 2: Midground stars (80 stars, twinkling, neon cyan highlights)
-    for (let i = 0; i < 90; i++) {
-      stars.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        size: Math.random() * 1.0 + 0.8,
-        speed: 0.06,
-        opacity: Math.random() * 0.5 + 0.3,
-        color: '#00FFDB',
-        twinkleRate: 0.015,
-        twinkleDir: 1
-      });
-    }
-
-    // Layer 3: Faint deep space dust (100 stars, travel slow)
-    for (let i = 0; i < 110; i++) {
-      stars.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        size: Math.random() * 0.6 + 0.3,
-        speed: 0.025,
-        opacity: Math.random() * 0.4 + 0.15,
-        color: '#1B38C4',
-        twinkleRate: 0.008,
-        twinkleDir: 1
-      });
-    }
-
-    let targetParallaxX = 0;
-    let targetParallaxY = 0;
-    let parallaxX = 0;
-    let parallaxY = 0;
-
-    window.addEventListener('mousemove', (e) => {
-      targetParallaxX = (e.clientX - window.innerWidth / 2) * 0.06;
-      targetParallaxY = (e.clientY - window.innerHeight / 2) * 0.06;
-    });
-
-    const drawStars = () => {
-      ctx.clearRect(0, 0, width, height);
-
-      parallaxX += (targetParallaxX - parallaxX) * 0.05;
-      parallaxY += (targetParallaxY - parallaxY) * 0.05;
-
-      const currentScrollY = window.scrollY;
-
-      stars.forEach(star => {
-        // twinkle
-        star.opacity += star.twinkleRate * star.twinkleDir;
-        if (star.opacity > 1.0 || star.opacity < 0.1) {
-          star.twinkleDir *= -1;
-        }
-
-        ctx.beginPath();
-        let finalX = star.x - (parallaxX * star.speed * 8);
-        let speedMult = window.starSpeedMultiplier || 1.0;
-        let finalY = star.y - (parallaxY * star.speed * 8) - (currentScrollY * star.speed) - (star.speed * speedMult * 6);
-
-        finalX = (finalX + width) % width;
-        finalY = (finalY + height) % height;
-
-        ctx.fillStyle = star.color;
-        ctx.globalAlpha = Math.max(0.1, Math.min(1.0, star.opacity));
-        ctx.arc(finalX, finalY, star.size, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.globalAlpha = 1.0;
-      });
-
-      requestAnimationFrame(drawStars);
-    };
-
-    drawStars();
-
-    window.addEventListener('resize', () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    });
-  };
-  initSpaceStarfield();
 
   // --------------------------------------------------
   // DYNAMIC RENDERING CONTROLLER (Live Translation)
@@ -282,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // 4. Past vs Future Lists (Wiper)
+    // 4. Past vs Future Lists
     const pastList = document.getElementById('past-list');
     const futureList = document.getElementById('future-list');
     if (pastList && futureList) {
@@ -335,7 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // 6. Dynamic Timeline Steps (How it Works)
+    // 6. Dynamic Timeline Steps
     const timelineContainer = document.getElementById('timeline-steps');
     if (timelineContainer) {
       timelineContainer.innerHTML = '';
@@ -391,9 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollAnimations();
   };
 
-  // --------------------------------------------------
-  // NAV LANGUAGE TOGGLER
-  // --------------------------------------------------
+  // Nav language toggler
   const langBtn = document.getElementById('lang-toggle');
   if (langBtn) {
     langBtn.addEventListener('click', () => {
@@ -404,13 +319,63 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --------------------------------------------------
-  // STRICT VIEWPORT-LOCKED SCROLL ANIMATIONS (100% On-View)
+  // ATMOSPHERIC COSMIC THEME SCROLL SHIFTS (Space Sectors)
+  // --------------------------------------------------
+  const initSpaceScrollSectors = () => {
+    // Problem Sector: turns background to cosmic dark crimson
+    gsap.to(':root', {
+      '--bg-secondary': '#12040a',
+      scrollTrigger: {
+        trigger: '#problem',
+        start: 'top 80%',
+        end: 'bottom 20%',
+        scrub: 1
+      }
+    });
+
+    // Back to space blue for solution cases
+    gsap.to(':root', {
+      '--bg-secondary': '#05081b',
+      scrollTrigger: {
+        trigger: '#cases',
+        start: 'top 80%',
+        end: 'bottom 20%',
+        scrub: 1
+      }
+    });
+
+    // Reviews Sector: turns background to emerald stardust green
+    gsap.to(':root', {
+      '--bg-secondary': '#041c16',
+      scrollTrigger: {
+        trigger: '#why-reviews',
+        start: 'top 80%',
+        end: 'bottom 20%',
+        scrub: 1
+      }
+    });
+
+    // Waitlist Sector: turns background to corona cian solar blue
+    gsap.to(':root', {
+      '--bg-secondary': '#010c14',
+      scrollTrigger: {
+        trigger: '#cta-waitlist',
+        start: 'top 80%',
+        scrub: 1
+      }
+    });
+  };
+
+  // --------------------------------------------------
+  // UNIFIED 3D WEBGL STORYTELLING SCROLL CAMERA PATH CONTROLLER
   // --------------------------------------------------
   let scrollTriggersInstance = [];
 
   function initScrollAnimations() {
     scrollTriggersInstance.forEach(t => t.kill());
     scrollTriggersInstance = [];
+
+    const isDesktop = window.innerWidth > 1024;
 
     // Header entrances (Shared desktop/mobile logic)
     const animateHeaders = (triggerSelector) => {
@@ -433,10 +398,16 @@ document.addEventListener('DOMContentLoaded', () => {
     let mm = gsap.matchMedia();
 
     // --------------------------------------------------
-    // DESKTOP LAYOUT SCROLL TRIGGER ANCHORS & PINS
+    // DESKTOP INTERACTIVE STORYTELLING PATHS
     // --------------------------------------------------
     mm.add("(min-width: 1025px)", () => {
-      // 1. HERO PINNED EXPERIENCE
+      // 1. HERO PERSPECTIVE & 3D CAMERA PATH
+      // Puts 3D Plaque shifted to the right in the Hero
+      if (window.heroObjectGroup && window.heroCamera) {
+        gsap.set(window.heroObjectGroup.position, { x: 1.3, y: 0.1, z: 0 });
+        gsap.set(window.heroCamera.position, { z: 6.5, y: 0 });
+      }
+
       const heroTl = gsap.timeline({
         scrollTrigger: {
           trigger: '#hero',
@@ -448,35 +419,54 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
       heroTl.to('#hero-content-group', { opacity: 0, y: -60, duration: 1 }, 0);
-      heroTl.to('#hero-canvas-group', {
-        x: '-30%',
-        scale: 1.15,
-        duration: 1.2,
-        ease: 'power2.inOut'
-      }, 0);
       scrollTriggersInstance.push(heroTl.scrollTrigger);
 
-      // 2. PROBLEM CARDS PINNED REVEAL
-      const problemTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: '#problem',
-          start: 'top top',
-          end: '+=100%',
-          pin: true,
-          scrub: 1,
-          invalidateOnRefresh: true
-        }
-      });
-      problemTl.from('.problem-card', {
-        opacity: 0,
-        y: 60,
-        stagger: 0.6,
-        duration: 1.5,
-        ease: 'power2.out'
-      });
-      scrollTriggersInstance.push(problemTl.scrollTrigger);
+      // 2. EL PROBLEMA (Camera flies inside a chaotic crimson space dust)
+      if (window.heroCamera && window.heroObjectGroup) {
+        const problemCamTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: '#problem',
+            start: 'top bottom',
+            end: 'top top',
+            scrub: 1.2,
+            onUpdate: (self) => {
+              const prog = self.progress;
+              if (window.heroParticleMat) {
+                // Interpolate star colors from Cyan to Crimson Red!
+                const c = new THREE.Color().lerpColors(new THREE.Color(0x00FFDB), new THREE.Color(0xFF3E3E), prog);
+                window.heroParticleMat.color.copy(c);
+              }
+              window.starSpeedMultiplier = 1.0 + (prog * 3.5); // Accelerate stars
+            }
+          }
+        });
+        // Sweep camera and shift 3D Card to left center
+        problemCamTl.to(window.heroCamera.position, { z: 5.2, y: 0.5, ease: 'power2.inOut' }, 0)
+                    .to(window.heroObjectGroup.position, { x: -1.3, y: 0.4, ease: 'power2.inOut' }, 0)
+                    .to(window.heroObjectGroup.rotation, { z: 0.35, ease: 'power1.inOut' }, 0);
+        scrollTriggersInstance.push(problemCamTl.scrollTrigger);
 
-      // 3. SOLUTION INTERACTIVE 3-STEP SCROLL PIN
+        const problemRevealTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: '#problem',
+            start: 'top top',
+            end: '+=100%',
+            pin: true,
+            scrub: 1,
+            invalidateOnRefresh: true
+          }
+        });
+        problemRevealTl.from('.problem-card', {
+          opacity: 0,
+          y: 60,
+          stagger: 0.6,
+          duration: 1.5,
+          ease: 'power2.out'
+        });
+        scrollTriggersInstance.push(problemRevealTl.scrollTrigger);
+      }
+
+      // 3. SOLUTION INTERACTIVE 3-STEP SCROLL SHOWCASE (Morph 3D elements)
       setActiveVisualStage(1);
       const solutionTl = gsap.timeline({
         scrollTrigger: {
@@ -488,11 +478,24 @@ document.addEventListener('DOMContentLoaded', () => {
           invalidateOnRefresh: true,
           onUpdate: (self) => {
             const progress = self.progress;
+            
+            // Revert particles to Cyan in solution zone
+            if (window.heroParticleMat) {
+              window.heroParticleMat.color.setHex(0x00FFDB);
+            }
+            window.starSpeedMultiplier = 1.0;
+
             if (progress >= 0 && progress < 0.33) {
               setActiveVisualStage(1);
+              if (window.heroCamera && window.heroObjectGroup) {
+                window.heroCamera.position.z = 4.8;
+                window.heroObjectGroup.position.set(-1.4, 0, 0);
+                window.heroObjectGroup.rotation.z = 0;
+              }
             } 
             else if (progress >= 0.33 && progress < 0.66) {
               setActiveVisualStage(2);
+              
               const step2Progress = (progress - 0.33) / 0.33;
               const phone = document.getElementById('tapping-phone-mockup');
               const banner = document.getElementById('phone-notification-banner');
@@ -508,56 +511,72 @@ document.addEventListener('DOMContentLoaded', () => {
                   banner.classList.remove('slide-down');
                 }
               }
+
+              // Pulse the NFC concentric rings waves on scroll tap
+              if (window.heroNfcRings) {
+                window.heroNfcRings.scale.setScalar(1.0 + step2Progress * 0.4);
+              }
             } 
             else if (progress >= 0.66) {
               setActiveVisualStage(3);
+              if (window.heroNfcRings) {
+                window.heroNfcRings.scale.setScalar(1.4);
+              }
             }
           }
         }
       });
       scrollTriggersInstance.push(solutionTl.scrollTrigger);
 
-      // 4. REVIEWS PINNED POPUP STORM
-      const reviewsTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: '#why-reviews',
-          start: 'top top',
-          end: '+=120%',
-          pin: true,
-          scrub: 1,
-          invalidateOnRefresh: true
-        }
-      });
-      reviewsTl.to('#popup-notif-1', { opacity: 1, scale: 1, y: 0, duration: 0.8 }, 0.2);
+      // 4. WHY REVIEWS (Camera shifts to a beautiful overhead emerald constellation)
+      if (window.heroCamera && window.heroObjectGroup) {
+        const reviewsCamTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: '#why-reviews',
+            start: 'top bottom',
+            end: 'top top',
+            scrub: 1.2,
+            onUpdate: (self) => {
+              const prog = self.progress;
+              if (window.heroParticleMat) {
+                // Morph to Emerald Green
+                const c = new THREE.Color().lerpColors(new THREE.Color(0x00FFDB), new THREE.Color(0x10B981), prog);
+                window.heroParticleMat.color.copy(c);
+              }
+            }
+          }
+        });
+        reviewsCamTl.to(window.heroCamera.position, { z: 5.0, y: 2.0, ease: 'power2.inOut' }, 0)
+                    .to(window.heroObjectGroup.position, { x: 1.2, y: -0.5, ease: 'power2.inOut' }, 0)
+                    .to(window.heroObjectGroup.rotation, { x: 0.8, y: 0.4, ease: 'power2.inOut' }, 0);
+        scrollTriggersInstance.push(reviewsCamTl.scrollTrigger);
 
-      let rateVal = { value: 4.1 };
-      reviewsTl.to(rateVal, {
-        value: 4.5,
-        duration: 0.8,
-        onUpdate: () => {
-          const el = document.getElementById('live-rating-count');
-          if (el) el.innerHTML = rateVal.value.toFixed(1);
-        }
-      }, 0.2);
-      reviewsTl.to('#popup-notif-2', { opacity: 1, scale: 1, y: 0, duration: 0.8 }, 0.6);
-      reviewsTl.to(rateVal, {
-        value: 4.7,
-        duration: 0.8,
-        onUpdate: () => {
-          const el = document.getElementById('live-rating-count');
-          if (el) el.innerHTML = rateVal.value.toFixed(1);
-        }
-      }, 0.6);
-      reviewsTl.to('#popup-notif-3', { opacity: 1, scale: 1, y: 0, duration: 0.8 }, 1.0);
-      reviewsTl.to(rateVal, {
-        value: 4.9,
-        duration: 0.8,
-        onUpdate: () => {
-          const el = document.getElementById('live-rating-count');
-          if (el) el.innerHTML = rateVal.value.toFixed(1);
-        }
-      }, 1.0);
-      scrollTriggersInstance.push(reviewsTl.scrollTrigger);
+        const reviewsTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: '#why-reviews',
+            start: 'top top',
+            end: '+=120%',
+            pin: true,
+            scrub: 1,
+            invalidateOnRefresh: true
+          }
+        });
+
+        reviewsTl.to('#popup-notif-1', { opacity: 1, scale: 1, y: 0, duration: 0.8 }, 0.2);
+
+        let rateVal = { value: 4.1 };
+        reviewsTl.to(rateVal, {
+          value: 4.9,
+          duration: 0.8,
+          onUpdate: () => {
+            const el = document.getElementById('live-rating-count');
+            if (el) el.innerHTML = rateVal.value.toFixed(1);
+          }
+        }, 0.2);
+        reviewsTl.to('#popup-notif-2', { opacity: 1, scale: 1, y: 0, duration: 0.8 }, 0.6);
+        reviewsTl.to('#popup-notif-3', { opacity: 1, scale: 1, y: 0, duration: 0.8 }, 1.0);
+        scrollTriggersInstance.push(reviewsTl.scrollTrigger);
+      }
 
       // Counter animation
       const counts = [
@@ -645,7 +664,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const btnNext = document.getElementById('sector-next');
         const btnPrev = document.getElementById('sector-prev');
         if (btnNext && btnPrev) {
-          // Unbind existing listeners by replacement
           const newBtnNext = btnNext.cloneNode(true);
           const newBtnPrev = btnPrev.cloneNode(true);
           btnNext.parentNode.replaceChild(newBtnNext, btnNext);
@@ -683,17 +701,33 @@ document.addEventListener('DOMContentLoaded', () => {
       timelineTl.to('#timeline-step-1', { className: 'timeline-step active', duration: 0.3 }, 0.6);
       timelineTl.to('#timeline-step-2', { className: 'timeline-step active', duration: 0.3 }, 1.1);
       scrollTriggersInstance.push(timelineTl.scrollTrigger);
+
+      // 8. CTA WAITLIST (3D Camera positions over input panel)
+      if (window.heroCamera && window.heroObjectGroup) {
+        const ctaCamTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: '#cta-waitlist',
+            start: 'top bottom',
+            end: 'top top',
+            scrub: 1
+          }
+        });
+        ctaCamTl.to(window.heroCamera.position, { z: 5.0, x: 0, y: 0, ease: 'power1.inOut' }, 0)
+                .to(window.heroObjectGroup.position, { x: -1.3, y: 0, ease: 'power1.inOut' }, 0)
+                .to(window.heroObjectGroup.rotation, { x: 0, y: 0.5, z: 0, ease: 'power1.inOut' }, 0);
+        scrollTriggersInstance.push(ctaCamTl.scrollTrigger);
+      }
     });
 
     // --------------------------------------------------
     // MOBILE / TABLET LAYOUT SMOOTH FADE SCROLL REVEALS
     // --------------------------------------------------
     mm.add("(max-width: 1024px)", () => {
-      // Reset any manual transformations applied by desktop timeline logic
-      const phone = document.getElementById('tapping-phone-mockup');
-      const horizWrapper = document.getElementById('horizontal-cards-wrapper');
-      if (phone) phone.style.transform = '';
-      if (horizWrapper) horizWrapper.style.transform = '';
+      // Centered plaque on mobile devices
+      if (window.heroObjectGroup && window.heroCamera) {
+        gsap.set(window.heroObjectGroup.position, { x: 0, y: 1.0, z: 0 });
+        gsap.set(window.heroCamera.position, { z: 7.2, y: 0 });
+      }
 
       // Reset step visuals state: all active & static
       setActiveVisualStage(1);
@@ -708,7 +742,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       // --- Dynamic local scroll triggers for mobile visual steps ---
-      // Step 1: Card 3D rotation based on scroll
       const step1Card = document.querySelector('#solution-step-1 .mobile-step-visual .nfc-card-3d');
       if (step1Card) {
         const step1Tl = gsap.to(step1Card, {
@@ -726,7 +759,6 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollTriggersInstance.push(step1Tl.scrollTrigger);
       }
 
-      // Step 2: Scroll-driven tap approach & push notification drop
       const step2Phone = document.querySelector('#solution-step-2 .mobile-step-visual .tapping-phone-mockup');
       const step2Banner = document.querySelector('#solution-step-2 .mobile-step-visual .phone-notification-banner');
       if (step2Phone) {
@@ -754,7 +786,6 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollTriggersInstance.push(step2Tl.scrollTrigger);
       }
 
-      // Step 3: Checkmark scale bounce on entrance
       const step3Check = document.querySelector('#solution-step-3 .mobile-step-visual .success-checkmark');
       if (step3Check) {
         const step3Tl = gsap.to(step3Check, {
@@ -849,7 +880,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       scrollTriggersInstance.push(reviewsTl.scrollTrigger);
 
-      // Mobile timeline steps entrances (since they are stacked vertically, make them fade in as scrolled)
+      // Mobile timeline steps entrances
       const timelineSteps = document.querySelectorAll('.timeline-step');
       timelineSteps.forEach((step, idx) => {
         const stepTl = gsap.to(step, {
@@ -895,7 +926,6 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       
-      // Base Oscillators for the spaceship cockpit hum
       const osc1 = audioCtx.createOscillator();
       const osc2 = audioCtx.createOscillator();
       const gainNode = audioCtx.createGain();
@@ -907,17 +937,15 @@ document.addEventListener('DOMContentLoaded', () => {
       osc2.type = 'triangle';
       osc2.frequency.setValueAtTime(110, audioCtx.currentTime); // A2 note
       
-      // Modulation LFO for low-frequency filters sweep (nebulae effect)
       const modulator = audioCtx.createOscillator();
       const modGain = audioCtx.createGain();
-      modulator.frequency.setValueAtTime(0.08, audioCtx.currentTime); // very slow sweep (12s)
+      modulator.frequency.setValueAtTime(0.08, audioCtx.currentTime); // LFO sweep
       modGain.gain.setValueAtTime(120, audioCtx.currentTime);
       
       filterNode.type = 'lowpass';
       filterNode.frequency.setValueAtTime(180, audioCtx.currentTime);
       filterNode.Q.setValueAtTime(4, audioCtx.currentTime);
       
-      // Connect modulation
       modulator.connect(modGain);
       modGain.connect(filterNode.frequency);
       
@@ -926,7 +954,6 @@ document.addEventListener('DOMContentLoaded', () => {
       filterNode.connect(gainNode);
       gainNode.connect(audioCtx.destination);
       
-      // Fade in volume smoothly over 3.5 seconds
       gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
       gainNode.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 3.5);
       
@@ -988,7 +1015,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ease: 'power3.in'
       })
       .to(window, {
-        starSpeedMultiplier: 1.8, // cozy drifting active speed
+        starSpeedMultiplier: 1.8, // drifting Active speed
         duration: 1.6,
         ease: 'power2.out'
       });
@@ -1030,56 +1057,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  // Wait exactly 3 seconds (3000ms) after loading to trigger the cinematic space jump
+  // Wait exactly 3 seconds after loading to trigger the cinematic space jump
   setTimeout(triggerCosmicAwakening, 3000);
-
-  // --------------------------------------------------
-  // ATMOSPHERIC COSMIC THEME SCROLL SHIFTS (Space Sectors)
-  // --------------------------------------------------
-  const initSpaceScrollSectors = () => {
-    // Problem Sector: turns background to cosmic dark crimson
-    gsap.to(':root', {
-      '--bg-secondary': '#12040a',
-      scrollTrigger: {
-        trigger: '#problem',
-        start: 'top 80%',
-        end: 'bottom 20%',
-        scrub: 1
-      }
-    });
-
-    // Back to space blue for solution cases
-    gsap.to(':root', {
-      '--bg-secondary': '#05081b',
-      scrollTrigger: {
-        trigger: '#cases',
-        start: 'top 80%',
-        end: 'bottom 20%',
-        scrub: 1
-      }
-    });
-
-    // Reviews Sector: turns background to emerald stardust green
-    gsap.to(':root', {
-      '--bg-secondary': '#041c16',
-      scrollTrigger: {
-        trigger: '#why-reviews',
-        start: 'top 80%',
-        end: 'bottom 20%',
-        scrub: 1
-      }
-    });
-
-    // Waitlist Sector: turns background to corona cian solar blue
-    gsap.to(':root', {
-      '--bg-secondary': '#010c14',
-      scrollTrigger: {
-        trigger: '#cta-waitlist',
-        start: 'top 80%',
-        scrub: 1
-      }
-    });
-  };
 
   // Run scroll shifts
   initSpaceScrollSectors();

@@ -56,8 +56,8 @@
 
 
 
-  <!-- Full-Screen Cosmic Background Starfield Canvas -->
-  <canvas id="bg-space-canvas"></canvas>
+  <!-- Unified Full-Screen Fixed WebGL Viewport Canvas -->
+  <div id="canvas-3d"></div>
 
   <!-- Shockwave Ring Overlay for Cinematic Transitions -->
   <div class="shockwave-ring" id="shockwave-ring"></div>
@@ -134,7 +134,7 @@
           </div>
         </div>
         <div class="hero-canvas-container" id="hero-canvas-group">
-          <div id="canvas-3d"></div>
+          <!-- Relocated to full-screen background WebGL fixed canvas -->
         </div>
       </div>
     </section>
@@ -499,7 +499,7 @@
           <div class="waitlist-subtext" data-i18n="waitlist.subtext">konecta2.io — conectados desde el primer tap</div>
         </div>
         <div class="cta-canvas-container">
-          <div id="cta-canvas-3d"></div>
+          <!-- Relocated to full-screen background WebGL fixed canvas -->
         </div>
       </div>
     </section>
@@ -531,6 +531,9 @@
   <!-- Three.js (r128) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   
+  <!-- Lenis Smooth Scroll -->
+  <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+
   <!-- GSAP Core, ScrollTrigger & ScrollToPlugin (3.12.2) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
