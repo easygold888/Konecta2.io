@@ -1,20 +1,20 @@
 /* ----------------------------------------------------
-   DESIGN SYSTEM & CSS VARIABLES ($500M Deep Space Revamp)
+   DESIGN SYSTEM & CSS VARIABLES ($500M Cosmic Space Mode)
    ---------------------------------------------------- */
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap');
 
 :root {
   /* --- 70% DEEP SPACE BLACK (Cosmic void base) --- */
-  --bg-primary: #030616;          /* Deepest cosmic void black */
-  --bg-secondary: #060a22;        /* Rich dark nebula background */
+  --bg-primary: #02040b;          /* Deepest cosmic void black */
+  --bg-secondary: #05081b;        /* Rich dark nebula background */
   --bg-glass: rgba(255, 255, 255, 0.03); /* Translucent high-end glass shells */
-  --border-glass: rgba(255, 255, 255, 0.08);
-  --light-blue-shade: rgba(30, 56, 196, 0.2);
+  --border-glass: rgba(255, 255, 255, 0.07);
+  --light-blue-shade: rgba(27, 56, 196, 0.2);
   --blur-glass: blur(28px);
 
   /* --- 20% VIBRANT NEBULAS (Depth highlights & slate shadows) --- */
-  --bg-dark: #02040f;             /* Void black accent */
-  --bg-dark-glass: rgba(3, 6, 22, 0.95);
+  --bg-dark: #010207;             /* Void black accent */
+  --bg-dark-glass: rgba(2, 4, 15, 0.95);
   --accent-1: #1B38C4;            /* Royal cosmic blue */
   --text-secondary: #8E9BB4;      /* High readability cosmic silver-blue */
   --glow-color: rgba(27, 56, 196, 0.35);
@@ -194,7 +194,7 @@ header {
   left: 0;
   width: 100%;
   z-index: 1000;
-  background: rgba(3, 6, 22, 0.35);
+  background: rgba(2, 4, 11, 0.35);
   backdrop-filter: var(--blur-glass);
   -webkit-backdrop-filter: var(--blur-glass);
   border-bottom: 1px solid var(--border-glass);
@@ -398,6 +398,270 @@ nav a:hover::after {
   padding: 2rem;
   box-shadow: 0 16px 40px var(--shadow-color);
   transition: var(--transition-smooth);
+}
+
+/* ----------------------------------------------------
+   ⚡ INTERACTIVE NFC TAP EXPERIENCE PORTAL (Cinematic Gateway)
+   ---------------------------------------------------- */
+#nfc-tap-experience {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #010208;
+  z-index: 2000; /* Over everything */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+  overflow: hidden;
+  transition: transform 1.2s cubic-bezier(0.85, 0, 0.15, 1), opacity 1s ease;
+}
+
+/* Transition active completion */
+#nfc-tap-experience.tap-completed {
+  transform: scale(1.6);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Plaque Container & magnetic field rings */
+.nfc-plaque-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.glowing-nfc-plaque {
+  width: 250px;
+  height: 250px;
+  border-radius: 40px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 40px rgba(0, 255, 219, 0.08), inset 0 0 25px rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: var(--transition-smooth);
+  animation: floatPlaque 4s infinite ease-in-out;
+}
+
+.plaque-nfc-icon {
+  font-size: 3.5rem;
+  color: var(--accent-2);
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 0 15px var(--accent-2));
+}
+
+.glowing-nfc-plaque h3 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-light);
+  letter-spacing: 2px;
+}
+
+.plaque-hint {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-top: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Concentric Concentric Electromagnetic Magnetic rings */
+.magnetic-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px dashed rgba(0, 255, 219, 0.15);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  transition: border-color 0.3s ease;
+}
+
+.ring-1 {
+  width: 320px;
+  height: 320px;
+  animation: pulseRings 3s infinite linear;
+}
+
+.ring-2 {
+  width: 440px;
+  height: 440px;
+  animation: pulseRings 3.5s infinite linear;
+  animation-delay: 0.6s;
+}
+
+.ring-3 {
+  width: 560px;
+  height: 560px;
+  animation: pulseRings 4s infinite linear;
+  animation-delay: 1.2s;
+}
+
+/* Fast pulsing active vibration when phone gets close */
+.magnetic-ring.vibrating {
+  border-color: rgba(0, 255, 219, 0.6) !important;
+  border-style: solid;
+}
+
+/* Cursor-Bound Smartphone Mockup */
+.phone-cursor {
+  position: absolute;
+  width: 170px;
+  height: 340px;
+  border-radius: 32px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 3px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+  z-index: 2010;
+  overflow: hidden;
+  transform: translate(-50%, -50%);
+}
+
+.phone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 75px;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.12);
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  z-index: 5;
+}
+
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  text-align: center;
+  position: relative;
+}
+
+.phone-screen-logo {
+  font-size: 2.2rem;
+  color: var(--text-light);
+  margin-bottom: 0.8rem;
+  opacity: 0.25;
+  transition: opacity 0.5s ease, color 0.5s ease;
+}
+
+.phone-screen h4 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+}
+
+.phone-screen-glow {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle, rgba(0, 255, 219, 0.35) 0%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+/* Activated smartphone styling upon Proximity Tap contact */
+.phone-cursor.phone-active {
+  border-color: var(--accent-2);
+  box-shadow: 0 0 35px rgba(0, 255, 219, 0.35);
+}
+
+.phone-cursor.phone-active .phone-screen-logo {
+  opacity: 1;
+  color: var(--accent-2);
+  animation: phonePulse 1.2s infinite ease-in-out;
+}
+
+.phone-cursor.phone-active .phone-screen h4 {
+  color: var(--text-light);
+}
+
+.phone-cursor.phone-active .phone-screen-glow {
+  opacity: 1;
+}
+
+/* Saltar intro button */
+.skip-intro-btn {
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.65rem 1.4rem;
+  border-radius: 12px;
+  color: var(--text-light);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  z-index: 2020;
+  transition: var(--transition-smooth);
+}
+
+.skip-intro-btn:hover {
+  background: var(--accent-1);
+  border-color: var(--accent-1);
+  box-shadow: 0 0 15px var(--glow-color);
+  transform: translateY(-2px);
+}
+
+/* Proximity tap helper texts */
+.tap-helper-text {
+  position: absolute;
+  bottom: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-weight: 500;
+  width: 90%;
+  max-width: 500px;
+  z-index: 10;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  line-height: 1.5;
+}
+
+.tap-helper-text span {
+  color: var(--accent-2);
+  font-weight: 700;
+  animation: flashHelper 2s infinite ease-in-out;
+}
+
+/* Neon explosion canvas overlay */
+#nfc-explosion-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2005;
+  pointer-events: none;
 }
 
 /* ----------------------------------------------------
@@ -667,7 +931,7 @@ nav a:hover::after {
 }
 
 .maps-mock-body {
-  background: rgba(255, 255, 255, 0.02);
+  background: #FFFFFF;
   padding: 1.8rem 1.2rem;
   text-align: center;
 }
@@ -1318,72 +1582,27 @@ nav a:hover::after {
 }
 
 /* ----------------------------------------------------
-   FOOTER
+   ANIMATION KEYFRAMES & HELPERS
    ---------------------------------------------------- */
-footer {
-  background: var(--bg-dark);
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  padding: 4rem 0 3rem;
-  color: #718096;
+@keyframes floatPlaque {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(1deg); }
 }
 
-.footer-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 2.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
-  gap: 2rem;
+@keyframes pulseRings {
+  0% { transform: translate(-50%, -50%) scale(0.65); opacity: 0; }
+  50% { opacity: 0.35; }
+  100% { transform: translate(-50%, -50%) scale(1.35); opacity: 0; }
 }
 
-.footer-top .logo {
-  color: #FFFFFF;
+@keyframes phonePulse {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px var(--accent-2)); }
+  50% { transform: scale(1.05); filter: drop-shadow(0 0 20px var(--accent-2)); }
 }
 
-.footer-tagline {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #A0AEC0;
-}
-
-.footer-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  font-size: 0.9rem;
-}
-
-.footer-links {
-  display: flex;
-  gap: 2rem;
-}
-
-.footer-links a {
-  color: #718096;
-  text-decoration: none;
-  transition: var(--transition-smooth);
-}
-
-.footer-links a:hover {
-  color: #FFFFFF;
-}
-
-/* ----------------------------------------------------
-   ANIMATION KEYFRAMES
-   ---------------------------------------------------- */
-@keyframes ripple {
-  0% {
-    transform: scale(1);
-    opacity: 0.8;
-  }
-  100% {
-    transform: scale(2.2);
-    opacity: 0;
-  }
+@keyframes flashHelper {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
 }
 
 /* ----------------------------------------------------
@@ -1400,12 +1619,25 @@ footer {
   }
 
   .header-nav-wrap {
-    display: none; /* Mobile menu overlay defaults standard */
+    display: none;
   }
 
   .hamburger {
     display: flex;
     z-index: 1010;
+  }
+
+  #nfc-tap-experience {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .phone-cursor {
+    display: none; /* Fallback: skip phone tracker on touch mobile screens */
+  }
+
+  .tap-helper-text {
+    bottom: 5%;
   }
 
   .section-wrapper {

@@ -3,9 +3,12 @@
 // ----------------------------------------------------
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Ensure GSAP, ScrollTrigger and ScrollToPlugin are loaded
+  // Lock scrollbar on boot for the interactive NFC tap intro
+  document.body.style.overflow = 'hidden';
+
+  // Ensure GSAP and ScrollTrigger are loaded
   if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-    console.error('GSAP or ScrollTrigger is missing. Scrolling animations cannot be initialized.');
+    console.error('GSAP or ScrollTrigger is missing. Standard scrolling is used.');
     return;
   }
   gsap.registerPlugin(ScrollTrigger);
@@ -15,24 +18,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // State Management
   let currentLang = 'es'; // default Spanish
+  let isTapCompleted = false;
 
-  // Custom Cursor lerp variables
+  // Custom Cursor variables
   const cursor = document.querySelector('.custom-cursor');
   const cursorGlow = document.querySelector('.custom-cursor-glow');
   let cursorX = 0, cursorY = 0;
   let glowX = 0, glowY = 0;
 
-  // Track mouse coordinates
+  // Proximity virtual smartphone variables
+  const phonePointer = document.getElementById('phone-pointer');
+  let phoneX = window.innerWidth * 0.75;
+  let phoneY = window.innerHeight * 0.5;
+  let targetPhoneX = window.innerWidth * 0.75;
+  let targetPhoneY = window.innerHeight * 0.5;
+
+  // Track coordinates
   let mouseX = window.innerWidth / 2;
   let mouseY = window.innerHeight / 2;
 
   window.addEventListener('mousemove', (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
+    
+    // Bind phone target coordinates to mouse unless tap is completed
+    if (!isTapCompleted) {
+      targetPhoneX = e.clientX;
+      targetPhoneY = e.clientY;
+    }
   });
 
-  // Cursor follow loop
-  const renderCursor = () => {
+  // Main Cursor & Phone follower frame loop
+  const renderCursorAndPhone = () => {
+    // Normal cursor lerping
     cursorX += (mouseX - cursorX) * 0.22;
     cursorY += (mouseY - cursorY) * 0.22;
 
@@ -48,11 +66,215 @@ document.addEventListener('DOMContentLoaded', () => {
       cursorGlow.style.top = `${glowY}px`;
     }
 
-    requestAnimationFrame(renderCursor);
-  };
-  renderCursor();
+    // Phone cursor follow lerping
+    if (phonePointer && !isTapCompleted) {
+      phoneX += (targetPhoneX - phoneX) * 0.15;
+      phoneY += (targetPhoneY - phoneY) * 0.15;
 
-  // Add Hover Scaling listeners
+      phonePointer.style.left = `${phoneX}px`;
+      phonePointer.style.top = `${phoneY}px`;
+
+      // Active proximity calculation
+      checkProximityToPlaque();
+    }
+
+    requestAnimationFrame(renderCursorAndPhone);
+  };
+  renderCursorAndPhone();
+
+  // Proximity Proximity check between Phone Pointer and glowing NFC plaque
+  const checkProximityToPlaque = () => {
+    const plaqueZone = document.getElementById('glowing-plaque');
+    if (!plaqueZone) return;
+
+    // Plaque coordinates
+    const rect = plaqueZone.getBoundingClientRect();
+    const plaqueCenterX = rect.left + rect.width / 2;
+    const plaqueCenterY = rect.top + rect.height / 2;
+
+    // Pythagorean distance
+    const dx = phoneX - plaqueCenterX;
+    const dy = phoneY - plaqueCenterY;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+
+    const ring1 = document.getElementById('mag-ring-1');
+    const ring2 = document.getElementById('mag-ring-2');
+    const ring3 = document.getElementById('mag-ring-3');
+
+    // Concentric ring proximity flashes
+    if (dist < 320) {
+      const speed = Math.max(0.3, (dist / 320) * 2.5); // rings pulse faster when closer
+      if (ring1) ring1.style.animationDuration = `${speed}s`;
+      if (ring2) ring2.style.animationDuration = `${speed + 0.5}s`;
+      if (ring3) ring3.style.animationDuration = `${speed + 1.0}s`;
+
+      plaqueZone.classList.add('glowing-nfc-plaque-approached');
+      
+      // Proximity electromagnetic ring highlight
+      [ring1, ring2, ring3].forEach(r => r && r.classList.add('vibrating'));
+    } else {
+      // Normal durations
+      if (ring1) ring1.style.animationDuration = '3s';
+      if (ring2) ring2.style.animationDuration = '3.5s';
+      if (ring3) ring3.style.animationDuration = '4s';
+
+      plaqueZone.classList.remove('glowing-nfc-plaque-approached');
+      [ring1, ring2, ring3].forEach(r => r && r.classList.remove('vibrating'));
+    }
+
+    // Proximity "Tap" threshold
+    if (dist < 90 && !isTapCompleted) {
+      triggerNFCTap(plaqueCenterX, plaqueCenterY);
+    }
+  };
+
+  // Trigger Proximity simulated Tap
+  const triggerNFCTap = (x, y) => {
+    isTapCompleted = true;
+
+    // Activate phone notched display loading state
+    if (phonePointer) {
+      phonePointer.classList.add('phone-active');
+      const statusText = document.getElementById('phone-status');
+      if (statusText) {
+        statusText.innerHTML = currentLang === 'es' ? 'CONECTANDO...' : 'CONNECTING...';
+      }
+    }
+
+    // Tremor Shake Plaque sequence
+    const plaqueZone = document.getElementById('glowing-plaque');
+    if (plaqueZone) {
+      gsap.to(plaqueZone, {
+        x: '+=10',
+        yoyo: true,
+        repeat: 9,
+        duration: 0.05,
+        onComplete: () => {
+          gsap.to(plaqueZone, { x: 0, duration: 0.1 });
+        }
+      });
+    }
+
+    // Trigger Canvas Neon Particle Blast
+    triggerParticleExplosion(x, y);
+
+    // Simulated high-speed connection timeout
+    setTimeout(() => {
+      const statusText = document.getElementById('phone-status');
+      if (statusText) {
+        statusText.innerHTML = currentLang === 'es' ? '¡CONECTADO!' : 'CONNECTED!';
+      }
+
+      // Smoothly zoom/fade gateway and reveal main landing
+      setTimeout(() => {
+        const tapGate = document.getElementById('nfc-tap-experience');
+        if (tapGate) {
+          tapGate.classList.add('tap-completed');
+        }
+
+        // Restore scrollbar
+        document.body.style.overflow = 'auto';
+
+        // Re-align ScrollTrigger positions
+        ScrollTrigger.refresh();
+      }, 800);
+
+    }, 1300);
+  };
+
+  // Skip Intro immediately
+  const skipBtn = document.getElementById('skip-intro-trigger');
+  if (skipBtn) {
+    skipBtn.addEventListener('click', () => {
+      isTapCompleted = true;
+      const tapGate = document.getElementById('nfc-tap-experience');
+      if (tapGate) {
+        tapGate.classList.add('tap-completed');
+      }
+      document.body.style.overflow = 'auto';
+      ScrollTrigger.refresh();
+    });
+  }
+
+  // --------------------------------------------------
+  // 2D CANVAS NEON EXPLOSION PARTICLE ENGINE
+  // --------------------------------------------------
+  const triggerParticleExplosion = (startX, startY) => {
+    const canvas = document.getElementById('nfc-explosion-canvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const particles = [];
+    const particleCount = 130;
+
+    class ExplodingParticle {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        const angle = Math.random() * Math.PI * 2;
+        const velocity = Math.random() * 8 + 3;
+        this.vx = Math.cos(angle) * velocity;
+        this.vy = Math.sin(angle) * velocity;
+        this.size = Math.random() * 3 + 1;
+        this.opacity = 1.0;
+        this.decay = Math.random() * 0.02 + 0.01;
+        this.color = Math.random() > 0.4 ? '#00FFDB' : '#1B38C4'; // Neon cyan / royal blue
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        // decelerate
+        this.vx *= 0.96;
+        this.vy *= 0.96;
+        this.opacity -= this.decay;
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.fillStyle = this.color;
+        ctx.globalAlpha = this.opacity;
+        ctx.shadowBlur = 12;
+        ctx.shadowColor = this.color;
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = 1.0;
+        ctx.shadowBlur = 0;
+      }
+    }
+
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(new ExplodingParticle(startX, startY));
+    }
+
+    const explodeLoop = () => {
+      // Clear canvas but keep backdrop intact
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = particles.length - 1; i >= 0; i--) {
+        particles[i].update();
+        particles[i].draw();
+
+        // Remove faded particles
+        if (particles[i].opacity <= 0) {
+          particles.splice(i, 1);
+        }
+      }
+
+      if (particles.length > 0) {
+        requestAnimationFrame(explodeLoop);
+      } else {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+    };
+
+    explodeLoop();
+  };
+
+  // Cursor Hover Actions
   const updateCursorHoverListeners = () => {
     const hoverElements = document.querySelectorAll('a, button, .glass-card, .case-card, .wipe-comparison-inner, .sector-arrow, input');
     hoverElements.forEach(el => {
@@ -79,11 +301,9 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', () => {
       const currentScrollY = window.scrollY;
 
-      // Scroll Down (Hide nav wrapper, keep Logo)
       if (currentScrollY > 80 && currentScrollY > lastScrollY) {
         navWrap.classList.add('nav-hidden');
       } 
-      // Scroll Up (Show nav wrapper)
       else if (currentScrollY < lastScrollY) {
         navWrap.classList.remove('nav-hidden');
       }
@@ -94,7 +314,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSmartHeader();
 
   // --------------------------------------------------
-  // INFINITE SPACE BACKGROUND CANVAS (Starfield Parallax)
+  // THREE-LAYER DUST STARFIELD ENGINE (Parallax Depth)
   // --------------------------------------------------
   const initSpaceStarfield = () => {
     const canvas = document.getElementById('bg-space-canvas');
@@ -104,28 +324,55 @@ document.addEventListener('DOMContentLoaded', () => {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    // Star collection
+    // Three layers of stars representing parallax travel
     const stars = [];
-    const starCount = 220;
 
-    for (let i = 0; i < starCount; i++) {
+    // Layer 1: Foreground bright stars (50 stars, travel fast)
+    for (let i = 0; i < 40; i++) {
       stars.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        size: Math.random() * 1.5 + 0.5,
-        speed: Math.random() * 0.05 + 0.02,
-        opacity: Math.random() * 0.7 + 0.3,
-        twinkleRate: Math.random() * 0.02 + 0.005,
+        size: Math.random() * 1.8 + 1.2,
+        speed: 0.12,
+        opacity: Math.random() * 0.4 + 0.6,
+        color: '#FFFFFF',
+        twinkleRate: 0.02,
         twinkleDir: 1
       });
     }
 
-    // Parallax tracking
+    // Layer 2: Midground stars (80 stars, twinkling, neon cyan highlights)
+    for (let i = 0; i < 90; i++) {
+      stars.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        size: Math.random() * 1.0 + 0.8,
+        speed: 0.06,
+        opacity: Math.random() * 0.5 + 0.3,
+        color: '#00FFDB',
+        twinkleRate: 0.015,
+        twinkleDir: 1
+      });
+    }
+
+    // Layer 3: Faint deep space dust (100 stars, travel slow)
+    for (let i = 0; i < 110; i++) {
+      stars.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        size: Math.random() * 0.6 + 0.3,
+        speed: 0.025,
+        opacity: Math.random() * 0.4 + 0.15,
+        color: '#1B38C4',
+        twinkleRate: 0.008,
+        twinkleDir: 1
+      });
+    }
+
     let targetParallaxX = 0;
     let targetParallaxY = 0;
     let parallaxX = 0;
     let parallaxY = 0;
-    let lastScrollY = window.scrollY;
 
     window.addEventListener('mousemove', (e) => {
       targetParallaxX = (e.clientX - window.innerWidth / 2) * 0.06;
@@ -139,28 +386,26 @@ document.addEventListener('DOMContentLoaded', () => {
       parallaxY += (targetParallaxY - parallaxY) * 0.05;
 
       const currentScrollY = window.scrollY;
-      lastScrollY = currentScrollY;
 
       stars.forEach(star => {
+        // twinkle
         star.opacity += star.twinkleRate * star.twinkleDir;
-        if (star.opacity > 1 || star.opacity < 0.2) {
+        if (star.opacity > 1.0 || star.opacity < 0.1) {
           star.twinkleDir *= -1;
         }
 
         ctx.beginPath();
-        let finalX = star.x - parallaxX;
-        let finalY = star.y - parallaxY - (currentScrollY * star.speed);
+        let finalX = star.x - (parallaxX * star.speed * 8);
+        let finalY = star.y - (parallaxY * star.speed * 8) - (currentScrollY * star.speed);
 
         finalX = (finalX + width) % width;
         finalY = (finalY + height) % height;
 
-        ctx.fillStyle = `rgba(0, 255, 219, ${star.opacity})`; // Neon Cyan stars
-        if (star.size > 1.6) {
-          ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
-        }
-
+        ctx.fillStyle = star.color;
+        ctx.globalAlpha = Math.max(0.1, Math.min(1.0, star.opacity));
         ctx.arc(finalX, finalY, star.size, 0, Math.PI * 2);
         ctx.fill();
+        ctx.globalAlpha = 1.0;
       });
 
       requestAnimationFrame(drawStars);
@@ -182,7 +427,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const data = window.translations[lang];
     if (!data) return;
 
-    // 1. Simple text translations
+    // 1. Static simple translations
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const path = el.getAttribute('data-i18n').split('.');
       let val = data;
@@ -359,39 +604,6 @@ document.addEventListener('DOMContentLoaded', () => {
       currentLang = currentLang === 'es' ? 'en' : 'es';
       renderDynamicContent(currentLang);
       langBtn.innerHTML = currentLang === 'es' ? 'EN' : 'ES';
-    });
-  }
-
-  // --------------------------------------------------
-  // WAITLIST FORM VALIDATIONS
-  // --------------------------------------------------
-  const waitlistForm = document.getElementById('waitlist-form');
-  const waitlistMsg = document.getElementById('waitlist-msg');
-
-  if (waitlistForm && waitlistMsg) {
-    waitlistForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      
-      const emailInput = waitlistForm.querySelector('input[type="email"]');
-      const emailVal = emailInput.value.trim();
-
-      waitlistMsg.className = 'waitlist-msg';
-      waitlistMsg.innerHTML = '';
-
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-      if (!emailRegex.test(emailVal)) {
-        waitlistMsg.classList.add('error');
-        waitlistMsg.innerHTML = window.translations[currentLang].waitlist.invalidEmail;
-        return;
-      }
-
-      waitlistMsg.classList.add('success');
-      waitlistMsg.innerHTML = window.translations[currentLang].waitlist.success;
-      emailInput.value = '';
-
-      const btn = waitlistForm.querySelector('button');
-      gsap.to(btn, { scale: 1.05, duration: 0.1, yoyo: true, repeat: 1 });
     });
   }
 
@@ -635,17 +847,14 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       scrollTriggersInstance.push(horizTl.scrollTrigger);
 
-      // Program Pinned Arrows matching ScrollTrigger progress
       const triggerST = horizTl.scrollTrigger;
       let activeCardIdx = 0;
 
-      // Track current card on scroll
       ScrollTrigger.create({
         trigger: '.horizontal-scroll-section',
         start: 'top top',
         end: () => `+=${horizWrapper.scrollWidth - window.innerWidth}`,
         onUpdate: (self) => {
-          // Progress is 0 to 1, maps to 6 cards (0 to 5 indexes)
           activeCardIdx = Math.round(self.progress * 5);
         }
       });
@@ -705,6 +914,6 @@ document.addEventListener('DOMContentLoaded', () => {
     scrollTriggersInstance.push(timelineTl.scrollTrigger);
   }
 
-  // Initial render of translations and triggers
+  // Initial rendering triggers
   renderDynamicContent(currentLang);
 });
