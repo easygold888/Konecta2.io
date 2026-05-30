@@ -5,7 +5,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Ensure GSAP and ScrollTrigger are loaded
   if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-    console.error('GSAP or ScrollTrigger is missing. Scrolling animations cannot be initialized.');
+    console.error('GSAP or ScrollTrigger is missing. Standard scrolling is used.');
     return;
   }
   gsap.registerPlugin(ScrollTrigger);
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     mouseY = e.clientY;
   });
 
-  // Custom cursor smooth frame loop
+  // Cursor follow loop
   const renderCursor = () => {
     cursorX += (mouseX - cursorX) * 0.22;
     cursorY += (mouseY - cursorY) * 0.22;
@@ -63,6 +63,99 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const addCursorHover = () => cursor && cursor.classList.add('hovered');
   const removeCursorHover = () => cursor && cursor.classList.remove('hovered');
+
+  // --------------------------------------------------
+  // INFINITE SPACE BACKGROUND CANVAS (Starfield Parallax)
+  // --------------------------------------------------
+  const initSpaceStarfield = () => {
+    const canvas = document.getElementById('bg-space-canvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
+
+    // Star collection
+    const stars = [];
+    const starCount = 220;
+
+    for (let i = 0; i < starCount; i++) {
+      stars.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        size: Math.random() * 1.5 + 0.5,
+        speed: Math.random() * 0.05 + 0.02,
+        opacity: Math.random() * 0.7 + 0.3,
+        twinkleRate: Math.random() * 0.02 + 0.005,
+        twinkleDir: 1
+      });
+    }
+
+    // Parallax tracking
+    let targetParallaxX = 0;
+    let targetParallaxY = 0;
+    let parallaxX = 0;
+    let parallaxY = 0;
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('mousemove', (e) => {
+      // Small offsets
+      targetParallaxX = (e.clientX - window.innerWidth / 2) * 0.06;
+      targetParallaxY = (e.clientY - window.innerHeight / 2) * 0.06;
+    });
+
+    const drawStars = () => {
+      ctx.clearRect(0, 0, width, height);
+
+      // Smooth mouse lerp
+      parallaxX += (targetParallaxX - parallaxX) * 0.05;
+      parallaxY += (targetParallaxY - parallaxY) * 0.05;
+
+      // Handle vertical scroll travel speeds
+      const currentScrollY = window.scrollY;
+      const scrollDiff = currentScrollY - lastScrollY;
+      lastScrollY = currentScrollY;
+
+      // Render stars
+      stars.forEach(star => {
+        // Apply twinkling
+        star.opacity += star.twinkleRate * star.twinkleDir;
+        if (star.opacity > 1 || star.opacity < 0.2) {
+          star.twinkleDir *= -1;
+        }
+
+        // Draw star dot
+        ctx.beginPath();
+        // Base coordinate + mouse parallax + vertical scroll offset
+        let finalX = star.x - parallaxX;
+        let finalY = star.y - parallaxY - (currentScrollY * star.speed);
+
+        // Continuous wrapping loops
+        finalX = (finalX + width) % width;
+        finalY = (finalY + height) % height;
+
+        ctx.fillStyle = `rgba(30, 56, 196, ${star.opacity})`; // Neon blue stars
+        // 10% pure white high contrast points
+        if (star.size > 1.6) {
+          ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
+        }
+
+        ctx.arc(finalX, finalY, star.size, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      requestAnimationFrame(drawStars);
+    };
+
+    drawStars();
+
+    // Resize Canvas handler
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+  };
+  initSpaceStarfield();
 
   // --------------------------------------------------
   // DYNAMIC RENDERING CONTROLLER (Live Translation)
@@ -234,13 +327,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     updateCursorHoverListeners();
+
+    // Re-bind all viewport-locked scroll triggers
+    initScrollAnimations();
   };
 
-  // Initial Content Load
-  renderDynamicContent(currentLang);
-
   // --------------------------------------------------
-  // NAV TRANSLATION TRIGGER
+  // NAV LANGUAGE TOGGLER
   // --------------------------------------------------
   const langBtn = document.getElementById('lang-toggle');
   if (langBtn) {
@@ -248,14 +341,11 @@ document.addEventListener('DOMContentLoaded', () => {
       currentLang = currentLang === 'es' ? 'en' : 'es';
       renderDynamicContent(currentLang);
       langBtn.innerHTML = currentLang === 'es' ? 'EN' : 'ES';
-
-      // Refresh positions
-      ScrollTrigger.refresh();
     });
   }
 
   // --------------------------------------------------
-  // WAITLIST FORM VALIDATION
+  // WAITLIST FORM VALIDATIONS
   // --------------------------------------------------
   const waitlistForm = document.getElementById('waitlist-form');
   const waitlistMsg = document.getElementById('waitlist-msg');
@@ -288,12 +378,18 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --------------------------------------------------
-  // ADVANCED CINEMATIC SCROLL EXPERIENCES (GSAP)
+  // STRICT VIEWPORT-LOCKED SCROLL ANIMATIONS (100% On-View)
   // --------------------------------------------------
-  
-  // 1. HERO PINNED EXPERIENCE
-  // Viewport pins. Text dissolves, 3D Canvas shifts to center, scales up and rotates.
-  const initHeroScrollExperience = () => {
+  let scrollTriggersInstance = [];
+
+  function initScrollAnimations() {
+    // Clear any previous triggers first to prevent duplicates during re-render
+    scrollTriggersInstance.forEach(t => t.kill());
+    scrollTriggersInstance = [];
+
+    const isDesktop = window.innerWidth > 1024;
+
+    // 1. HERO PINNED EXPERIENCE
     const heroTl = gsap.timeline({
       scrollTrigger: {
         trigger: '#hero',
@@ -301,90 +397,108 @@ document.addEventListener('DOMContentLoaded', () => {
         end: '+=100%',
         pin: true,
         scrub: 1.2,
+        invalidateOnRefresh: true
       }
     });
-
-    // Fade out text content groups
-    heroTl.to('#hero-content-group', {
-      opacity: 0,
-      y: -60,
-      duration: 1
-    }, 0);
-
-    // Shift WebGL 3D Canvas container to the center and scale up
-    const isDesktop = window.innerWidth > 1024;
+    heroTl.to('#hero-content-group', { opacity: 0, y: -60, duration: 1 }, 0);
     heroTl.to('#hero-canvas-group', {
       x: isDesktop ? '-30%' : '0%',
       scale: 1.15,
       duration: 1.2,
       ease: 'power2.inOut'
     }, 0);
-  };
-  initHeroScrollExperience();
+    scrollTriggersInstance.push(heroTl.scrollTrigger);
 
-  // 2. STAGGER ENTRANCE HEADERS
-  const animateHeaders = (triggerSelector) => {
-    gsap.from(`${triggerSelector} .badge`, {
-      opacity: 0,
-      y: 20,
-      duration: 0.6,
-      scrollTrigger: {
-        trigger: triggerSelector,
-        start: 'top 85%',
-      }
+    // Header entrances
+    const animateHeaders = (triggerSelector) => {
+      const headerTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: triggerSelector,
+          start: 'top 85%',
+        }
+      });
+      headerTl.from(`${triggerSelector} .badge`, { opacity: 0, y: 15, duration: 0.5 })
+              .from(`${triggerSelector} .section-title`, { opacity: 0, y: 25, duration: 0.6 }, '-=0.3')
+              .from(`${triggerSelector} .section-subtitle`, { opacity: 0, y: 15, duration: 0.6 }, '-=0.3');
+      scrollTriggersInstance.push(headerTl.scrollTrigger);
+    };
+
+    ['#problem', '#solution', '#why-reviews', '#comparison', '#timeline', '#testimonials'].forEach(sec => {
+      animateHeaders(sec);
     });
 
-    gsap.from(`${triggerSelector} .section-title`, {
-      opacity: 0,
-      y: 35,
-      duration: 0.8,
-      delay: 0.1,
-      scrollTrigger: {
-        trigger: triggerSelector,
-        start: 'top 80%',
-      }
-    });
-
-    gsap.from(`${triggerSelector} .section-subtitle`, {
-      opacity: 0,
-      y: 25,
-      duration: 0.8,
-      delay: 0.2,
-      scrollTrigger: {
-        trigger: triggerSelector,
-        start: 'top 80%',
-      }
-    });
-  };
-
-  ['#problem', '#solution', '#why-reviews', '#comparison', '#timeline', '#testimonials'].forEach(sec => {
-    animateHeaders(sec);
-  });
-
-  // Problem & Solution grids entry fades
-  gsap.from('#problem-cards-container', {
-    opacity: 0,
-    y: 40,
-    duration: 1,
-    scrollTrigger: {
-      trigger: '#problem-cards-container',
-      start: 'top 80%'
+    // 2. PROBLEM CARDS PINNED REVEAL (More Scroll Experience!)
+    if (isDesktop) {
+      const problemTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: '#problem',
+          start: 'top top',
+          end: '+=100%',
+          pin: true,
+          scrub: 1,
+          invalidateOnRefresh: true
+        }
+      });
+      // Staggered reveal of individual problem cards on scroll
+      problemTl.from('.problem-card', {
+        opacity: 0,
+        y: 60,
+        stagger: 0.6,
+        duration: 1.5,
+        ease: 'power2.out'
+      });
+      scrollTriggersInstance.push(problemTl.scrollTrigger);
+    } else {
+      // Mobile fallback entry
+      const problemTl = gsap.from('.problem-card', {
+        opacity: 0,
+        y: 40,
+        stagger: 0.2,
+        duration: 1,
+        scrollTrigger: {
+          trigger: '#problem-cards-container',
+          start: 'top 80%'
+        }
+      });
+      scrollTriggersInstance.push(problemTl.scrollTrigger);
     }
-  });
 
-  gsap.from('#cases-grid', {
-    opacity: 0,
-    y: 40,
-    duration: 1,
-    scrollTrigger: {
-      trigger: '#cases-grid',
-      start: 'top 80%'
+    // 3. SOLUTION GRID PINNED REVEAL (Stagger grid cards!)
+    if (isDesktop) {
+      const solutionTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: '#solution',
+          start: 'top top',
+          end: '+=100%',
+          pin: true,
+          scrub: 1,
+          invalidateOnRefresh: true
+        }
+      });
+      solutionTl.from('.case-card', {
+        opacity: 0,
+        y: 40,
+        scale: 0.95,
+        stagger: 0.3,
+        duration: 1.5,
+        ease: 'power2.out'
+      });
+      scrollTriggersInstance.push(solutionTl.scrollTrigger);
+    } else {
+      const solutionTl = gsap.from('.case-card', {
+        opacity: 0,
+        y: 40,
+        stagger: 0.15,
+        duration: 1,
+        scrollTrigger: {
+          trigger: '#cases-grid',
+          start: 'top 80%'
+        }
+      });
+      scrollTriggersInstance.push(solutionTl.scrollTrigger);
     }
-  });
 
-  // 3. REVIEWS PINNED NOTIFICATIONS STORM
-  // Pins the viewport while 3 reviews popup notification boxes slide up sequentially.
-  const initReviewsScrollExperience = () => {
+    // 4. REVIEWS PINNED POPUP STORM
     const reviewsTl = gsap.timeline({
       scrollTrigger: {
         trigger: '#why-reviews',
@@ -392,62 +506,45 @@ document.addEventListener('DOMContentLoaded', () => {
         end: '+=120%',
         pin: true,
         scrub: 1,
+        invalidateOnRefresh: true
       }
     });
 
-    // 1st popup slides up
-    reviewsTl.to('#popup-notif-1', {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      duration: 0.8,
-    }, 0.2);
+    reviewsTl.to('#popup-notif-1', { opacity: 1, scale: 1, y: 0, duration: 0.8 }, 0.2);
 
-    // Live star rating shifts from 4.1 to 4.5
     let rateVal = { value: 4.1 };
     reviewsTl.to(rateVal, {
       value: 4.5,
       duration: 0.8,
       onUpdate: () => {
-        document.getElementById('live-rating-count').innerHTML = rateVal.value.toFixed(1);
+        const el = document.getElementById('live-rating-count');
+        if (el) el.innerHTML = rateVal.value.toFixed(1);
       }
     }, 0.2);
 
-    // 2nd popup
-    reviewsTl.to('#popup-notif-2', {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      duration: 0.8,
-    }, 0.6);
+    reviewsTl.to('#popup-notif-2', { opacity: 1, scale: 1, y: 0, duration: 0.8 }, 0.6);
 
-    // Live rating shifts to 4.7
     reviewsTl.to(rateVal, {
       value: 4.7,
       duration: 0.8,
       onUpdate: () => {
-        document.getElementById('live-rating-count').innerHTML = rateVal.value.toFixed(1);
+        const el = document.getElementById('live-rating-count');
+        if (el) el.innerHTML = rateVal.value.toFixed(1);
       }
     }, 0.6);
 
-    // 3rd popup
-    reviewsTl.to('#popup-notif-3', {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      duration: 0.8,
-    }, 1.0);
+    reviewsTl.to('#popup-notif-3', { opacity: 1, scale: 1, y: 0, duration: 0.8 }, 1.0);
 
-    // Live rating shifts to 4.9
     reviewsTl.to(rateVal, {
       value: 4.9,
       duration: 0.8,
       onUpdate: () => {
-        document.getElementById('live-rating-count').innerHTML = rateVal.value.toFixed(1);
+        const el = document.getElementById('live-rating-count');
+        if (el) el.innerHTML = rateVal.value.toFixed(1);
       }
     }, 1.0);
 
-    // General counters running in background
+    // Counts counters
     const counts = [
       { id: '#count-1', target: 93, suffix: '%' },
       { id: '#count-2', target: 3, suffix: 'x' },
@@ -457,7 +554,6 @@ document.addEventListener('DOMContentLoaded', () => {
     counts.forEach(c => {
       const el = document.querySelector(c.id);
       if (!el) return;
-      
       let initialVal = { value: 0 };
       gsap.to(initialVal, {
         value: c.target,
@@ -472,77 +568,60 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     });
-  };
-  initReviewsScrollExperience();
+    scrollTriggersInstance.push(reviewsTl.scrollTrigger);
 
-  // 4. INTERACTIVE SPLIT WIPER (Wipe slider)
-  // Pins the slide comparison. Scroll sweeps `--wipe-pos` clip-path from 0% to 100%.
-  const initWipeScrollExperience = () => {
-    const sliderContainer = document.getElementById('wipe-slider');
+    // 5. INTERACTIVE SPLIT WIPER PIN
     const futureLayer = document.getElementById('future-layer');
     const sliderHandle = document.getElementById('slider-handle');
 
-    if (!sliderContainer || !futureLayer || !sliderHandle) return;
+    if (futureLayer && sliderHandle) {
+      const wipeTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: '#comparison',
+          start: 'top top',
+          end: '+=100%',
+          pin: true,
+          scrub: 0.5,
+          invalidateOnRefresh: true
+        }
+      });
 
-    gsap.to(futureLayer, {
-      scrollTrigger: {
-        trigger: '#comparison',
-        start: 'top top',
-        end: '+=100%',
-        pin: true,
-        scrub: 0.5,
-        onUpdate: (self) => {
-          // Progress percentage from 0 to 100
-          const percent = self.progress * 100;
+      wipeTl.to(futureLayer, {
+        duration: 1,
+        ease: 'none',
+        onUpdate: function() {
+          const percent = this.progress() * 100;
           futureLayer.style.setProperty('--wipe-pos', `${percent}%`);
           sliderHandle.style.setProperty('--wipe-pos', `${percent}%`);
         }
-      }
-    });
-  };
-  initWipeScrollExperience();
+      });
+      scrollTriggersInstance.push(wipeTl.scrollTrigger);
+    }
 
-  // 5. SECTORES (Horizontal scroll pinning)
-  const initHorizontalScroll = () => {
+    // 6. SECTORES (Horizontal scroll pin)
     const horizWrapper = document.getElementById('horizontal-cards-wrapper');
-    const pinSection = document.querySelector('.pin-container');
+    if (horizWrapper) {
+      const getScrollAmount = () => {
+        let cardsWidth = horizWrapper.scrollWidth;
+        return -(cardsWidth - window.innerWidth + window.innerWidth * 0.15);
+      };
 
-    if (!horizWrapper || !pinSection) return;
+      const horizTl = gsap.to(horizWrapper, {
+        x: getScrollAmount,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.horizontal-scroll-section',
+          start: 'top top',
+          end: () => `+=${horizWrapper.scrollWidth - window.innerWidth}`,
+          pin: true,
+          scrub: 1,
+          invalidateOnRefresh: true
+        }
+      });
+      scrollTriggersInstance.push(horizTl.scrollTrigger);
+    }
 
-    const getScrollAmount = () => {
-      let cardsWidth = horizWrapper.scrollWidth;
-      return -(cardsWidth - window.innerWidth + window.innerWidth * 0.15);
-    };
-
-    gsap.to(horizWrapper, {
-      x: getScrollAmount,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '.horizontal-scroll-section',
-        start: 'top top',
-        end: () => `+=${horizWrapper.scrollWidth - window.innerWidth}`,
-        pin: true,
-        scrub: 1,
-        invalidateOnRefresh: true
-      }
-    });
-
-    gsap.from('.pin-header', {
-      opacity: 0,
-      x: -40,
-      duration: 0.8,
-      scrollTrigger: {
-        trigger: '.horizontal-scroll-section',
-        start: 'top top',
-        scrub: false
-      }
-    });
-  };
-  initHorizontalScroll();
-
-  // 6. TIMELINE STEP-BY-STEP PIN (Paint & Reveal)
-  // Pins setup. Neon painting line stretches, steps activate one by one.
-  const initTimelineScrollExperience = () => {
+    // 7. TIMELINE STEP-BY-STEP PIN reveal
     const timelineTl = gsap.timeline({
       scrollTrigger: {
         trigger: '#timeline',
@@ -550,54 +629,23 @@ document.addEventListener('DOMContentLoaded', () => {
         end: '+=120%',
         pin: true,
         scrub: 1,
+        invalidateOnRefresh: true
       }
     });
 
-    // Draw the SVG paint path indicator
     timelineTl.to('#timeline-paint-line', {
       attr: { x2: 1000 },
       duration: 1.5,
       ease: 'none'
     }, 0);
 
-    // Staggered trigger highlights for steps
-    timelineTl.to('#timeline-step-0', {
-      className: 'timeline-step active',
-      duration: 0.3
-    }, 0.1);
+    timelineTl.to('#timeline-step-0', { className: 'timeline-step active', duration: 0.3 }, 0.1);
+    timelineTl.to('#timeline-step-1', { className: 'timeline-step active', duration: 0.3 }, 0.6);
+    timelineTl.to('#timeline-step-2', { className: 'timeline-step active', duration: 0.3 }, 1.1);
 
-    timelineTl.to('#timeline-step-1', {
-      className: 'timeline-step active',
-      duration: 0.3
-    }, 0.6);
+    scrollTriggersInstance.push(timelineTl.scrollTrigger);
+  }
 
-    timelineTl.to('#timeline-step-2', {
-      className: 'timeline-step active',
-      duration: 0.3
-    }, 1.1);
-  };
-  initTimelineScrollExperience();
-
-  // Background blobs slow organic parallax
-  gsap.to('.blob-1', {
-    y: 100,
-    x: -50,
-    scrollTrigger: {
-      trigger: 'body',
-      start: 'top top',
-      end: 'bottom bottom',
-      scrub: 2
-    }
-  });
-
-  gsap.to('.blob-2', {
-    y: -150,
-    x: 100,
-    scrollTrigger: {
-      trigger: 'body',
-      start: 'top top',
-      end: 'bottom bottom',
-      scrub: 2
-    }
-  });
+  // Initial rendering of components triggers the layout staggers
+  renderDynamicContent(currentLang);
 });

@@ -54,11 +54,14 @@
 </head>
 <body>
 
+  <!-- Full-Screen Cosmic Background Starfield Canvas -->
+  <canvas id="bg-space-canvas"></canvas>
+
   <!-- Custom Cursor Elements -->
   <div class="custom-cursor"></div>
   <div class="custom-cursor-glow"></div>
 
-  <!-- Mesh Background Blobs -->
+  <!-- Mesh Background Blobs (Nebulas) -->
   <div class="mesh-bg-container">
     <div class="bg-blob blob-1"></div>
     <div class="bg-blob blob-2"></div>
@@ -93,7 +96,7 @@
   </header>
 
   <!-- --------------------------------------------------
-       1. HERO SECTION (Bounded Pin Scene)
+       1. HERO SECTION (Pinned Cinematic Zoom)
        -------------------------------------------------- -->
   <main>
     <section id="hero" class="section-wrapper">
@@ -120,10 +123,10 @@
     </section>
 
     <!-- --------------------------------------------------
-         2. EL PROBLEMA (Friction Bounded)
+         2. EL PROBLEMA (Pinned Cards)
          -------------------------------------------------- -->
     <section id="problem" class="section-wrapper">
-      <div class="container">
+      <div class="container" id="problem-pin-trigger">
         <div class="badge" data-i18n="problem.badge">Fricción diaria</div>
         <h2 class="section-title" data-i18n="problem.headline">El costo oculto del papel y los códigos QR</h2>
         <p class="section-subtitle" data-i18n="problem.subheadline">Las formas tradicionales de interactuar con tus clientes físicos tienen demasiados pasos intermedios. Cada paso es un cliente que desiste.</p>
@@ -135,10 +138,10 @@
     </section>
 
     <!-- --------------------------------------------------
-         3. CASOS DE USO (La Solución Bounded)
+         3. CASOS DE USO (Pinned Solution Grid)
          -------------------------------------------------- -->
     <section id="solution" class="section-wrapper">
-      <div class="container">
+      <div class="container" id="solution-pin-trigger">
         <div class="badge" data-i18n="solution.badge">La Solución</div>
         <h2 class="section-title" data-i18n="solution.headline">Un solo tap. Acciones instantáneas.</h2>
         <p class="section-subtitle" data-i18n="solution.subheadline">Dispositivos NFC físicos que enlazan directamente a lo que tu negocio necesita en cada momento. Sin pasos extra.</p>

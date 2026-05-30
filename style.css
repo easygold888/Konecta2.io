@@ -1,45 +1,44 @@
 /* ----------------------------------------------------
-   DESIGN SYSTEM & CSS VARIABLES (70-20-10 Revamp)
+   DESIGN SYSTEM & CSS VARIABLES (70-20-10 Cosmic Theme)
    ---------------------------------------------------- */
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap');
 
 :root {
-  /* --- 70% LIGHT BLUES (Backgrounds, grids, glass layers) --- */
-  --bg-primary: #EBF1FC;          /* Clean light blue-white */
-  --bg-secondary: #DCE6F5;        /* Medium soft blue background */
-  --bg-glass: rgba(230, 237, 250, 0.45);
-  --border-glass: rgba(230, 237, 250, 0.6);
-  --light-blue-shade: #C5D7F0;    /* Muted highlight blue */
+  /* --- 70% LIGHT BLUES (Cosmic light space nebula) --- */
+  --bg-primary: #E5EDFA;          /* Cosmic light blue-white */
+  --bg-secondary: #D4E2FA;        /* Space nebula light blue */
+  --bg-glass: rgba(229, 237, 250, 0.4);
+  --border-glass: rgba(229, 237, 250, 0.65);
+  --light-blue-shade: #C0D6F7;
   --blur-glass: blur(24px);
 
-  /* --- 20% DARK BLUES (Depth, headings, buttons, shadows, dark cards) --- */
-  --bg-dark: #060A24;             /* Space midnight blue */
-  --bg-dark-glass: rgba(6, 10, 36, 0.85);
-  --accent-1: #1E3EC4;            /* Royal electric blue */
-  --text-secondary: #1F2E5E;      /* Readable slate blue for subtext */
-  --glow-color: rgba(30, 62, 196, 0.22);
-  --shadow-color: rgba(6, 10, 36, 0.08);
+  /* --- 20% DARK BLUES (Cosmic depth structures) --- */
+  --bg-dark: #050920;             /* Cosmic deep black-blue */
+  --bg-dark-glass: rgba(5, 9, 32, 0.85);
+  --accent-1: #1B38C4;            /* Royal cosmic blue */
+  --text-secondary: #1E2D60;      /* Dark slate-blue for subtext */
+  --glow-color: rgba(27, 56, 196, 0.22);
+  --shadow-color: rgba(5, 9, 32, 0.08);
 
-  /* --- 10% BLACK & WHITE HIGHLIGHTS (Strong titles, high contrast elements) --- */
-  --text-primary: #000000;        /* Pure black for displays */
-  --text-light: #FFFFFF;          /* Pure white on dark backgrounds */
-  --accent-2: #00FFDB;            /* Neon cyan NFC signal highlight */
+  /* --- 10% BLACK & WHITE HIGHLIGHTS (Star & neon points) --- */
+  --text-primary: #000000;        /* Pure black for high-contrast titles */
+  --text-light: #FFFFFF;          /* Pure white on dark cards */
+  --accent-2: #00FFDB;            /* Glowing neon cyan NFC stars */
   --border-glass-dark: rgba(255, 255, 255, 0.15);
 
-  /* --- Font Tokens --- */
   --font-display: 'Syne', sans-serif;
   --font-body: 'Outfit', sans-serif;
   --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ----------------------------------------------------
-   BASE STYLES, RESET & BOUNDING WRAPPERS
+   BASE STYLES, RESET & STRICT VIEWPORT LOCKS
    ---------------------------------------------------- */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  cursor: none !important; /* Hide native cursor for custom pointer */
+  cursor: none !important; /* Hide native cursor */
 }
 
 html {
@@ -57,16 +56,32 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Constraining Container to prevent horizontal stretching */
+/* Bounded content container */
 .container {
   width: 100%;
-  max-width: 1240px; /* Bounded desktop width */
+  max-width: 1200px; /* Highly optimized bounded width */
   margin: 0 auto;
   padding: 0 2rem;
   position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-/* Scrollbar styling */
+/* Strict 100vh section locks */
+.section-wrapper {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+/* Scrollbar customizations */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -74,7 +89,7 @@ body {
   background: var(--bg-primary);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(30, 62, 196, 0.3);
+  background: rgba(27, 56, 196, 0.3);
   border-radius: 20px;
   border: 2px solid var(--bg-primary);
 }
@@ -83,11 +98,25 @@ body {
 }
 
 /* ----------------------------------------------------
-   CUSTOM CURSOR & GLOW EFFECT
+   FULL-SCREEN COSMIC STARFIELD CANVAS
+   ---------------------------------------------------- */
+#bg-space-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -9;
+  pointer-events: none;
+  background-color: var(--bg-primary);
+}
+
+/* ----------------------------------------------------
+   CUSTOM CURSOR & GLOW
    ---------------------------------------------------- */
 .custom-cursor {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   background: var(--text-primary);
   border-radius: 50%;
   position: fixed;
@@ -103,7 +132,7 @@ body {
 .custom-cursor-glow {
   width: 250px;
   height: 250px;
-  background: radial-gradient(circle, rgba(30, 62, 196, 0.15) 0%, rgba(0, 255, 219, 0.05) 50%, rgba(0, 0, 0, 0) 100%);
+  background: radial-gradient(circle, rgba(27, 56, 196, 0.15) 0%, rgba(0, 255, 219, 0.05) 50%, rgba(0, 0, 0, 0) 100%);
   position: fixed;
   top: 0;
   left: 0;
@@ -119,7 +148,7 @@ body {
 }
 
 /* ----------------------------------------------------
-   BACKGROUND MESH & DECORATIONS
+   COSMIC NEBULAS (Drifting background blobs)
    ---------------------------------------------------- */
 .mesh-bg-container {
   position: fixed;
@@ -130,30 +159,29 @@ body {
   z-index: -10;
   overflow: hidden;
   pointer-events: none;
-  background-color: var(--bg-primary);
 }
 
 .bg-blob {
   position: absolute;
   border-radius: 50%;
   filter: blur(140px);
-  opacity: 0.5;
+  opacity: 0.55;
   pointer-events: none;
 }
 
 .blob-1 {
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, var(--light-blue-shade) 0%, rgba(235, 241, 252, 0.1) 70%);
+  width: 650px;
+  height: 650px;
+  background: radial-gradient(circle, var(--light-blue-shade) 0%, rgba(229, 237, 250, 0.1) 70%);
   top: -15%;
   right: -5%;
 }
 
 .blob-2 {
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, var(--bg-secondary) 0%, rgba(235, 241, 252, 0.1) 70%);
-  bottom: 10%;
+  width: 550px;
+  height: 550px;
+  background: radial-gradient(circle, var(--bg-secondary) 0%, rgba(229, 237, 250, 0.1) 70%);
+  bottom: 5%;
   left: -10%;
 }
 
@@ -166,7 +194,7 @@ header {
   left: 0;
   width: 100%;
   z-index: 1000;
-  background: rgba(235, 241, 252, 0.25);
+  background: rgba(229, 237, 250, 0.25);
   backdrop-filter: var(--blur-glass);
   -webkit-backdrop-filter: var(--blur-glass);
   border-bottom: 1px solid var(--border-glass);
@@ -177,6 +205,10 @@ header {
   justify-content: space-between;
   align-items: center;
   height: 85px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
 }
 
 .logo {
@@ -281,8 +313,8 @@ nav a:hover::after {
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  background: #142ca1;
-  box-shadow: 0 12px 30px rgba(30, 62, 196, 0.4);
+  background: #122894;
+  box-shadow: 0 12px 30px rgba(27, 56, 196, 0.4);
 }
 
 .hamburger {
@@ -302,50 +334,40 @@ nav a:hover::after {
 }
 
 /* ----------------------------------------------------
-   GENERAL GRID & COMPONENT UTILITIES (Glassmorphism)
+   GENERAL GRID & COMPONENT UTILITIES (Compact & Bounded)
    ---------------------------------------------------- */
-.section-wrapper {
-  padding: 9rem 0 7rem;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-}
-
 .badge {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: rgba(30, 62, 196, 0.08);
-  border: 1px solid rgba(30, 62, 196, 0.2);
+  background: rgba(27, 56, 196, 0.08);
+  border: 1px solid rgba(27, 56, 196, 0.2);
   color: var(--accent-1);
   font-weight: 600;
   font-size: 0.82rem;
   text-transform: uppercase;
   letter-spacing: 1px;
-  padding: 0.5rem 1.2rem;
+  padding: 0.4rem 1.1rem;
   border-radius: 30px;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   align-self: flex-start;
 }
 
 .section-title {
   font-family: var(--font-display);
-  font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
   font-weight: 800;
   line-height: 1.1;
   color: var(--text-primary);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   max-width: 900px;
 }
 
 .section-subtitle {
-  font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
   color: var(--text-secondary);
   max-width: 700px;
-  margin-bottom: 3.5rem;
+  margin-bottom: 2.2rem;
   font-weight: 400;
 }
 
@@ -355,52 +377,42 @@ nav a:hover::after {
   backdrop-filter: var(--blur-glass);
   -webkit-backdrop-filter: var(--blur-glass);
   border-radius: 24px;
-  padding: 2.5rem;
+  padding: 2rem;
   box-shadow: 0 16px 40px var(--shadow-color);
   transition: var(--transition-smooth);
 }
 
 /* ----------------------------------------------------
-   1. HERO SECTION (Pinned Cinematic Storyteller)
+   1. HERO SECTION (Pinned Cinematic Zoom)
    ---------------------------------------------------- */
 #hero {
-  position: relative;
-  min-height: 100vh;
+  height: 100vh;
   width: 100%;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  padding: 0;
 }
 
 .hero-pin-wrapper {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-columns: 1.15fr 0.85fr;
   align-items: center;
   width: 100%;
-  height: 100vh;
-  gap: 3rem;
-}
-
-.hero-content {
-  display: flex;
-  flex-direction: column;
+  height: 100%;
+  gap: 2rem;
 }
 
 .hero-content h1 {
   font-family: var(--font-display);
-  font-size: clamp(3.2rem, 5.5vw, 5.2rem);
+  font-size: clamp(3.2rem, 5.2vw, 5rem);
   font-weight: 800;
   line-height: 1.05;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.2rem;
   color: var(--text-primary);
 }
 
 .hero-content p {
-  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  font-size: clamp(1.1rem, 1.8vw, 1.3rem);
   color: var(--text-secondary);
-  margin-bottom: 2.5rem;
-  max-width: 600px;
+  margin-bottom: 2.2rem;
+  max-width: 580px;
   font-weight: 400;
 }
 
@@ -411,44 +423,11 @@ nav a:hover::after {
   flex-wrap: wrap;
 }
 
-.hero-nfc-indicator {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-}
-
-.nfc-ring-wave {
-  position: relative;
-  width: 14px;
-  height: 14px;
-  background: var(--accent-2);
-  border-radius: 50%;
-  display: inline-block;
-  box-shadow: 0 0 10px var(--accent-2);
-}
-
-.nfc-ring-wave::after {
-  content: '';
-  position: absolute;
-  top: -6px;
-  left: -6px;
-  right: -6px;
-  bottom: -6px;
-  border: 2px solid var(--accent-2);
-  border-radius: 50%;
-  opacity: 0.7;
-  animation: ripple 2s infinite linear;
-}
-
 .hero-canvas-container {
   width: 100%;
-  /* Restrict aspect ratio and bounds to prevent stretching */
   aspect-ratio: 1 / 1;
-  max-width: 500px;
-  height: 500px;
+  max-width: 480px;
+  height: 480px;
   margin: 0 auto;
   position: relative;
 }
@@ -462,12 +441,12 @@ nav a:hover::after {
 }
 
 /* ----------------------------------------------------
-   2. EL PROBLEMA (Fricción)
+   2. EL PROBLEMA (Pinned Cards)
    ---------------------------------------------------- */
 .problem-cards-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2.5rem;
+  gap: 2rem;
 }
 
 .problem-card {
@@ -475,8 +454,8 @@ nav a:hover::after {
   flex-direction: column;
   position: relative;
   overflow: hidden;
-  background: rgba(230, 237, 250, 0.6);
-  border: 1px solid rgba(30, 62, 196, 0.08);
+  background: rgba(229, 237, 250, 0.6);
+  border: 1px solid rgba(27, 56, 196, 0.08);
 }
 
 .problem-card::before {
@@ -492,69 +471,70 @@ nav a:hover::after {
 
 .problem-number {
   font-family: var(--font-display);
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 800;
-  color: rgba(30, 62, 196, 0.12);
-  margin-bottom: 1rem;
+  color: rgba(27, 56, 196, 0.12);
+  margin-bottom: 0.8rem;
 }
 
 .problem-card h3 {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
   color: var(--text-primary);
 }
 
 .problem-card p {
   color: var(--text-secondary);
-  font-size: 1.05rem;
+  font-size: 1rem;
 }
 
 /* ----------------------------------------------------
-   3. CASOS DE USO (La Solución)
+   3. CASOS DE USO (Pinned Solution Grid)
    ---------------------------------------------------- */
 .cases-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
 .case-card {
   position: relative;
   overflow: hidden;
   cursor: pointer;
+  padding: 1.8rem;
 }
 
 .case-icon {
-  width: 50px;
-  height: 50px;
-  background: rgba(30, 62, 196, 0.08);
-  border-radius: 16px;
+  width: 44px;
+  height: 44px;
+  background: rgba(27, 56, 196, 0.08);
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--accent-1);
-  margin-bottom: 1.8rem;
+  margin-bottom: 1.4rem;
   transition: var(--transition-smooth);
 }
 
 .case-card h3 {
-  font-size: 1.35rem;
+  font-size: 1.25rem;
   font-weight: 700;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.6rem;
   color: var(--text-primary);
 }
 
 .case-card p {
   color: var(--text-secondary);
-  font-size: 0.98rem;
+  font-size: 0.94rem;
   line-height: 1.5;
 }
 
 .case-card:hover {
-  transform: translateY(-8px);
-  border-color: rgba(30, 62, 196, 0.35);
-  box-shadow: 0 20px 45px rgba(30, 62, 196, 0.08);
+  transform: translateY(-6px);
+  border-color: rgba(27, 56, 196, 0.35);
+  box-shadow: 0 16px 35px rgba(27, 56, 196, 0.08);
 }
 
 .case-card:hover .case-icon {
@@ -565,27 +545,21 @@ nav a:hover::after {
 }
 
 /* ----------------------------------------------------
-   4. WHY REVIEWS MATTER (Pinned Notifications Experience)
+   4. POR QUÉ IMPORTAN LAS RESEÑAS (Notifications storm)
    ---------------------------------------------------- */
-#why-reviews {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-}
-
 .reviews-grid {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 4rem;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 3.5rem;
   align-items: center;
   width: 100%;
 }
 
 .reviews-narrative p {
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   color: var(--text-secondary);
-  margin-bottom: 1.8rem;
-  line-height: 1.7;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
 }
 
 .reviews-narrative strong {
@@ -595,8 +569,8 @@ nav a:hover::after {
 .counters-container {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2.2rem;
-  margin-top: 2rem;
+  gap: 1.8rem;
+  margin-top: 1.5rem;
 }
 
 .counter-item {
@@ -607,20 +581,19 @@ nav a:hover::after {
 
 .counter-number {
   font-family: var(--font-display);
-  font-size: 3.5rem;
+  font-size: 3.2rem;
   font-weight: 800;
   color: var(--accent-1);
-  min-width: 140px;
+  min-width: 130px;
   line-height: 1;
 }
 
 .counter-label {
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: var(--text-secondary);
   line-height: 1.4;
 }
 
-/* Google Maps Mock (Popup stream targets) */
 .maps-mock-container {
   display: flex;
   flex-direction: column;
@@ -631,7 +604,7 @@ nav a:hover::after {
 
 .maps-mock-card {
   width: 100%;
-  max-width: 380px;
+  max-width: 360px;
   border-radius: 24px;
   overflow: hidden;
   box-shadow: 0 25px 60px var(--shadow-color);
@@ -641,15 +614,15 @@ nav a:hover::after {
 .maps-mock-header {
   background: var(--bg-dark);
   color: var(--text-light);
-  padding: 1.5rem;
+  padding: 1.2rem;
   display: flex;
   align-items: center;
   gap: 1rem;
 }
 
 .maps-mock-avatar {
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   background: var(--accent-2);
   border-radius: 12px;
   display: flex;
@@ -660,18 +633,18 @@ nav a:hover::after {
 }
 
 .maps-mock-title h4 {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 700;
 }
 
 .maps-mock-title p {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   opacity: 0.7;
 }
 
 .maps-mock-body {
   background: #FFFFFF;
-  padding: 2rem 1.5rem;
+  padding: 1.8rem 1.2rem;
   text-align: center;
 }
 
@@ -679,29 +652,28 @@ nav a:hover::after {
   display: flex;
   justify-content: center;
   gap: 6px;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   color: #FBBF24;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.6rem;
 }
 
 .rating-count {
-  font-size: 2.8rem;
+  font-size: 2.5rem;
   font-weight: 800;
   color: var(--text-primary);
   line-height: 1;
 }
 
 .rating-subtext {
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   color: var(--text-secondary);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.2rem;
 }
 
-/* Container for absolute scrolling notifications popups */
 .notifications-stream {
   position: absolute;
   width: 100%;
-  max-width: 380px;
+  max-width: 360px;
   height: 100%;
   top: 0;
   pointer-events: none;
@@ -712,12 +684,12 @@ nav a:hover::after {
   background: rgba(255, 255, 255, 0.95);
   border: 1px solid var(--border-glass);
   border-radius: 16px;
-  padding: 1rem;
+  padding: 0.85rem;
   display: flex;
   align-items: center;
   gap: 0.8rem;
-  box-shadow: 0 15px 35px rgba(6, 10, 36, 0.12);
-  margin-bottom: 1rem;
+  box-shadow: 0 15px 35px rgba(5, 9, 32, 0.12);
+  margin-bottom: 0.8rem;
   opacity: 0;
   transform: translateY(30px) scale(0.9);
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -730,24 +702,24 @@ nav a:hover::after {
 }
 
 .popup-avatar {
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   background: var(--light-blue-shade);
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
 }
 
 .popup-content h5 {
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   font-weight: 700;
 }
 
 .popup-content p {
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   color: var(--text-secondary);
 }
 
@@ -756,7 +728,7 @@ nav a:hover::after {
    ---------------------------------------------------- */
 .wipe-comparison-outer {
   width: 100%;
-  max-width: 1000px;
+  max-width: 950px;
   margin: 0 auto;
   position: relative;
 }
@@ -764,26 +736,24 @@ nav a:hover::after {
 .wipe-comparison-inner {
   position: relative;
   width: 100%;
-  height: 520px;
-  border-radius: 30px;
+  height: 480px;
+  border-radius: 28px;
   overflow: hidden;
-  box-shadow: 0 30px 70px var(--shadow-color);
+  box-shadow: 0 30px 65px var(--shadow-color);
   border: 1px solid var(--border-glass);
   background-color: var(--bg-secondary);
 }
 
-/* Standard Base Layer (Paper Card - Muted Greyish Theme) */
 .comparison-layer {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  padding: 3.5rem;
+  padding: 3rem;
   display: grid;
   grid-template-columns: 1fr;
   align-content: center;
-  transition: filter 0.3s ease;
 }
 
 .layer-past {
@@ -791,11 +761,9 @@ nav a:hover::after {
   filter: grayscale(0.85) contrast(0.9);
 }
 
-/* Interactive Foreground Layer (NFC Smart Card - Electric Blue Theme) */
 .layer-future {
   background: linear-gradient(135deg, #DFE8F7 0%, #CADEFB 100%);
   z-index: 2;
-  /* Dynamic Clip-path variable */
   clip-path: polygon(0 0, var(--wipe-pos, 50%) 0, var(--wipe-pos, 50%) 100%, 0 100%);
 }
 
@@ -810,9 +778,9 @@ nav a:hover::after {
 
 .layer-content h3 {
   font-family: var(--font-display);
-  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
   font-weight: 800;
-  margin-bottom: 2rem;
+  margin-bottom: 1.8rem;
   display: flex;
   align-items: center;
   gap: 0.8rem;
@@ -826,14 +794,49 @@ nav a:hover::after {
   color: var(--accent-1);
 }
 
-/* Horizontal Comparison Layout inside each layer */
 .comparison-layout-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 3rem;
+  gap: 2.5rem;
 }
 
-/* Wipe Sliding Handle line */
+.comparison-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.comparison-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  padding: 1rem;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.side-future .comparison-list li {
+  background: rgba(27, 56, 196, 0.04);
+  border: 1px solid rgba(27, 56, 196, 0.1);
+  color: var(--text-primary);
+}
+
+.layer-past li svg {
+  color: #EF4444;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.layer-future li svg {
+  color: var(--accent-2);
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
 .wipe-handle {
   position: absolute;
   top: 0;
@@ -852,8 +855,8 @@ nav a:hover::after {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background: var(--accent-1);
   border: 4px solid var(--text-light);
@@ -861,11 +864,11 @@ nav a:hover::after {
   align-items: center;
   justify-content: center;
   color: var(--text-light);
-  box-shadow: 0 8px 20px rgba(6, 10, 36, 0.2);
+  box-shadow: 0 6px 18px rgba(5, 9, 32, 0.2);
 }
 
 /* ----------------------------------------------------
-   6. SECTORES (Horizontal Scroll Pin)
+   6. SECTORES (Horizontal Pin Scroll)
    ---------------------------------------------------- */
 .horizontal-scroll-section {
   position: relative;
@@ -879,30 +882,29 @@ nav a:hover::after {
   height: 100vh;
   align-items: center;
   position: relative;
-  /* Width bounding */
   max-width: 100vw;
 }
 
 .pin-header {
   flex-shrink: 0;
-  width: 420px;
-  padding-right: 2.5rem;
+  width: 400px;
+  padding-right: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   z-index: 10;
-  margin-left: 5vw;
+  margin-left: 6vw;
 }
 
 .horizontal-cards-wrapper {
   display: flex;
-  gap: 2rem;
-  height: 55vh;
+  gap: 1.8rem;
+  height: 52vh;
   align-items: center;
 }
 
 .horizontal-card {
-  width: 290px;
+  width: 275px;
   height: 100%;
   flex-shrink: 0;
   display: flex;
@@ -921,7 +923,7 @@ nav a:hover::after {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(180deg, rgba(6, 10, 36, 0.1) 0%, rgba(6, 10, 36, 0.9) 100%);
+  background: linear-gradient(180deg, rgba(5, 9, 32, 0.1) 0%, rgba(5, 9, 32, 0.9) 100%);
   z-index: 1;
 }
 
@@ -943,35 +945,29 @@ nav a:hover::after {
 .horizontal-card-content {
   position: relative;
   z-index: 2;
-  padding: 1.8rem;
+  padding: 1.6rem;
   color: var(--text-light);
 }
 
 .horizontal-card h3 {
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
   color: #FFFFFF;
 }
 
 .horizontal-card p {
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   opacity: 0.8;
   color: #E2E8F0;
 }
 
 /* ----------------------------------------------------
-   7. CÓMO FUNCIONA (Step-by-Step Pin reveal)
+   7. CÓMO FUNCIONA (Timeline Draw Pin)
    ---------------------------------------------------- */
-#timeline {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-}
-
 .timeline-container {
   position: relative;
-  margin-top: 4rem;
+  margin-top: 3rem;
   padding: 2rem 0;
 }
 
@@ -988,7 +984,7 @@ nav a:hover::after {
 .timeline-steps {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 3rem;
+  gap: 2.5rem;
   position: relative;
   z-index: 2;
 }
@@ -997,7 +993,7 @@ nav a:hover::after {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  opacity: 0.3;
+  opacity: 0.25;
   transform: translateY(20px);
   transition: var(--transition-smooth);
 }
@@ -1020,7 +1016,7 @@ nav a:hover::after {
   font-size: 1.2rem;
   font-weight: 800;
   color: var(--text-secondary);
-  margin-bottom: 2rem;
+  margin-bottom: 1.8rem;
   box-shadow: 0 0 0 6px var(--bg-primary);
   transition: var(--transition-smooth);
 }
@@ -1033,15 +1029,15 @@ nav a:hover::after {
 }
 
 .timeline-step h3 {
-  font-size: 1.35rem;
+  font-size: 1.3rem;
   font-weight: 700;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.6rem;
   color: var(--text-primary);
 }
 
 .timeline-step p {
   color: var(--text-secondary);
-  font-size: 0.98rem;
+  font-size: 0.96rem;
   line-height: 1.6;
 }
 
@@ -1051,7 +1047,7 @@ nav a:hover::after {
 .testimonials-slider {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
+  gap: 1.8rem;
   margin-top: 1rem;
 }
 
@@ -1060,13 +1056,14 @@ nav a:hover::after {
   flex-direction: column;
   justify-content: space-between;
   position: relative;
+  padding: 1.8rem;
 }
 
 .testimonial-quote {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   line-height: 1.6;
   color: var(--text-primary);
-  margin-bottom: 2rem;
+  margin-bottom: 1.6rem;
   font-style: italic;
 }
 
@@ -1077,8 +1074,8 @@ nav a:hover::after {
 }
 
 .testimonial-pic {
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: var(--light-blue-shade);
   display: flex;
@@ -1086,48 +1083,48 @@ nav a:hover::after {
   justify-content: center;
   font-weight: 700;
   color: var(--text-secondary);
-  font-size: 1rem;
+  font-size: 0.95rem;
   border: 1px solid var(--border-glass);
 }
 
 .testimonial-author-name h4 {
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 700;
   color: var(--text-primary);
 }
 
 .testimonial-author-name p {
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   color: var(--text-secondary);
 }
 
 .testimonial-stars {
   display: flex;
   gap: 4px;
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: #FBBF24;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1rem;
 }
 
 /* ----------------------------------------------------
-   9. CTA WAITLIST (High Contrast 20% Deep Dark Blue Base)
+   9. CTA WAITLIST (Dark theme base 100vh lock)
    ---------------------------------------------------- */
 #cta-waitlist {
   background-color: var(--bg-dark);
   color: var(--text-light);
   display: flex;
   align-items: center;
-  min-height: 100vh;
+  height: 100vh;
   position: relative;
   overflow: hidden;
-  padding: 6rem 0;
+  padding: 0;
 }
 
 #cta-waitlist .container {
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
-  gap: 4rem;
+  gap: 3.5rem;
   width: 100%;
 }
 
@@ -1138,7 +1135,7 @@ nav a:hover::after {
   left: -150px;
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(30, 62, 196, 0.2) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(27, 56, 196, 0.2) 0%, transparent 70%);
   filter: blur(100px);
   pointer-events: none;
 }
@@ -1146,8 +1143,8 @@ nav a:hover::after {
 .cta-canvas-container {
   width: 100%;
   aspect-ratio: 1 / 1;
-  max-width: 450px;
-  height: 450px;
+  max-width: 440px;
+  height: 440px;
   margin: 0 auto;
   position: relative;
 }
@@ -1168,17 +1165,17 @@ nav a:hover::after {
 
 .waitlist-container h2 {
   font-family: var(--font-display);
-  font-size: clamp(2.2rem, 4.5vw, 4rem);
+  font-size: clamp(2.2rem, 4.2vw, 3.8rem);
   font-weight: 800;
   line-height: 1.1;
   color: #FFFFFF;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.2rem;
 }
 
 .waitlist-container p {
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   color: #A0AEC0;
-  margin-bottom: 3rem;
+  margin-bottom: 2.5rem;
   max-width: 550px;
 }
 
@@ -1223,14 +1220,14 @@ nav a:hover::after {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  box-shadow: 0 8px 25px rgba(30, 62, 196, 0.4);
+  box-shadow: 0 8px 25px rgba(27, 56, 196, 0.4);
   transition: var(--transition-smooth);
 }
 
 .waitlist-form button:hover {
-  background: #142ca1;
+  background: #122894;
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(30, 62, 196, 0.5);
+  box-shadow: 0 12px 30px rgba(27, 56, 196, 0.5);
 }
 
 .waitlist-msg {
@@ -1249,8 +1246,8 @@ nav a:hover::after {
 }
 
 .waitlist-subtext {
-  margin-top: 2rem;
-  font-size: 0.85rem;
+  margin-top: 1.8rem;
+  font-size: 0.82rem;
   color: #718096;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -1347,7 +1344,9 @@ footer {
   }
 
   .section-wrapper {
-    padding: 7rem 0 5rem;
+    height: auto;
+    min-height: 100vh;
+    padding: 6rem 0;
   }
 
   #hero {
@@ -1372,13 +1371,13 @@ footer {
   }
 
   .hero-canvas-container {
-    height: 400px;
-    max-width: 400px;
+    height: 380px;
+    max-width: 380px;
   }
 
   .problem-cards-container {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 1.5rem;
   }
 
   .cases-grid {
@@ -1435,7 +1434,7 @@ footer {
 
   .horizontal-card {
     scroll-snap-align: start;
-    height: 380px;
+    height: 360px;
   }
 
   .timeline-steps {
@@ -1455,6 +1454,12 @@ footer {
     grid-template-columns: 1fr;
   }
 
+  #cta-waitlist {
+    height: auto;
+    min-height: 100vh;
+    padding: 6rem 0;
+  }
+
   #cta-waitlist .container {
     grid-template-columns: 1fr;
     gap: 3rem;
@@ -1470,8 +1475,8 @@ footer {
   }
 
   .cta-canvas-container {
-    height: 350px;
-    max-width: 350px;
+    height: 320px;
+    max-width: 320px;
     order: -1;
   }
 }
