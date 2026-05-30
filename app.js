@@ -2,14 +2,13 @@
 // KONECTA2.IO — COMPONENT CONTROLLER & GSAP ANIMATIONS
 // ----------------------------------------------------
 
-// Wait for GSAP and i18n to load
 document.addEventListener('DOMContentLoaded', () => {
   // Ensure GSAP and ScrollTrigger are loaded
   if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-    console.warn('GSAP or ScrollTrigger is missing. Standard scrolls will fall back.');
-  } else {
-    gsap.registerPlugin(ScrollTrigger);
+    console.error('GSAP or ScrollTrigger is missing. Scrolling animations cannot be initialized.');
+    return;
   }
+  gsap.registerPlugin(ScrollTrigger);
 
   // State Management
   let currentLang = 'es'; // default Spanish
@@ -20,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let cursorX = 0, cursorY = 0;
   let glowX = 0, glowY = 0;
 
-  // Track real mouse positions
+  // Track mouse coordinates
   let mouseX = window.innerWidth / 2;
   let mouseY = window.innerHeight / 2;
 
@@ -29,11 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
     mouseY = e.clientY;
   });
 
-  // Smooth cursor lerping animation loop
+  // Custom cursor smooth frame loop
   const renderCursor = () => {
-    // Lerping calculations
-    cursorX += (mouseX - cursorX) * 0.25;
-    cursorY += (mouseY - cursorY) * 0.25;
+    cursorX += (mouseX - cursorX) * 0.22;
+    cursorY += (mouseY - cursorY) * 0.22;
 
     glowX += (mouseX - glowX) * 0.08;
     glowY += (mouseY - glowY) * 0.08;
@@ -51,11 +49,10 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   renderCursor();
 
-  // Add Hover Scaling classes
+  // Add Hover Scaling listeners
   const updateCursorHoverListeners = () => {
-    const hoverElements = document.querySelectorAll('a, button, .glass-card, input, select');
+    const hoverElements = document.querySelectorAll('a, button, .glass-card, .case-card, .wipe-comparison-inner, input');
     hoverElements.forEach(el => {
-      // Remove any existing listeners first to prevent duplicates
       el.removeEventListener('mouseenter', addCursorHover);
       el.removeEventListener('mouseleave', removeCursorHover);
       
@@ -68,13 +65,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const removeCursorHover = () => cursor && cursor.classList.remove('hovered');
 
   // --------------------------------------------------
-  // DYNAMIC RENDERING CONTROLLER (Supports Live Translation)
+  // DYNAMIC RENDERING CONTROLLER (Live Translation)
   // --------------------------------------------------
   const renderDynamicContent = (lang) => {
     const data = window.translations[lang];
     if (!data) return;
 
-    // 1. Static simple text fields (H1, H2, Badges, etc.)
+    // 1. Simple text translations
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const path = el.getAttribute('data-i18n').split('.');
       let val = data;
@@ -95,13 +92,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // 2. Dynamic Problem Cards
+    // 2. Problem Cards
     const problemContainer = document.getElementById('problem-cards-container');
     if (problemContainer) {
       problemContainer.innerHTML = '';
       data.problem.cards.forEach((card, idx) => {
         problemContainer.innerHTML += `
-          <div class="glass-card problem-card" data-idx="${idx}">
+          <div class="glass-card problem-card">
             <div class="problem-number">0${idx + 1}</div>
             <h3>${card.title}</h3>
             <p>${card.desc}</p>
@@ -110,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // 3. Dynamic Solution Grid (6 Cases)
+    // 3. Solution Grid (6 Cases)
     const casesGrid = document.getElementById('cases-grid');
     if (casesGrid) {
       casesGrid.innerHTML = '';
@@ -124,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ];
       data.solution.cards.forEach((card, idx) => {
         casesGrid.innerHTML += `
-          <div class="glass-card case-card" data-idx="${idx}">
+          <div class="glass-card case-card">
             <div class="case-icon">${icons[idx]}</div>
             <h3>${card.title}</h3>
             <p>${card.desc}</p>
@@ -133,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // 4. Past vs Future Comparisons lists
+    // 4. Past vs Future Lists (Wiper)
     const pastList = document.getElementById('past-list');
     const futureList = document.getElementById('future-list');
     if (pastList && futureList) {
@@ -163,7 +160,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const horizWrapper = document.getElementById('horizontal-cards-wrapper');
     if (horizWrapper) {
       horizWrapper.innerHTML = '';
-      // Premium stock unsplash assets representing clean commercial visual palettes
       const imageUrls = [
         'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=400&auto=format&fit=crop', // Restaurant
         'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=400&auto=format&fit=crop', // Hotel
@@ -193,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
       timelineContainer.innerHTML = '';
       data.howItWorks.steps.forEach((step, idx) => {
         timelineContainer.innerHTML += `
-          <div class="timeline-step" id="step-${idx}">
+          <div class="timeline-step" id="timeline-step-${idx}">
             <div class="timeline-dot">${step.step}</div>
             <h3>${step.title}</h3>
             <p>${step.desc}</p>
@@ -202,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // 7. Dynamic Testimonials slider
+    // 7. Dynamic Testimonials
     const testimonialsSlider = document.getElementById('testimonials-slider');
     if (testimonialsSlider) {
       testimonialsSlider.innerHTML = '';
@@ -232,42 +228,34 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Reinitialize icons rendered dynamically by Lucide
+    // Reinitialize dynamic Lucide icons
     if (typeof lucide !== 'undefined') {
       lucide.createIcons();
     }
 
-    // Update cursor hover states for new items
     updateCursorHoverListeners();
   };
 
-  // Initial Content Load (ES)
+  // Initial Content Load
   renderDynamicContent(currentLang);
 
   // --------------------------------------------------
-  // TRANSLATION TOGGLE TRIGGER
+  // NAV TRANSLATION TRIGGER
   // --------------------------------------------------
   const langBtn = document.getElementById('lang-toggle');
   if (langBtn) {
     langBtn.addEventListener('click', () => {
-      // Toggle
       currentLang = currentLang === 'es' ? 'en' : 'es';
-      
-      // Re-render
       renderDynamicContent(currentLang);
-      
-      // Update toggle indicator text in navbar
       langBtn.innerHTML = currentLang === 'es' ? 'EN' : 'ES';
 
-      // Re-trigger scroll animations refresh to account for sizing adjustments
-      if (typeof ScrollTrigger !== 'undefined') {
-        ScrollTrigger.refresh();
-      }
+      // Refresh positions
+      ScrollTrigger.refresh();
     });
   }
 
   // --------------------------------------------------
-  // WAITLIST FORM CONTROLLER (Local verification)
+  // WAITLIST FORM VALIDATION
   // --------------------------------------------------
   const waitlistForm = document.getElementById('waitlist-form');
   const waitlistMsg = document.getElementById('waitlist-msg');
@@ -279,11 +267,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const emailInput = waitlistForm.querySelector('input[type="email"]');
       const emailVal = emailInput.value.trim();
 
-      // Clear previous classes
       waitlistMsg.className = 'waitlist-msg';
       waitlistMsg.innerHTML = '';
 
-      // Clean validation regex
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
       if (!emailRegex.test(emailVal)) {
@@ -292,219 +278,326 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // Success local response simulating startup deployment queues
       waitlistMsg.classList.add('success');
       waitlistMsg.innerHTML = window.translations[currentLang].waitlist.success;
       emailInput.value = '';
 
-      // Animate submit button glow micro-interaction
       const btn = waitlistForm.querySelector('button');
       gsap.to(btn, { scale: 1.05, duration: 0.1, yoyo: true, repeat: 1 });
     });
   }
 
   // --------------------------------------------------
-  // GSAP SCROLL STORYTELLING SYSTEM
+  // ADVANCED CINEMATIC SCROLL EXPERIENCES (GSAP)
   // --------------------------------------------------
-  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-    
-    // 1. Text entrance staggers (All section headers)
-    const animateHeaders = (triggerSelector) => {
-      gsap.from(`${triggerSelector} .badge`, {
-        opacity: 0,
-        y: 20,
-        duration: 0.6,
-        scrollTrigger: {
-          trigger: triggerSelector,
-          start: 'top 85%',
-        }
-      });
-
-      gsap.from(`${triggerSelector} .section-title`, {
-        opacity: 0,
-        y: 35,
-        duration: 0.8,
-        delay: 0.15,
-        scrollTrigger: {
-          trigger: triggerSelector,
-          start: 'top 80%',
-        }
-      });
-
-      gsap.from(`${triggerSelector} .section-subtitle`, {
-        opacity: 0,
-        y: 25,
-        duration: 0.8,
-        delay: 0.3,
-        scrollTrigger: {
-          trigger: triggerSelector,
-          start: 'top 80%',
-        }
-      });
-    };
-
-    // Apply staggering to all sections
-    ['#problem', '#solution', '#why-reviews', '#comparison', '#timeline', '#testimonials'].forEach(sec => {
-      animateHeaders(sec);
-    });
-
-    // 2. Section 2 Cards Entrance
-    gsap.from('#problem-cards-container', {
-      opacity: 0,
-      y: 40,
-      duration: 1,
+  
+  // 1. HERO PINNED EXPERIENCE
+  // Viewport pins. Text dissolves, 3D Canvas shifts to center, scales up and rotates.
+  const initHeroScrollExperience = () => {
+    const heroTl = gsap.timeline({
       scrollTrigger: {
-        trigger: '#problem-cards-container',
-        start: 'top 80%'
+        trigger: '#hero',
+        start: 'top top',
+        end: '+=100%',
+        pin: true,
+        scrub: 1.2,
       }
     });
 
-    // 3. Section 3 Grid Entrance
-    gsap.from('#cases-grid', {
+    // Fade out text content groups
+    heroTl.to('#hero-content-group', {
       opacity: 0,
-      y: 40,
-      duration: 1,
+      y: -60,
+      duration: 1
+    }, 0);
+
+    // Shift WebGL 3D Canvas container to the center and scale up
+    const isDesktop = window.innerWidth > 1024;
+    heroTl.to('#hero-canvas-group', {
+      x: isDesktop ? '-30%' : '0%',
+      scale: 1.15,
+      duration: 1.2,
+      ease: 'power2.inOut'
+    }, 0);
+  };
+  initHeroScrollExperience();
+
+  // 2. STAGGER ENTRANCE HEADERS
+  const animateHeaders = (triggerSelector) => {
+    gsap.from(`${triggerSelector} .badge`, {
+      opacity: 0,
+      y: 20,
+      duration: 0.6,
       scrollTrigger: {
-        trigger: '#cases-grid',
-        start: 'top 80%'
+        trigger: triggerSelector,
+        start: 'top 85%',
       }
     });
 
-    // 4. Section 4 Counters and Maps Mock animation
-    const animateReviewsSection = () => {
-      // Counter increments
-      const counts = [
-        { id: '#count-1', target: 93, suffix: '%' },
-        { id: '#count-2', target: 3, suffix: 'x' },
-        { id: '#count-3', target: 340, suffix: '%' }
-      ];
+    gsap.from(`${triggerSelector} .section-title`, {
+      opacity: 0,
+      y: 35,
+      duration: 0.8,
+      delay: 0.1,
+      scrollTrigger: {
+        trigger: triggerSelector,
+        start: 'top 80%',
+      }
+    });
 
-      counts.forEach(c => {
-        const el = document.querySelector(c.id);
-        if (!el) return;
-        
-        let initialVal = { value: 0 };
-        gsap.to(initialVal, {
-          value: c.target,
-          duration: 2.2,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: '#why-reviews',
-            start: 'top 75%',
-          },
-          onUpdate: () => {
-            el.innerHTML = Math.floor(initialVal.value) + c.suffix;
-          }
-        });
-      });
+    gsap.from(`${triggerSelector} .section-subtitle`, {
+      opacity: 0,
+      y: 25,
+      duration: 0.8,
+      delay: 0.2,
+      scrollTrigger: {
+        trigger: triggerSelector,
+        start: 'top 80%',
+      }
+    });
+  };
 
-      // Slide up Google Review Card inside map mock
-      gsap.to('.maps-mock-latest-review', {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        delay: 1.2,
+  ['#problem', '#solution', '#why-reviews', '#comparison', '#timeline', '#testimonials'].forEach(sec => {
+    animateHeaders(sec);
+  });
+
+  // Problem & Solution grids entry fades
+  gsap.from('#problem-cards-container', {
+    opacity: 0,
+    y: 40,
+    duration: 1,
+    scrollTrigger: {
+      trigger: '#problem-cards-container',
+      start: 'top 80%'
+    }
+  });
+
+  gsap.from('#cases-grid', {
+    opacity: 0,
+    y: 40,
+    duration: 1,
+    scrollTrigger: {
+      trigger: '#cases-grid',
+      start: 'top 80%'
+    }
+  });
+
+  // 3. REVIEWS PINNED NOTIFICATIONS STORM
+  // Pins the viewport while 3 reviews popup notification boxes slide up sequentially.
+  const initReviewsScrollExperience = () => {
+    const reviewsTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#why-reviews',
+        start: 'top top',
+        end: '+=120%',
+        pin: true,
+        scrub: 1,
+      }
+    });
+
+    // 1st popup slides up
+    reviewsTl.to('#popup-notif-1', {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      duration: 0.8,
+    }, 0.2);
+
+    // Live star rating shifts from 4.1 to 4.5
+    let rateVal = { value: 4.1 };
+    reviewsTl.to(rateVal, {
+      value: 4.5,
+      duration: 0.8,
+      onUpdate: () => {
+        document.getElementById('live-rating-count').innerHTML = rateVal.value.toFixed(1);
+      }
+    }, 0.2);
+
+    // 2nd popup
+    reviewsTl.to('#popup-notif-2', {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      duration: 0.8,
+    }, 0.6);
+
+    // Live rating shifts to 4.7
+    reviewsTl.to(rateVal, {
+      value: 4.7,
+      duration: 0.8,
+      onUpdate: () => {
+        document.getElementById('live-rating-count').innerHTML = rateVal.value.toFixed(1);
+      }
+    }, 0.6);
+
+    // 3rd popup
+    reviewsTl.to('#popup-notif-3', {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      duration: 0.8,
+    }, 1.0);
+
+    // Live rating shifts to 4.9
+    reviewsTl.to(rateVal, {
+      value: 4.9,
+      duration: 0.8,
+      onUpdate: () => {
+        document.getElementById('live-rating-count').innerHTML = rateVal.value.toFixed(1);
+      }
+    }, 1.0);
+
+    // General counters running in background
+    const counts = [
+      { id: '#count-1', target: 93, suffix: '%' },
+      { id: '#count-2', target: 3, suffix: 'x' },
+      { id: '#count-3', target: 340, suffix: '%' }
+    ];
+
+    counts.forEach(c => {
+      const el = document.querySelector(c.id);
+      if (!el) return;
+      
+      let initialVal = { value: 0 };
+      gsap.to(initialVal, {
+        value: c.target,
+        duration: 2.2,
+        ease: 'power3.out',
         scrollTrigger: {
           trigger: '#why-reviews',
-          start: 'top 70%'
+          start: 'top top',
         },
-        onStart: () => {
-          document.querySelector('.maps-mock-latest-review').classList.add('show');
+        onUpdate: () => {
+          el.innerHTML = Math.floor(initialVal.value) + c.suffix;
         }
       });
-    };
-    animateReviewsSection();
+    });
+  };
+  initReviewsScrollExperience();
 
-    // 5. Section 5 Split Screen wiping entries
-    gsap.from('.side-past', {
-      x: -60,
-      opacity: 0,
-      duration: 1,
+  // 4. INTERACTIVE SPLIT WIPER (Wipe slider)
+  // Pins the slide comparison. Scroll sweeps `--wipe-pos` clip-path from 0% to 100%.
+  const initWipeScrollExperience = () => {
+    const sliderContainer = document.getElementById('wipe-slider');
+    const futureLayer = document.getElementById('future-layer');
+    const sliderHandle = document.getElementById('slider-handle');
+
+    if (!sliderContainer || !futureLayer || !sliderHandle) return;
+
+    gsap.to(futureLayer, {
       scrollTrigger: {
         trigger: '#comparison',
-        start: 'top 75%'
+        start: 'top top',
+        end: '+=100%',
+        pin: true,
+        scrub: 0.5,
+        onUpdate: (self) => {
+          // Progress percentage from 0 to 100
+          const percent = self.progress * 100;
+          futureLayer.style.setProperty('--wipe-pos', `${percent}%`);
+          sliderHandle.style.setProperty('--wipe-pos', `${percent}%`);
+        }
       }
     });
+  };
+  initWipeScrollExperience();
 
-    gsap.from('.side-future', {
-      x: 60,
-      opacity: 0,
-      duration: 1,
-      scrollTrigger: {
-        trigger: '#comparison',
-        start: 'top 75%'
-      }
-    });
-
-    // 6. Section 6 Horizontal pinning (Sectores)
+  // 5. SECTORES (Horizontal scroll pinning)
+  const initHorizontalScroll = () => {
     const horizWrapper = document.getElementById('horizontal-cards-wrapper');
     const pinSection = document.querySelector('.pin-container');
 
-    if (horizWrapper && pinSection) {
-      const getScrollAmount = () => {
-        let cardsWidth = horizWrapper.scrollWidth;
-        return -(cardsWidth - window.innerWidth + window.innerWidth * 0.15);
-      };
+    if (!horizWrapper || !pinSection) return;
 
-      gsap.to(horizWrapper, {
-        x: getScrollAmount,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '.horizontal-scroll-section',
-          start: 'top top',
-          end: () => `+=${horizWrapper.scrollWidth - window.innerWidth}`,
-          pin: true,
-          scrub: 1,
-          invalidateOnRefresh: true // support resizing dynamically
-        }
-      });
+    const getScrollAmount = () => {
+      let cardsWidth = horizWrapper.scrollWidth;
+      return -(cardsWidth - window.innerWidth + window.innerWidth * 0.15);
+    };
 
-      // Animate pinned headers independently
-      gsap.from('.pin-header', {
-        opacity: 0,
-        x: -40,
-        duration: 0.8,
-        scrollTrigger: {
-          trigger: '.horizontal-scroll-section',
-          start: 'top top',
-          scrub: false
-        }
-      });
+    gsap.to(horizWrapper, {
+      x: getScrollAmount,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.horizontal-scroll-section',
+        start: 'top top',
+        end: () => `+=${horizWrapper.scrollWidth - window.innerWidth}`,
+        pin: true,
+        scrub: 1,
+        invalidateOnRefresh: true
+      }
+    });
+
+    gsap.from('.pin-header', {
+      opacity: 0,
+      x: -40,
+      duration: 0.8,
+      scrollTrigger: {
+        trigger: '.horizontal-scroll-section',
+        start: 'top top',
+        scrub: false
+      }
+    });
+  };
+  initHorizontalScroll();
+
+  // 6. TIMELINE STEP-BY-STEP PIN (Paint & Reveal)
+  // Pins setup. Neon painting line stretches, steps activate one by one.
+  const initTimelineScrollExperience = () => {
+    const timelineTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#timeline',
+        start: 'top top',
+        end: '+=120%',
+        pin: true,
+        scrub: 1,
+      }
+    });
+
+    // Draw the SVG paint path indicator
+    timelineTl.to('#timeline-paint-line', {
+      attr: { x2: 1000 },
+      duration: 1.5,
+      ease: 'none'
+    }, 0);
+
+    // Staggered trigger highlights for steps
+    timelineTl.to('#timeline-step-0', {
+      className: 'timeline-step active',
+      duration: 0.3
+    }, 0.1);
+
+    timelineTl.to('#timeline-step-1', {
+      className: 'timeline-step active',
+      duration: 0.3
+    }, 0.6);
+
+    timelineTl.to('#timeline-step-2', {
+      className: 'timeline-step active',
+      duration: 0.3
+    }, 1.1);
+  };
+  initTimelineScrollExperience();
+
+  // Background blobs slow organic parallax
+  gsap.to('.blob-1', {
+    y: 100,
+    x: -50,
+    scrollTrigger: {
+      trigger: 'body',
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: 2
     }
+  });
 
-    // 7. Section 7 Timeline Active step highlighter on scroll
-    const timelineSteps = document.querySelectorAll('.timeline-step');
-    timelineSteps.forEach((step, idx) => {
-      ScrollTrigger.create({
-        trigger: step,
-        start: 'top 65%',
-        end: 'bottom 45%',
-        onEnter: () => step.classList.add('active'),
-        onLeaveBack: () => step.classList.remove('active'),
-      });
-    });
-
-    // 8. Background blobs slow organic parallax
-    gsap.to('.blob-1', {
-      y: 100,
-      x: -50,
-      scrollTrigger: {
-        trigger: 'body',
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: 2
-      }
-    });
-
-    gsap.to('.blob-2', {
-      y: -150,
-      x: 100,
-      scrollTrigger: {
-        trigger: 'body',
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: 2
-      }
-    });
-  }
+  gsap.to('.blob-2', {
+    y: -150,
+    x: 100,
+    scrollTrigger: {
+      trigger: 'body',
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: 2
+    }
+  });
 });

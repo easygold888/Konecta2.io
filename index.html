@@ -62,129 +62,159 @@
   <div class="mesh-bg-container">
     <div class="bg-blob blob-1"></div>
     <div class="bg-blob blob-2"></div>
-    <div class="bg-blob blob-3"></div>
   </div>
 
   <!-- --------------------------------------------------
-       HEADER & NAVIGATION BAR
+       HEADER & NAVIGATION BAR (Bounded)
        -------------------------------------------------- -->
   <header>
-    <a href="#" class="logo">
-      <span>K</span>onecta2<div class="logo-dot"></div>
-    </a>
-    <nav>
-      <a href="#problem" data-i18n="nav.problems">El Problema</a>
-      <a href="#solution" data-i18n="nav.features">Casos de Uso</a>
-      <a href="#why-reviews" data-i18n="nav.benefits">Beneficios</a>
-      <a href="#industries" data-i18n="nav.industries">Sectores</a>
-      <a href="#timeline" data-i18n="nav.howItWorks">Cómo Funciona</a>
-      <a href="#testimonials" data-i18n="nav.reviews">Reseñas</a>
-    </nav>
-    <div class="nav-actions">
-      <button class="btn-lang" id="lang-toggle">EN</button>
-      <a href="#cta-waitlist" class="btn-primary" data-i18n="hero.cta">Empieza con Konecta2 →</a>
+    <div class="container header-container">
+      <a href="#" class="logo">
+        <span>K</span>onecta2<div class="logo-dot"></div>
+      </a>
+      <nav>
+        <a href="#problem" data-i18n="nav.problems">El Problema</a>
+        <a href="#solution" data-i18n="nav.features">Casos de Uso</a>
+        <a href="#why-reviews" data-i18n="nav.benefits">Beneficios</a>
+        <a href="#industries" data-i18n="nav.industries">Sectores</a>
+        <a href="#timeline" data-i18n="nav.howItWorks">Cómo Funciona</a>
+        <a href="#testimonials" data-i18n="nav.reviews">Reseñas</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="btn-lang" id="lang-toggle">EN</button>
+        <a href="#cta-waitlist" class="btn-primary" data-i18n="hero.cta">Empieza con Konecta2 →</a>
+      </div>
+      <button class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
-    <button class="hamburger">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
   </header>
 
   <!-- --------------------------------------------------
-       1. HERO SECTION
+       1. HERO SECTION (Bounded Pin Scene)
        -------------------------------------------------- -->
   <main>
     <section id="hero" class="section-wrapper">
-      <div class="hero-content">
-        <div class="badge">
-          <div class="nfc-ring-wave"></div>
-          <span data-i18n="hero.badge">Tecnología NFC de Siguiente Generación</span>
-        </div>
-        <h1 data-i18n="hero.headline">Un toque. Listo.</h1>
-        <p data-i18n="hero.subheadline">NFC inteligente que elimina la fricción entre tus clientes y las acciones que hacen crecer tu negocio. Sin descargas, sin cámaras, sin esperas.</p>
-        <div class="hero-actions">
-          <a href="#cta-waitlist" class="btn-primary" data-i18n="hero.cta">Empieza con Konecta2 →</a>
-          <div class="hero-nfc-indicator">
-            <span class="nfc-ring-wave"></span>
-            <span data-i18n="hero.headline">Un toque. Listo.</span>
+      <div class="container hero-pin-wrapper">
+        <div class="hero-content" id="hero-content-group">
+          <div class="badge">
+            <div class="nfc-ring-wave"></div>
+            <span data-i18n="hero.badge">Tecnología NFC de Siguiente Generación</span>
+          </div>
+          <h1 data-i18n="hero.headline">Un toque. Listo.</h1>
+          <p data-i18n="hero.subheadline">NFC inteligente que elimina la fricción entre tus clientes y las acciones que hacen crecer tu negocio. Sin descargas, sin cámaras, sin esperas.</p>
+          <div class="hero-actions">
+            <a href="#cta-waitlist" class="btn-primary" data-i18n="hero.cta">Empieza con Konecta2 →</a>
+            <div class="hero-nfc-indicator">
+              <span class="nfc-ring-wave"></span>
+              <span>1 Tap</span>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="hero-canvas-container">
-        <div id="canvas-3d"></div>
+        <div class="hero-canvas-container" id="hero-canvas-group">
+          <div id="canvas-3d"></div>
+        </div>
       </div>
     </section>
 
     <!-- --------------------------------------------------
-         2. EL PROBLEMA (Friction)
+         2. EL PROBLEMA (Friction Bounded)
          -------------------------------------------------- -->
     <section id="problem" class="section-wrapper">
-      <div class="badge" data-i18n="problem.badge">Fricción diaria</div>
-      <h2 class="section-title" data-i18n="problem.headline">El costo oculto del papel y los códigos QR</h2>
-      <p class="section-subtitle" data-i18n="problem.subheadline">Las formas tradicionales de interactuar con tus clientes físicos tienen demasiados pasos intermedios. Cada paso es un cliente que desiste.</p>
-      
-      <div class="problem-cards-container" id="problem-cards-container">
-        <!-- Rendered dynamically by app.js -->
+      <div class="container">
+        <div class="badge" data-i18n="problem.badge">Fricción diaria</div>
+        <h2 class="section-title" data-i18n="problem.headline">El costo oculto del papel y los códigos QR</h2>
+        <p class="section-subtitle" data-i18n="problem.subheadline">Las formas tradicionales de interactuar con tus clientes físicos tienen demasiados pasos intermedios. Cada paso es un cliente que desiste.</p>
+        
+        <div class="problem-cards-container" id="problem-cards-container">
+          <!-- Rendered dynamically by app.js -->
+        </div>
       </div>
     </section>
 
     <!-- --------------------------------------------------
-         3. CASOS DE USO (La Solución)
+         3. CASOS DE USO (La Solución Bounded)
          -------------------------------------------------- -->
     <section id="solution" class="section-wrapper">
-      <div class="badge" data-i18n="solution.badge">La Solución</div>
-      <h2 class="section-title" data-i18n="solution.headline">Un solo tap. Acciones instantáneas.</h2>
-      <p class="section-subtitle" data-i18n="solution.subheadline">Dispositivos NFC físicos que enlazan directamente a lo que tu negocio necesita en cada momento. Sin pasos extra.</p>
-      
-      <div class="cases-grid" id="cases-grid">
-        <!-- Rendered dynamically by app.js -->
+      <div class="container">
+        <div class="badge" data-i18n="solution.badge">La Solución</div>
+        <h2 class="section-title" data-i18n="solution.headline">Un solo tap. Acciones instantáneas.</h2>
+        <p class="section-subtitle" data-i18n="solution.subheadline">Dispositivos NFC físicos que enlazan directamente a lo que tu negocio necesita en cada momento. Sin pasos extra.</p>
+        
+        <div class="cases-grid" id="cases-grid">
+          <!-- Rendered dynamically by app.js -->
+        </div>
       </div>
     </section>
 
     <!-- --------------------------------------------------
-         4. POR QUÉ IMPORTAN LAS RESEÑAS
+         4. POR QUÉ IMPORTAN LAS RESEÑAS (Notifications experience)
          -------------------------------------------------- -->
     <section id="why-reviews" class="section-wrapper">
-      <div class="reviews-grid">
-        <div class="reviews-narrative">
-          <div class="badge" data-i18n="whyReviews.badge">Visibilidad Orgánica</div>
-          <h2 class="section-title" data-i18n="whyReviews.headline">Por qué las reseñas importan más que nunca</h2>
-          <p data-i18n="whyReviews.text1">El comportamiento del consumidor ha cambiado radicalmente. Hoy en día, tu reputación online determina tu flujo de clientes físicos.</p>
-          <p data-i18n="whyReviews.text2">Los motores de respuesta artificial (como ChatGPT, Gemini y Perplexity) priorizan y citan hasta 3 veces más a los negocios locales con valoraciones constantes en Maps.</p>
-          
-          <div class="counters-container">
-            <div class="counter-item">
-              <div class="counter-number" id="count-1">0%</div>
-              <div class="counter-label" data-i18n="whyReviews.stats.0.label">de los usuarios lee reseñas locales antes de tomar una decisión de compra.</div>
-            </div>
-            <div class="counter-item">
-              <div class="counter-number" id="count-2">0x</div>
-              <div class="counter-label" data-i18n="whyReviews.stats.1.label">más menciones y recomendaciones por parte de buscadores impulsados por IA.</div>
-            </div>
-            <div class="counter-item">
-              <div class="counter-number" id="count-3">0%</div>
-              <div class="counter-label" data-i18n="whyReviews.stats.2.label">de incremento promedio en reseñas de Google Maps en los primeros 30 días de uso.</div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="maps-mock-container">
-          <div class="maps-mock-card">
-            <div class="maps-mock-header">
-              <div class="maps-mock-avatar">K2</div>
-              <div class="maps-mock-title">
-                <h4 data-i18n="footer.tagline">Toca. Conectados.</h4>
-                <p>Google Maps Local Profile</p>
+      <div class="container">
+        <div class="reviews-grid">
+          <div class="reviews-narrative">
+            <div class="badge" data-i18n="whyReviews.badge">Visibilidad Orgánica</div>
+            <h2 class="section-title" data-i18n="whyReviews.headline">Por qué las reseñas importan más que nunca</h2>
+            <p data-i18n="whyReviews.text1">El comportamiento del consumidor ha cambiado radicalmente. Hoy en día, tu reputación online determina tu flujo de clientes físicos.</p>
+            <p data-i18n="whyReviews.text2">Los motores de respuesta artificial (como ChatGPT, Gemini y Perplexity) priorizan y citan hasta 3 veces más a los negocios locales con valoraciones constantes en Maps.</p>
+            
+            <div class="counters-container">
+              <div class="counter-item">
+                <div class="counter-number" id="count-1">0%</div>
+                <div class="counter-label" data-i18n="whyReviews.stats.0.label">de los usuarios lee reseñas locales antes de tomar una decisión de compra.</div>
+              </div>
+              <div class="counter-item">
+                <div class="counter-number" id="count-2">0x</div>
+                <div class="counter-label" data-i18n="whyReviews.stats.1.label">más menciones y recomendaciones por parte de buscadores impulsados por IA.</div>
+              </div>
+              <div class="counter-item">
+                <div class="counter-number" id="count-3">0%</div>
+                <div class="counter-label" data-i18n="whyReviews.stats.2.label">de incremento promedio en reseñas de Google Maps en los primeros 30 días de uso.</div>
               </div>
             </div>
-            <div class="maps-mock-body">
-              <div class="rating-stars">★★★★★</div>
-              <div class="rating-count">4.9</div>
-              <div class="rating-subtext">Basado en opiniones reales</div>
-              <div class="maps-mock-latest-review">
-                <strong> Rosso Trattoria:</strong>
-                <p>"La mejor experiencia gastronómica de la ciudad. El servicio es sumamente rápido y atento."</p>
+          </div>
+          
+          <div class="maps-mock-container" id="maps-pin-trigger">
+            <div class="maps-mock-card">
+              <div class="maps-mock-header">
+                <div class="maps-mock-avatar">K2</div>
+                <div class="maps-mock-title">
+                  <h4 data-i18n="footer.tagline">Toca. Conectados.</h4>
+                  <p>Google Maps Local Profile</p>
+                </div>
+              </div>
+              <div class="maps-mock-body">
+                <div class="rating-stars">★★★★★</div>
+                <div class="rating-count" id="live-rating-count">4.1</div>
+                <div class="rating-subtext">Google Maps Star Count</div>
+                
+                <!-- absolute notification popup alerts stream -->
+                <div class="notifications-stream">
+                  <div class="popup-notif" id="popup-notif-1">
+                    <div class="popup-avatar">AR</div>
+                    <div class="popup-content">
+                      <h5>Rosso Trattoria</h5>
+                      <p>⭐⭐⭐⭐⭐ "+340% reseñas en 30 días!"</p>
+                    </div>
+                  </div>
+                  <div class="popup-notif" id="popup-notif-2">
+                    <div class="popup-avatar">MS</div>
+                    <div class="popup-content">
+                      <h5>Mariana Silva</h5>
+                      <p>⭐⭐⭐⭐⭐ "Networking en el acto!"</p>
+                    </div>
+                  </div>
+                  <div class="popup-notif" id="popup-notif-3">
+                    <div class="popup-avatar">CM</div>
+                    <div class="popup-content">
+                      <h5>Hotel Vista</h5>
+                      <p>⭐⭐⭐⭐⭐ "3x más citas en TripAdvisor!"</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -193,26 +223,49 @@
     </section>
 
     <!-- --------------------------------------------------
-         5. COMPARATIVO (Past vs Future)
+         5. COMPARATIVO WIPER (Interactive Clip-Path)
          -------------------------------------------------- -->
     <section id="comparison" class="section-wrapper">
-      <div class="badge" data-i18n="pastVsFuture.badge">Evolución</div>
-      <h2 class="section-title" data-i18n="pastVsFuture.headline">El pasado de papel vs el futuro NFC</h2>
-      <p class="section-subtitle" data-i18n="pastVsFuture.subheadline">Seguir usando tarjetas de papel o códigos QR estáticos es como enviar un fax en la era de los smartphones. Es hora de evolucionar.</p>
-      
-      <div class="glass-card comparison-container">
-        <div class="comparison-divider"></div>
-        <div class="comparison-side side-past">
-          <h3 data-i18n="pastVsFuture.past.title">Tarjeta de Papel Tradicional</h3>
-          <ul class="comparison-list" id="past-list">
-            <!-- Rendered dynamically by app.js -->
-          </ul>
-        </div>
-        <div class="comparison-side side-future">
-          <h3 data-i18n="pastVsFuture.future.title">Tecnología Konecta2 NFC</h3>
-          <ul class="comparison-list" id="future-list">
-            <!-- Rendered dynamically by app.js -->
-          </ul>
+      <div class="container">
+        <div class="badge" data-i18n="pastVsFuture.badge">Evolución</div>
+        <h2 class="section-title" data-i18n="pastVsFuture.headline">El pasado de papel vs el futuro NFC</h2>
+        <p class="section-subtitle" data-i18n="pastVsFuture.subheadline">Seguir usando tarjetas de papel o códigos QR estáticos es como enviar un fax en la era de los smartphones. Es hora de evolucionar.</p>
+        
+        <div class="wipe-comparison-outer" id="wipe-pin-trigger">
+          <div class="wipe-comparison-inner" id="wipe-slider">
+            
+            <!-- Base Layer: Paper Traditional Card (Past) -->
+            <div class="comparison-layer layer-past">
+              <div class="layer-content">
+                <h3 data-i18n="pastVsFuture.past.title">Tarjeta de Papel Tradicional</h3>
+                <div class="comparison-layout-grid">
+                  <ul class="comparison-list" id="past-list">
+                    <!-- Programmatic -->
+                  </ul>
+                  <div style="display:flex;align-items:center;justify-content:center;font-size:5.5rem;opacity:0.06;user-select:none;">📇</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Foreground Layer: Smart Card (Future) -->
+            <div class="comparison-layer layer-future" id="future-layer">
+              <div class="layer-content">
+                <h3 data-i18n="pastVsFuture.future.title">Tecnología Konecta2 NFC</h3>
+                <div class="comparison-layout-grid">
+                  <ul class="comparison-list" id="future-list">
+                    <!-- Programmatic -->
+                  </ul>
+                  <div style="display:flex;align-items:center;justify-content:center;font-size:5.5rem;color:var(--accent-1);filter:drop-shadow(0 0 20px var(--accent-1));opacity:0.2;user-select:none;">⚡</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Wiper handle bar -->
+            <div class="wipe-handle" id="slider-handle">
+              <div class="wipe-handle-knob">↔</div>
+            </div>
+
+          </div>
         </div>
       </div>
     </section>
@@ -234,19 +287,22 @@
     </section>
 
     <!-- --------------------------------------------------
-         7. CÓMO FUNCIONA
+         7. CÓMO FUNCIONA (Step Pinned stages)
          -------------------------------------------------- -->
     <section id="timeline" class="section-wrapper">
-      <div class="badge" data-i18n="howItWorks.badge">Simplicidad</div>
-      <h2 class="section-title" data-i18n="howItWorks.headline">Configuración en 3 pasos sencillos</h2>
-      <p class="section-subtitle" data-i18n="howItWorks.subheadline">Sin descargar aplicaciones complejas. Todo funciona de manera nativa en cualquier dispositivo moderno.</p>
-      
-      <div class="timeline-container">
-        <svg class="timeline-svg-path" viewBox="0 0 1000 10" preserveAspectRatio="none">
-          <line x1="0" y1="5" x2="1000" y2="5" stroke="rgba(79, 110, 247, 0.15)" stroke-width="4"></line>
-        </svg>
-        <div class="timeline-steps" id="timeline-steps">
-          <!-- Rendered dynamically by app.js -->
+      <div class="container" id="timeline-pin-trigger">
+        <div class="badge" data-i18n="howItWorks.badge">Simplicidad</div>
+        <h2 class="section-title" data-i18n="howItWorks.headline">Configuración en 3 pasos sencillos</h2>
+        <p class="section-subtitle" data-i18n="howItWorks.subheadline">Sin descargar aplicaciones complejas. Todo funciona de manera nativa en cualquier dispositivo moderno.</p>
+        
+        <div class="timeline-container">
+          <svg class="timeline-svg-path" viewBox="0 0 1000 10" preserveAspectRatio="none">
+            <line x1="0" y1="5" x2="1000" y2="5" stroke="rgba(30, 62, 196, 0.15)" stroke-width="4"></line>
+            <line x1="0" y1="5" x2="0" y2="5" id="timeline-paint-line" stroke="var(--accent-1)" stroke-width="4"></line>
+          </svg>
+          <div class="timeline-steps" id="timeline-steps">
+            <!-- Rendered dynamically by app.js -->
+          </div>
         </div>
       </div>
     </section>
@@ -255,12 +311,14 @@
          8. TESTIMONIALS
          -------------------------------------------------- -->
     <section id="testimonials" class="section-wrapper">
-      <div class="badge" data-i18n="testimonials.badge">Casos de Éxito</div>
-      <h2 class="section-title" data-i18n="testimonials.headline">Opiniones que hablan por nosotros</h2>
-      <p class="section-subtitle" data-i18n="testimonials.subheadline">Negocios locales que han transformado la forma en que conectan con sus comunidades.</p>
-      
-      <div class="testimonials-slider" id="testimonials-slider">
-        <!-- Rendered dynamically by app.js -->
+      <div class="container">
+        <div class="badge" data-i18n="testimonials.badge">Casos de Éxito</div>
+        <h2 class="section-title" data-i18n="testimonials.headline">Opiniones que hablan por nosotros</h2>
+        <p class="section-subtitle" data-i18n="testimonials.subheadline">Negocios locales que han transformado la forma en que conectan con sus comunidades.</p>
+        
+        <div class="testimonials-slider" id="testimonials-slider">
+          <!-- Rendered dynamically by app.js -->
+        </div>
       </div>
     </section>
 
@@ -268,38 +326,42 @@
          9. CTA WAITLIST (Dark Theme)
          -------------------------------------------------- -->
     <section id="cta-waitlist">
-      <div class="waitlist-container">
-        <h2 data-i18n="waitlist.headline">Únete a la revolución sin fricción</h2>
-        <p data-i18n="waitlist.subheadline">Los primeros 100 negocios en registrarse obtienen un precio exclusivo de fundadores y envío prioritario. Asegura tu dispositivo hoy mismo.</p>
-        
-        <form class="waitlist-form" id="waitlist-form" novalidate>
-          <input type="email" placeholder="Ingresa tu correo electrónico profesional" data-i18n="waitlist.placeholder" required>
-          <button type="submit" data-i18n="waitlist.cta">Quiero mi Konecta2 →</button>
-        </form>
-        
-        <div class="waitlist-msg" id="waitlist-msg"></div>
-        <div class="waitlist-subtext" data-i18n="waitlist.subtext">konecta2.io — conectados desde el primer tap</div>
-      </div>
-      <div class="cta-canvas-container">
-        <div id="cta-canvas-3d"></div>
+      <div class="container">
+        <div class="waitlist-container">
+          <h2 data-i18n="waitlist.headline">Únete a la revolución sin fricción</h2>
+          <p data-i18n="waitlist.subheadline">Los primeros 100 negocios en registrarse obtienen un precio exclusivo de fundadores y envío prioritario. Asegura tu dispositivo hoy mismo.</p>
+          
+          <form class="waitlist-form" id="waitlist-form" novalidate>
+            <input type="email" placeholder="Ingresa tu correo electrónico profesional" data-i18n="waitlist.placeholder" required>
+            <button type="submit" data-i18n="waitlist.cta">Quiero mi Konecta2 →</button>
+          </form>
+          
+          <div class="waitlist-msg" id="waitlist-msg"></div>
+          <div class="waitlist-subtext" data-i18n="waitlist.subtext">konecta2.io — conectados desde el primer tap</div>
+        </div>
+        <div class="cta-canvas-container">
+          <div id="cta-canvas-3d"></div>
+        </div>
       </div>
     </section>
   </main>
 
   <!-- --------------------------------------------------
-       FOOTER
+       FOOTER (Bounded)
        -------------------------------------------------- -->
   <footer>
-    <div class="footer-top">
-      <a href="#" class="logo">
-        <span>K</span>onecta2<div class="logo-dot"></div>
-      </a>
-      <div class="footer-tagline" data-i18n="footer.tagline">Toca. Conectados.</div>
-    </div>
-    <div class="footer-bottom">
-      <div class="footer-rights" data-i18n="footer.rights">© 2026 Konecta2.io S.A.S. Todos los derechos reservados.</div>
-      <div class="footer-links">
-        <a href="#" data-i18n="footer.legal">Términos de Servicio | Privacidad</a>
+    <div class="container">
+      <div class="footer-top">
+        <a href="#" class="logo">
+          <span>K</span>onecta2<div class="logo-dot"></div>
+        </a>
+        <div class="footer-tagline" data-i18n="footer.tagline">Toca. Conectados.</div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-rights" data-i18n="footer.rights">© 2026 Konecta2.io S.A.S. Todos los derechos reservados.</div>
+        <div class="footer-links">
+          <a href="#" data-i18n="footer.legal">Términos de Servicio | Privacidad</a>
+        </div>
       </div>
     </div>
   </footer>

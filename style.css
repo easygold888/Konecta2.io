@@ -1,44 +1,49 @@
 /* ----------------------------------------------------
-   DESIGN SYSTEM & CSS VARIABLES
+   DESIGN SYSTEM & CSS VARIABLES (70-20-10 Revamp)
    ---------------------------------------------------- */
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap');
 
 :root {
-  --bg-primary: #F2F5FC;          /* Premium soft blue-white */
-  --bg-dark: #0A0F2E;             /* High contrast dark blue */
-  --bg-glass: rgba(255, 255, 255, 0.45);
-  --bg-glass-dark: rgba(10, 15, 46, 0.7);
-  --border-glass: rgba(255, 255, 255, 0.4);
-  --border-glass-dark: rgba(255, 255, 255, 0.1);
-  --blur-glass: blur(20px);
-  
-  --accent-1: #4F6EF7;            /* Electric blue */
-  --accent-2: #00E5C4;            /* Cyan NFC */
-  --accent-3: #A78BFA;            /* Soft violet */
-  
-  --text-primary: #0A0F2E;        /* Deep ink */
-  --text-secondary: #5A6480;      /* Slate grey */
-  --text-light: #F2F5FC;          /* Off-white */
-  
-  --glow-color: rgba(79, 110, 247, 0.2);
-  --glow-nfc: rgba(0, 229, 196, 0.4);
+  /* --- 70% LIGHT BLUES (Backgrounds, grids, glass layers) --- */
+  --bg-primary: #EBF1FC;          /* Clean light blue-white */
+  --bg-secondary: #DCE6F5;        /* Medium soft blue background */
+  --bg-glass: rgba(230, 237, 250, 0.45);
+  --border-glass: rgba(230, 237, 250, 0.6);
+  --light-blue-shade: #C5D7F0;    /* Muted highlight blue */
+  --blur-glass: blur(24px);
+
+  /* --- 20% DARK BLUES (Depth, headings, buttons, shadows, dark cards) --- */
+  --bg-dark: #060A24;             /* Space midnight blue */
+  --bg-dark-glass: rgba(6, 10, 36, 0.85);
+  --accent-1: #1E3EC4;            /* Royal electric blue */
+  --text-secondary: #1F2E5E;      /* Readable slate blue for subtext */
+  --glow-color: rgba(30, 62, 196, 0.22);
+  --shadow-color: rgba(6, 10, 36, 0.08);
+
+  /* --- 10% BLACK & WHITE HIGHLIGHTS (Strong titles, high contrast elements) --- */
+  --text-primary: #000000;        /* Pure black for displays */
+  --text-light: #FFFFFF;          /* Pure white on dark backgrounds */
+  --accent-2: #00FFDB;            /* Neon cyan NFC signal highlight */
+  --border-glass-dark: rgba(255, 255, 255, 0.15);
+
+  /* --- Font Tokens --- */
   --font-display: 'Syne', sans-serif;
   --font-body: 'Outfit', sans-serif;
-  --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ----------------------------------------------------
-   BASE STYLES & RESET
+   BASE STYLES, RESET & BOUNDING WRAPPERS
    ---------------------------------------------------- */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  cursor: none !important; /* Hide native cursor for custom cursor */
+  cursor: none !important; /* Hide native cursor for custom pointer */
 }
 
 html {
-  scroll-behavior: initial; /* Managed by GSAP */
+  scroll-behavior: initial; /* Managed by GSAP ScrollTrigger */
   overflow-x: hidden;
   font-size: 16px;
 }
@@ -52,7 +57,16 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Scrollbar customization */
+/* Constraining Container to prevent horizontal stretching */
+.container {
+  width: 100%;
+  max-width: 1240px; /* Bounded desktop width */
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+}
+
+/* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -60,7 +74,7 @@ body {
   background: var(--bg-primary);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(79, 110, 247, 0.3);
+  background: rgba(30, 62, 196, 0.3);
   border-radius: 20px;
   border: 2px solid var(--bg-primary);
 }
@@ -72,9 +86,9 @@ body {
    CUSTOM CURSOR & GLOW EFFECT
    ---------------------------------------------------- */
 .custom-cursor {
-  width: 20px;
-  height: 20px;
-  background: var(--accent-1);
+  width: 18px;
+  height: 18px;
+  background: var(--text-primary);
   border-radius: 50%;
   position: fixed;
   top: 0;
@@ -83,30 +97,29 @@ body {
   z-index: 9999;
   transform: translate(-50%, -50%);
   transition: transform 0.1s ease, background-color 0.3s ease;
+  border: 2px solid var(--text-light);
 }
 
 .custom-cursor-glow {
   width: 250px;
   height: 250px;
-  background: radial-gradient(circle, rgba(79, 110, 247, 0.15) 0%, rgba(0, 229, 196, 0.05) 50%, rgba(0, 0, 0, 0) 100%);
+  background: radial-gradient(circle, rgba(30, 62, 196, 0.15) 0%, rgba(0, 255, 219, 0.05) 50%, rgba(0, 0, 0, 0) 100%);
   position: fixed;
   top: 0;
   left: 0;
   pointer-events: none;
   z-index: 9998;
   transform: translate(-50%, -50%);
-  mix-blend-mode: screen;
 }
 
-/* Hover scales cursor */
 .custom-cursor.hovered {
-  transform: translate(-50%, -50%) scale(2.5);
+  transform: translate(-50%, -50%) scale(2.2);
   background: var(--accent-2);
-  mix-blend-mode: difference;
+  border-color: var(--bg-dark);
 }
 
 /* ----------------------------------------------------
-   BACKGROUND DECORATIONS
+   BACKGROUND MESH & DECORATIONS
    ---------------------------------------------------- */
 .mesh-bg-container {
   position: fixed;
@@ -123,34 +136,25 @@ body {
 .bg-blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(120px);
-  opacity: 0.45;
-  mix-blend-mode: multiply;
+  filter: blur(140px);
+  opacity: 0.5;
   pointer-events: none;
 }
 
 .blob-1 {
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, var(--accent-3) 0%, rgba(167, 139, 250, 0.1) 70%);
-  top: -10%;
+  background: radial-gradient(circle, var(--light-blue-shade) 0%, rgba(235, 241, 252, 0.1) 70%);
+  top: -15%;
   right: -5%;
 }
 
 .blob-2 {
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, var(--accent-1) 0%, rgba(79, 110, 247, 0.1) 70%);
+  background: radial-gradient(circle, var(--bg-secondary) 0%, rgba(235, 241, 252, 0.1) 70%);
   bottom: 10%;
   left: -10%;
-}
-
-.blob-3 {
-  width: 450px;
-  height: 450px;
-  background: radial-gradient(circle, var(--accent-2) 0%, rgba(0, 229, 196, 0.1) 70%);
-  top: 40%;
-  right: 15%;
 }
 
 /* ----------------------------------------------------
@@ -161,15 +165,18 @@ header {
   top: 0;
   left: 0;
   width: 100%;
-  padding: 1.5rem 5%;
   z-index: 1000;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(242, 245, 252, 0.2);
+  background: rgba(235, 241, 252, 0.25);
   backdrop-filter: var(--blur-glass);
   -webkit-backdrop-filter: var(--blur-glass);
   border-bottom: 1px solid var(--border-glass);
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 85px;
 }
 
 .logo {
@@ -177,6 +184,7 @@ header {
   font-size: 1.6rem;
   font-weight: 800;
   color: var(--text-primary);
+  text-decoration: none;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -198,7 +206,7 @@ header {
 nav {
   display: flex;
   align-items: center;
-  gap: 2.5rem;
+  gap: 2.2rem;
 }
 
 nav a {
@@ -232,7 +240,7 @@ nav a:hover::after {
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1.2rem;
 }
 
 .btn-lang {
@@ -243,7 +251,7 @@ nav a:hover::after {
   padding: 0.5rem 1rem;
   border-radius: 12px;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--text-secondary);
   font-family: var(--font-body);
   transition: var(--transition-smooth);
 }
@@ -253,13 +261,12 @@ nav a:hover::after {
   color: var(--text-light);
   border-color: var(--accent-1);
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px var(--glow-color);
 }
 
 .btn-primary {
   background: var(--accent-1);
   border: none;
-  padding: 0.75rem 1.75rem;
+  padding: 0.75rem 1.6rem;
   border-radius: 14px;
   font-family: var(--font-body);
   font-weight: 600;
@@ -267,17 +274,17 @@ nav a:hover::after {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  box-shadow: 0 8px 30px var(--glow-color);
+  box-shadow: 0 8px 25px var(--glow-color);
   transition: var(--transition-smooth);
+  text-decoration: none;
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  background: #3e5be0;
-  box-shadow: 0 12px 35px rgba(79, 110, 247, 0.4);
+  background: #142ca1;
+  box-shadow: 0 12px 30px rgba(30, 62, 196, 0.4);
 }
 
-/* Hamburger menu for mobile */
 .hamburger {
   display: none;
   flex-direction: column;
@@ -298,7 +305,7 @@ nav a:hover::after {
    GENERAL GRID & COMPONENT UTILITIES (Glassmorphism)
    ---------------------------------------------------- */
 .section-wrapper {
-  padding: 8rem 5% 6rem;
+  padding: 9rem 0 7rem;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -311,11 +318,11 @@ nav a:hover::after {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: rgba(79, 110, 247, 0.08);
-  border: 1px solid rgba(79, 110, 247, 0.2);
+  background: rgba(30, 62, 196, 0.08);
+  border: 1px solid rgba(30, 62, 196, 0.2);
   color: var(--accent-1);
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   text-transform: uppercase;
   letter-spacing: 1px;
   padding: 0.5rem 1.2rem;
@@ -326,7 +333,7 @@ nav a:hover::after {
 
 .section-title {
   font-family: var(--font-display);
-  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-size: clamp(2.2rem, 4.5vw, 3.6rem);
   font-weight: 800;
   line-height: 1.1;
   color: var(--text-primary);
@@ -335,10 +342,11 @@ nav a:hover::after {
 }
 
 .section-subtitle {
-  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  font-size: clamp(1.05rem, 1.8vw, 1.25rem);
   color: var(--text-secondary);
   max-width: 700px;
   margin-bottom: 3.5rem;
+  font-weight: 400;
 }
 
 .glass-card {
@@ -348,21 +356,30 @@ nav a:hover::after {
   -webkit-backdrop-filter: var(--blur-glass);
   border-radius: 24px;
   padding: 2.5rem;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 16px 40px var(--shadow-color);
   transition: var(--transition-smooth);
 }
 
 /* ----------------------------------------------------
-   1. HERO SECTION
+   1. HERO SECTION (Pinned Cinematic Storyteller)
    ---------------------------------------------------- */
 #hero {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 0;
+}
+
+.hero-pin-wrapper {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
   align-items: center;
-  min-height: 100vh;
-  gap: 2rem;
-  position: relative;
-  padding-top: 6rem;
+  width: 100%;
+  height: 100vh;
+  gap: 3rem;
 }
 
 .hero-content {
@@ -370,23 +387,17 @@ nav a:hover::after {
   flex-direction: column;
 }
 
-.hero-content .badge {
-  animation: pulseGlow 3s infinite ease-in-out;
-}
-
 .hero-content h1 {
   font-family: var(--font-display);
-  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-size: clamp(3.2rem, 5.5vw, 5.2rem);
   font-weight: 800;
   line-height: 1.05;
   margin-bottom: 1.5rem;
-  background: linear-gradient(135deg, var(--text-primary) 30%, var(--accent-1) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--text-primary);
 }
 
 .hero-content p {
-  font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
   color: var(--text-secondary);
   margin-bottom: 2.5rem;
   max-width: 600px;
@@ -434,7 +445,11 @@ nav a:hover::after {
 
 .hero-canvas-container {
   width: 100%;
-  height: 80vh;
+  /* Restrict aspect ratio and bounds to prevent stretching */
+  aspect-ratio: 1 / 1;
+  max-width: 500px;
+  height: 500px;
+  margin: 0 auto;
   position: relative;
 }
 
@@ -444,7 +459,6 @@ nav a:hover::after {
   left: 0;
   width: 100%;
   height: 100%;
-  pointer-events: auto;
 }
 
 /* ----------------------------------------------------
@@ -461,6 +475,8 @@ nav a:hover::after {
   flex-direction: column;
   position: relative;
   overflow: hidden;
+  background: rgba(230, 237, 250, 0.6);
+  border: 1px solid rgba(30, 62, 196, 0.08);
 }
 
 .problem-card::before {
@@ -470,7 +486,7 @@ nav a:hover::after {
   left: 0;
   width: 100%;
   height: 4px;
-  background: linear-gradient(90deg, #EF4444, var(--accent-3));
+  background: linear-gradient(90deg, #F35B5B, var(--accent-1));
   opacity: 0.7;
 }
 
@@ -478,7 +494,7 @@ nav a:hover::after {
   font-family: var(--font-display);
   font-size: 3rem;
   font-weight: 800;
-  color: rgba(239, 68, 68, 0.15);
+  color: rgba(30, 62, 196, 0.12);
   margin-bottom: 1rem;
 }
 
@@ -512,7 +528,7 @@ nav a:hover::after {
 .case-icon {
   width: 50px;
   height: 50px;
-  background: rgba(79, 110, 247, 0.1);
+  background: rgba(30, 62, 196, 0.08);
   border-radius: 16px;
   display: flex;
   align-items: center;
@@ -537,25 +553,32 @@ nav a:hover::after {
 
 .case-card:hover {
   transform: translateY(-8px);
-  border-color: rgba(79, 110, 247, 0.4);
-  box-shadow: 0 30px 60px rgba(79, 110, 247, 0.08);
+  border-color: rgba(30, 62, 196, 0.35);
+  box-shadow: 0 20px 45px rgba(30, 62, 196, 0.08);
 }
 
 .case-card:hover .case-icon {
   background: var(--accent-1);
   color: var(--text-light);
-  transform: rotate(10deg) scale(1.1);
-  box-shadow: 0 8px 20px var(--glow-color);
+  transform: rotate(8deg) scale(1.1);
+  box-shadow: 0 8px 18px var(--glow-color);
 }
 
 /* ----------------------------------------------------
-   4. WHY REVIEWS MATTER (Narrative & Stats)
+   4. WHY REVIEWS MATTER (Pinned Notifications Experience)
    ---------------------------------------------------- */
+#why-reviews {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
 .reviews-grid {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
   gap: 4rem;
   align-items: center;
+  width: 100%;
 }
 
 .reviews-narrative p {
@@ -597,10 +620,10 @@ nav a:hover::after {
   line-height: 1.4;
 }
 
-/* Google Maps visual mock */
+/* Google Maps Mock (Popup stream targets) */
 .maps-mock-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   position: relative;
   width: 100%;
@@ -608,10 +631,10 @@ nav a:hover::after {
 
 .maps-mock-card {
   width: 100%;
-  max-width: 420px;
+  max-width: 380px;
   border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 30px 70px rgba(79, 110, 247, 0.12);
+  box-shadow: 0 25px 60px var(--shadow-color);
   border: 1px solid var(--border-glass);
 }
 
@@ -674,107 +697,175 @@ nav a:hover::after {
   margin-bottom: 1.5rem;
 }
 
-.maps-mock-latest-review {
-  background: var(--bg-primary);
-  border-radius: 16px;
-  padding: 1rem;
-  text-align: left;
-  font-size: 0.88rem;
-  color: var(--text-secondary);
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  position: relative;
-  opacity: 0;
-  transform: translateY(15px);
-  transition: var(--transition-smooth);
+/* Container for absolute scrolling notifications popups */
+.notifications-stream {
+  position: absolute;
+  width: 100%;
+  max-width: 380px;
+  height: 100%;
+  top: 0;
+  pointer-events: none;
+  z-index: 5;
 }
 
-.maps-mock-latest-review.show {
+.popup-notif {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--border-glass);
+  border-radius: 16px;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  box-shadow: 0 15px 35px rgba(6, 10, 36, 0.12);
+  margin-bottom: 1rem;
+  opacity: 0;
+  transform: translateY(30px) scale(0.9);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  pointer-events: auto;
+}
+
+.popup-notif.show {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
+}
+
+.popup-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--light-blue-shade);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.85rem;
+}
+
+.popup-content h5 {
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.popup-content p {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
 }
 
 /* ----------------------------------------------------
-   5. COMPARISON SPLIT SCREEN
+   5. INTERACTIVE WIPER COMPARISON (Clip-Path Slider)
    ---------------------------------------------------- */
-.comparison-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
+.wipe-comparison-outer {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
   position: relative;
 }
 
-.comparison-divider {
-  position: absolute;
-  left: 50%;
-  top: 10%;
-  bottom: 10%;
-  width: 2px;
-  background: linear-gradient(to bottom, transparent, rgba(79, 110, 247, 0.2), transparent);
-  transform: translateX(-50%);
+.wipe-comparison-inner {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 30px 70px var(--shadow-color);
+  border: 1px solid var(--border-glass);
+  background-color: var(--bg-secondary);
 }
 
-.comparison-side {
+/* Standard Base Layer (Paper Card - Muted Greyish Theme) */
+.comparison-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 3.5rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-content: center;
+  transition: filter 0.3s ease;
+}
+
+.layer-past {
+  background: var(--bg-secondary);
+  filter: grayscale(0.85) contrast(0.9);
+}
+
+/* Interactive Foreground Layer (NFC Smart Card - Electric Blue Theme) */
+.layer-future {
+  background: linear-gradient(135deg, #DFE8F7 0%, #CADEFB 100%);
+  z-index: 2;
+  /* Dynamic Clip-path variable */
+  clip-path: polygon(0 0, var(--wipe-pos, 50%) 0, var(--wipe-pos, 50%) 100%, 0 100%);
+}
+
+.layer-content {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
 }
 
-.comparison-side h3 {
-  font-size: 1.5rem;
-  font-weight: 700;
+.layer-content h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 800;
   margin-bottom: 2rem;
   display: flex;
   align-items: center;
   gap: 0.8rem;
 }
 
-.side-past h3 {
+.layer-past h3 {
   color: var(--text-secondary);
 }
 
-.side-future h3 {
+.layer-future h3 {
   color: var(--accent-1);
 }
 
-.comparison-list {
-  list-style: none;
+/* Horizontal Comparison Layout inside each layer */
+.comparison-layout-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3rem;
+}
+
+/* Wipe Sliding Handle line */
+.wipe-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--wipe-pos, 50%);
+  width: 3px;
+  background: var(--accent-1);
+  z-index: 3;
+  transform: translateX(-50%);
+  pointer-events: none;
+  box-shadow: 0 0 15px var(--accent-1);
+}
+
+.wipe-handle-knob {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--accent-1);
+  border: 4px solid var(--text-light);
   display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-}
-
-.comparison-list li {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  font-size: 1.05rem;
-  color: var(--text-secondary);
-  padding: 1.2rem;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.side-future .comparison-list li {
-  background: rgba(79, 110, 247, 0.04);
-  border: 1px solid rgba(79, 110, 247, 0.1);
-  color: var(--text-primary);
-  box-shadow: 0 10px 25px rgba(79, 110, 247, 0.02);
-}
-
-.side-past li svg {
-  color: #EF4444;
-  flex-shrink: 0;
-  margin-top: 3px;
-}
-
-.side-future li svg {
-  color: var(--accent-2);
-  flex-shrink: 0;
-  margin-top: 3px;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-light);
+  box-shadow: 0 8px 20px rgba(6, 10, 36, 0.2);
 }
 
 /* ----------------------------------------------------
-   6. SECTORES (Horizontal Scroll / Pin)
+   6. SECTORES (Horizontal Scroll Pin)
    ---------------------------------------------------- */
 .horizontal-scroll-section {
   position: relative;
@@ -787,39 +878,41 @@ nav a:hover::after {
   display: flex;
   height: 100vh;
   align-items: center;
-  padding-left: 5%;
   position: relative;
+  /* Width bounding */
+  max-width: 100vw;
 }
 
 .pin-header {
   flex-shrink: 0;
-  width: 450px;
-  padding-right: 3rem;
+  width: 420px;
+  padding-right: 2.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   z-index: 10;
+  margin-left: 5vw;
 }
 
 .horizontal-cards-wrapper {
   display: flex;
-  gap: 2.5rem;
-  padding-right: 10%;
-  height: 60vh;
+  gap: 2rem;
+  height: 55vh;
   align-items: center;
 }
 
 .horizontal-card {
-  width: 320px;
+  width: 290px;
   height: 100%;
-  max-height: 420px;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 20px 45px var(--shadow-color);
+  background: var(--bg-dark);
+  border: 1px solid var(--border-glass-dark);
 }
 
 .horizontal-card-bg {
@@ -828,7 +921,7 @@ nav a:hover::after {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(180deg, rgba(242, 245, 252, 0.1) 0%, rgba(10, 15, 46, 0.85) 100%);
+  background: linear-gradient(180deg, rgba(6, 10, 36, 0.1) 0%, rgba(6, 10, 36, 0.9) 100%);
   z-index: 1;
 }
 
@@ -850,26 +943,32 @@ nav a:hover::after {
 .horizontal-card-content {
   position: relative;
   z-index: 2;
-  padding: 2.2rem;
+  padding: 1.8rem;
   color: var(--text-light);
 }
 
 .horizontal-card h3 {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: 700;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.5rem;
   color: #FFFFFF;
 }
 
 .horizontal-card p {
-  font-size: 0.92rem;
-  opacity: 0.85;
+  font-size: 0.88rem;
+  opacity: 0.8;
   color: #E2E8F0;
 }
 
 /* ----------------------------------------------------
-   7. CÓMO FUNCIONA (Timeline Paint)
+   7. CÓMO FUNCIONA (Step-by-Step Pin reveal)
    ---------------------------------------------------- */
+#timeline {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
 .timeline-container {
   position: relative;
   margin-top: 4rem;
@@ -898,6 +997,14 @@ nav a:hover::after {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  opacity: 0.3;
+  transform: translateY(20px);
+  transition: var(--transition-smooth);
+}
+
+.timeline-step.active {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .timeline-dot {
@@ -905,18 +1012,17 @@ nav a:hover::after {
   height: 50px;
   border-radius: 50%;
   background: var(--bg-primary);
-  border: 3px solid rgba(79, 110, 247, 0.2);
+  border: 3px solid var(--light-blue-shade);
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-display);
   font-size: 1.2rem;
   font-weight: 800;
-  color: var(--accent-1);
+  color: var(--text-secondary);
   margin-bottom: 2rem;
   box-shadow: 0 0 0 6px var(--bg-primary);
   transition: var(--transition-smooth);
-  position: relative;
 }
 
 .timeline-step.active .timeline-dot {
@@ -940,7 +1046,7 @@ nav a:hover::after {
 }
 
 /* ----------------------------------------------------
-   8. TESTIMONIOS (Infinite Marquee)
+   8. TESTIMONIALS
    ---------------------------------------------------- */
 .testimonials-slider {
   display: grid;
@@ -974,12 +1080,12 @@ nav a:hover::after {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: var(--accent-3);
+  background: var(--light-blue-shade);
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  color: var(--text-primary);
+  color: var(--text-secondary);
   font-size: 1rem;
   border: 1px solid var(--border-glass);
 }
@@ -995,7 +1101,6 @@ nav a:hover::after {
   color: var(--text-secondary);
 }
 
-/* Testimonial rating header */
 .testimonial-stars {
   display: flex;
   gap: 4px;
@@ -1005,19 +1110,25 @@ nav a:hover::after {
 }
 
 /* ----------------------------------------------------
-   9. CTA WAITLIST (Hero Inverted Dark)
+   9. CTA WAITLIST (High Contrast 20% Deep Dark Blue Base)
    ---------------------------------------------------- */
 #cta-waitlist {
   background-color: var(--bg-dark);
   color: var(--text-light);
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  padding: 6rem 0;
+}
+
+#cta-waitlist .container {
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
-  min-height: 100vh;
   gap: 4rem;
-  position: relative;
-  overflow: hidden;
-  padding: 6rem 5%;
+  width: 100%;
 }
 
 #cta-waitlist::before {
@@ -1027,15 +1138,26 @@ nav a:hover::after {
   left: -150px;
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(79, 110, 247, 0.25) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(30, 62, 196, 0.2) 0%, transparent 70%);
   filter: blur(100px);
   pointer-events: none;
 }
 
 .cta-canvas-container {
   width: 100%;
-  height: 70vh;
+  aspect-ratio: 1 / 1;
+  max-width: 450px;
+  height: 450px;
+  margin: 0 auto;
   position: relative;
+}
+
+#cta-canvas-3d {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .waitlist-container {
@@ -1066,7 +1188,7 @@ nav a:hover::after {
   max-width: 550px;
   width: 100%;
   position: relative;
-  background: var(--bg-glass-dark);
+  background: var(--bg-dark-glass);
   border: 1px solid var(--border-glass-dark);
   padding: 0.6rem;
   border-radius: 20px;
@@ -1101,14 +1223,14 @@ nav a:hover::after {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  box-shadow: 0 8px 25px rgba(79, 110, 247, 0.4);
+  box-shadow: 0 8px 25px rgba(30, 62, 196, 0.4);
   transition: var(--transition-smooth);
 }
 
 .waitlist-form button:hover {
-  background: #3e5be0;
+  background: #142ca1;
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(79, 110, 247, 0.5);
+  box-shadow: 0 12px 30px rgba(30, 62, 196, 0.5);
 }
 
 .waitlist-msg {
@@ -1140,7 +1262,7 @@ nav a:hover::after {
 footer {
   background: var(--bg-dark);
   border-top: 1px solid rgba(255, 255, 255, 0.05);
-  padding: 4rem 5% 3rem;
+  padding: 4rem 0 3rem;
   color: #718096;
 }
 
@@ -1203,39 +1325,41 @@ footer {
   }
 }
 
-@keyframes pulseGlow {
-  0%, 100% {
-    box-shadow: 0 0 15px rgba(79, 110, 247, 0.1);
-    border-color: rgba(79, 110, 247, 0.2);
-  }
-  50% {
-    box-shadow: 0 0 25px rgba(79, 110, 247, 0.3);
-    border-color: rgba(79, 110, 247, 0.5);
-  }
-}
-
 /* ----------------------------------------------------
    RESPONSIVE DESIGN (Media Queries)
    ---------------------------------------------------- */
 @media (max-width: 1024px) {
   header {
-    padding: 1.2rem 5%;
+    padding: 0;
+  }
+
+  .header-container {
+    height: 75px;
+    padding: 0 1rem;
   }
 
   nav {
-    display: none; /* In production, you would trigger simple mobile menu overlays */
+    display: none;
   }
 
   .hamburger {
     display: flex;
   }
 
+  .section-wrapper {
+    padding: 7rem 0 5rem;
+  }
+
   #hero {
-    grid-template-columns: 1fr;
-    text-align: center;
-    padding-top: 9rem;
     height: auto;
     min-height: auto;
+    padding-top: 8rem;
+  }
+
+  .hero-pin-wrapper {
+    grid-template-columns: 1fr;
+    height: auto;
+    text-align: center;
     gap: 3rem;
   }
 
@@ -1248,7 +1372,8 @@ footer {
   }
 
   .hero-canvas-container {
-    height: 50vh;
+    height: 400px;
+    max-width: 400px;
   }
 
   .problem-cards-container {
@@ -1269,34 +1394,42 @@ footer {
     order: -1;
   }
 
-  .comparison-container {
-    grid-template-columns: 1fr;
-    gap: 3rem;
+  .notifications-stream {
+    position: relative;
+    max-width: 100%;
+    margin-top: 1.5rem;
   }
 
-  .comparison-divider {
-    display: none;
+  .wipe-comparison-inner {
+    height: auto;
+    min-height: 480px;
+  }
+
+  .comparison-layout-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
 
   .pin-container {
     flex-direction: column;
     height: auto;
-    padding-left: 0;
     align-items: flex-start;
+    padding-top: 6rem;
   }
 
   .pin-header {
     width: 100%;
     padding-right: 0;
     margin-bottom: 2rem;
-    padding: 0 5%;
+    margin-left: 0;
+    padding: 0;
   }
 
   .horizontal-cards-wrapper {
     width: 100%;
     overflow-x: auto;
     height: auto;
-    padding: 0 5% 2rem;
+    padding: 0 0 2rem;
     scroll-snap-type: x mandatory;
   }
 
@@ -1322,11 +1455,10 @@ footer {
     grid-template-columns: 1fr;
   }
 
-  #cta-waitlist {
+  #cta-waitlist .container {
     grid-template-columns: 1fr;
     gap: 3rem;
     text-align: center;
-    padding: 6rem 5% 4rem;
   }
 
   .waitlist-container {
@@ -1338,7 +1470,8 @@ footer {
   }
 
   .cta-canvas-container {
-    height: 40vh;
+    height: 350px;
+    max-width: 350px;
     order: -1;
   }
 }
@@ -1352,6 +1485,14 @@ footer {
     display: none;
   }
 
+  .wipe-comparison-inner {
+    border-radius: 16px;
+  }
+
+  .comparison-layer {
+    padding: 2rem;
+  }
+
   .waitlist-form {
     flex-direction: column;
     background: transparent;
@@ -1361,7 +1502,7 @@ footer {
   }
 
   .waitlist-form input[type="email"] {
-    background: var(--bg-glass-dark);
+    background: var(--bg-dark-glass);
     border: 1px solid var(--border-glass-dark);
     border-radius: 16px;
     padding: 1rem;
