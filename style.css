@@ -2201,6 +2201,10 @@ footer {
   line-height: 1.6;
 }
 
+.mobile-step-visual {
+  display: none;
+}
+
 /* Animations */
 @keyframes floatCard {
   0%, 100% { transform: translateY(0) rotate(0deg); }
@@ -2217,18 +2221,33 @@ footer {
   100% { transform: scale(1); opacity: 1; }
 }
 
-/* Responsive Solution Layout */
+/* Responsive Solution Layout & Mobile Drawer Overrides */
 @media (max-width: 1024px) {
+  /* Hide desktop sticky visuals completely on mobile viewports */
+  .solution-visuals-sticky {
+    display: none !important;
+  }
+
+  /* Show stunning inline visual showcase blocks natively grouped under step texts */
+  .mobile-step-visual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 1.8rem;
+    padding: 2.2rem 1.5rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  }
+
   .solution-split-container {
     grid-template-columns: 1fr;
     gap: 0;
-  }
-
-  .solution-visuals-sticky {
-    position: relative;
-    height: 380px;
-    top: auto;
-    margin-bottom: 2rem;
   }
 
   .solution-text-sticky {
@@ -2245,6 +2264,67 @@ footer {
     padding-right: 0;
     opacity: 1 !important;
     visibility: visible !important;
-    margin-bottom: 3rem;
+    margin-bottom: 4rem;
+  }
+
+  /* Mobile Hamburger & Header Navigation Drawer */
+  .hamburger {
+    display: flex;
+    z-index: 1010;
+  }
+
+  .hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+  }
+
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -7px);
+  }
+
+  .header-nav-wrap {
+    display: flex;
+    position: fixed;
+    top: 85px;
+    left: 0;
+    width: 100vw;
+    height: calc(100vh - 85px);
+    background: rgba(2, 4, 11, 0.98);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    z-index: 999;
+    transform: translateY(-110%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+  }
+
+  .header-nav-wrap.mobile-active {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  nav {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  nav a {
+    font-size: 1.25rem;
+  }
+
+  .nav-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
   }
 }

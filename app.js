@@ -742,6 +742,26 @@ document.addEventListener('DOMContentLoaded', () => {
     scrollTriggersInstance.push(timelineTl.scrollTrigger);
   }
 
+  // Mobile Hamburger Navigation Drawer Toggler
+  const hamburger = document.querySelector('.hamburger');
+  const navWrap = document.getElementById('header-nav-wrap');
+  
+  if (hamburger && navWrap) {
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navWrap.classList.toggle('mobile-active');
+    });
+
+    // Close menu when clicking nav links
+    const navLinks = navWrap.querySelectorAll('nav a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navWrap.classList.remove('mobile-active');
+      });
+    });
+  }
+
   // Initial rendering triggers
   renderDynamicContent(currentLang);
 });
