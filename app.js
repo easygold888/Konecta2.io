@@ -411,31 +411,7 @@ document.addEventListener('DOMContentLoaded', () => {
     scrollTriggersInstance.forEach(t => t.kill());
     scrollTriggersInstance = [];
 
-    const isDesktop = window.innerWidth > 1024;
-
-
-
-    // 1. HERO PINNED EXPERIENCE
-    const heroTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: '#hero',
-        start: 'top top',
-        end: '+=100%',
-        pin: true,
-        scrub: 1.2,
-        invalidateOnRefresh: true
-      }
-    });
-    heroTl.to('#hero-content-group', { opacity: 0, y: -60, duration: 1 }, 0);
-    heroTl.to('#hero-canvas-group', {
-      x: isDesktop ? '-30%' : '0%',
-      scale: 1.15,
-      duration: 1.2,
-      ease: 'power2.inOut'
-    }, 0);
-    scrollTriggersInstance.push(heroTl.scrollTrigger);
-
-    // Header entrances
+    // Header entrances (Shared desktop/mobile logic)
     const animateHeaders = (triggerSelector) => {
       const headerTl = gsap.timeline({
         scrollTrigger: {
@@ -453,8 +429,33 @@ document.addEventListener('DOMContentLoaded', () => {
       animateHeaders(sec);
     });
 
-    // 2. PROBLEM CARDS PINNED REVEAL
-    if (isDesktop) {
+    let mm = gsap.matchMedia();
+
+    // --------------------------------------------------
+    // DESKTOP LAYOUT SCROLL TRIGGER ANCHORS & PINS
+    // --------------------------------------------------
+    mm.add("(min-width: 1025px)", () => {
+      // 1. HERO PINNED EXPERIENCE
+      const heroTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: '#hero',
+          start: 'top top',
+          end: '+=100%',
+          pin: true,
+          scrub: 1.2,
+          invalidateOnRefresh: true
+        }
+      });
+      heroTl.to('#hero-content-group', { opacity: 0, y: -60, duration: 1 }, 0);
+      heroTl.to('#hero-canvas-group', {
+        x: '-30%',
+        scale: 1.15,
+        duration: 1.2,
+        ease: 'power2.inOut'
+      }, 0);
+      scrollTriggersInstance.push(heroTl.scrollTrigger);
+
+      // 2. PROBLEM CARDS PINNED REVEAL
       const problemTl = gsap.timeline({
         scrollTrigger: {
           trigger: '#problem',
@@ -473,51 +474,30 @@ document.addEventListener('DOMContentLoaded', () => {
         ease: 'power2.out'
       });
       scrollTriggersInstance.push(problemTl.scrollTrigger);
-    } else {
-      const problemTl = gsap.from('.problem-card', {
-        opacity: 0,
-        y: 40,
-        stagger: 0.2,
-        duration: 1,
-        scrollTrigger: {
-          trigger: '#problem-cards-container',
-          start: 'top 80%'
-        }
-      });
-      scrollTriggersInstance.push(problemTl.scrollTrigger);
-    }
 
-    // 3. SOLUTION INTERACTIVE 3-STEP SCROLL PIN
-    if (isDesktop) {
-      // Set initial state
+      // 3. SOLUTION INTERACTIVE 3-STEP SCROLL PIN
       setActiveVisualStage(1);
-
       const solutionTl = gsap.timeline({
         scrollTrigger: {
           trigger: '#solution',
           start: 'top top',
-          end: '+=200%', // pin for 2 full screen scroll lengths
+          end: '+=200%',
           pin: true,
           scrub: 0.5,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
             const progress = self.progress;
-
-            // Step 1: Active from 0.0 to 0.33
             if (progress >= 0 && progress < 0.33) {
               setActiveVisualStage(1);
             } 
-            // Step 2: Active from 0.33 to 0.66
             else if (progress >= 0.33 && progress < 0.66) {
               setActiveVisualStage(2);
-              
-              // Phone approach translation on progress of Step 2
               const step2Progress = (progress - 0.33) / 0.33;
               const phone = document.getElementById('tapping-phone-mockup');
               const banner = document.getElementById('phone-notification-banner');
               if (phone) {
-                const xVal = 140 - (110 * step2Progress); // 140px to 30px
-                const rotVal = -12 + (12 * step2Progress); // -12deg to 0deg
+                const xVal = 140 - (110 * step2Progress);
+                const rotVal = -12 + (12 * step2Progress);
                 phone.style.transform = `translate(${xVal}px, 40px) rotate(${rotVal}deg)`;
               }
               if (banner) {
@@ -528,218 +508,296 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
               }
             } 
-            // Step 3: Active from 0.66 to 1.0
             else if (progress >= 0.66) {
               setActiveVisualStage(3);
             }
           }
         }
       });
-
       scrollTriggersInstance.push(solutionTl.scrollTrigger);
-    } else {
-      // Mobile fallback scroll triggers per step
-      setActiveVisualStage(1);
-      
-      const stepIds = ['#solution-step-1', '#solution-step-2', '#solution-step-3'];
-      stepIds.forEach((stepId, idx) => {
-        ScrollTrigger.create({
-          trigger: stepId,
-          start: 'top 60%',
-          end: 'bottom 60%',
-          onEnter: () => setActiveVisualStage(idx + 1),
-          onEnterBack: () => setActiveVisualStage(idx + 1)
-        });
-      });
-    }
 
-    // 4. REVIEWS PINNED POPUP STORM
-    const reviewsTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: '#why-reviews',
-        start: 'top top',
-        end: '+=120%',
-        pin: true,
-        scrub: 1,
-        invalidateOnRefresh: true
-      }
-    });
-
-    reviewsTl.to('#popup-notif-1', { opacity: 1, scale: 1, y: 0, duration: 0.8 }, 0.2);
-
-    let rateVal = { value: 4.1 };
-    reviewsTl.to(rateVal, {
-      value: 4.5,
-      duration: 0.8,
-      onUpdate: () => {
-        const el = document.getElementById('live-rating-count');
-        if (el) el.innerHTML = rateVal.value.toFixed(1);
-      }
-    }, 0.2);
-
-    reviewsTl.to('#popup-notif-2', { opacity: 1, scale: 1, y: 0, duration: 0.8 }, 0.6);
-
-    reviewsTl.to(rateVal, {
-      value: 4.7,
-      duration: 0.8,
-      onUpdate: () => {
-        const el = document.getElementById('live-rating-count');
-        if (el) el.innerHTML = rateVal.value.toFixed(1);
-      }
-    }, 0.6);
-
-    reviewsTl.to('#popup-notif-3', { opacity: 1, scale: 1, y: 0, duration: 0.8 }, 1.0);
-
-    reviewsTl.to(rateVal, {
-      value: 4.9,
-      duration: 0.8,
-      onUpdate: () => {
-        const el = document.getElementById('live-rating-count');
-        if (el) el.innerHTML = rateVal.value.toFixed(1);
-      }
-    }, 1.0);
-
-    // Counts
-    const counts = [
-      { id: '#count-1', target: 93, suffix: '%' },
-      { id: '#count-2', target: 3, suffix: 'x' },
-      { id: '#count-3', target: 340, suffix: '%' }
-    ];
-
-    counts.forEach(c => {
-      const el = document.querySelector(c.id);
-      if (!el) return;
-      let initialVal = { value: 0 };
-      gsap.to(initialVal, {
-        value: c.target,
-        duration: 2.2,
-        ease: 'power3.out',
+      // 4. REVIEWS PINNED POPUP STORM
+      const reviewsTl = gsap.timeline({
         scrollTrigger: {
           trigger: '#why-reviews',
           start: 'top top',
-        },
-        onUpdate: () => {
-          el.innerHTML = Math.floor(initialVal.value) + c.suffix;
-        }
-      });
-    });
-    scrollTriggersInstance.push(reviewsTl.scrollTrigger);
-
-    // 5. INTERACTIVE SPLIT WIPER PIN
-    const futureLayer = document.getElementById('future-layer');
-    const sliderHandle = document.getElementById('slider-handle');
-
-    if (futureLayer && sliderHandle) {
-      const wipeTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: '#comparison',
-          start: 'top top',
-          end: '+=100%',
-          pin: true,
-          scrub: 0.5,
-          invalidateOnRefresh: true
-        }
-      });
-
-      wipeTl.to(futureLayer, {
-        duration: 1,
-        ease: 'none',
-        onUpdate: function() {
-          const percent = this.progress() * 100;
-          futureLayer.style.setProperty('--wipe-pos', `${percent}%`);
-          sliderHandle.style.setProperty('--wipe-pos', `${percent}%`);
-        }
-      });
-      scrollTriggersInstance.push(wipeTl.scrollTrigger);
-    }
-
-    // 6. SECTORES (Horizontal scroll pin & click arrow controllers)
-    const horizWrapper = document.getElementById('horizontal-cards-wrapper');
-    if (horizWrapper) {
-      const getScrollAmount = () => {
-        let cardsWidth = horizWrapper.scrollWidth;
-        return -(cardsWidth - window.innerWidth + window.innerWidth * 0.15);
-      };
-
-      const horizTl = gsap.to(horizWrapper, {
-        x: getScrollAmount,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '.horizontal-scroll-section',
-          start: 'top top',
-          end: () => `+=${horizWrapper.scrollWidth - window.innerWidth}`,
+          end: '+=120%',
           pin: true,
           scrub: 1,
           invalidateOnRefresh: true
         }
       });
-      scrollTriggersInstance.push(horizTl.scrollTrigger);
+      reviewsTl.to('#popup-notif-1', { opacity: 1, scale: 1, y: 0, duration: 0.8 }, 0.2);
 
-      const triggerST = horizTl.scrollTrigger;
-      let activeCardIdx = 0;
+      let rateVal = { value: 4.1 };
+      reviewsTl.to(rateVal, {
+        value: 4.5,
+        duration: 0.8,
+        onUpdate: () => {
+          const el = document.getElementById('live-rating-count');
+          if (el) el.innerHTML = rateVal.value.toFixed(1);
+        }
+      }, 0.2);
+      reviewsTl.to('#popup-notif-2', { opacity: 1, scale: 1, y: 0, duration: 0.8 }, 0.6);
+      reviewsTl.to(rateVal, {
+        value: 4.7,
+        duration: 0.8,
+        onUpdate: () => {
+          const el = document.getElementById('live-rating-count');
+          if (el) el.innerHTML = rateVal.value.toFixed(1);
+        }
+      }, 0.6);
+      reviewsTl.to('#popup-notif-3', { opacity: 1, scale: 1, y: 0, duration: 0.8 }, 1.0);
+      reviewsTl.to(rateVal, {
+        value: 4.9,
+        duration: 0.8,
+        onUpdate: () => {
+          const el = document.getElementById('live-rating-count');
+          if (el) el.innerHTML = rateVal.value.toFixed(1);
+        }
+      }, 1.0);
+      scrollTriggersInstance.push(reviewsTl.scrollTrigger);
 
-      ScrollTrigger.create({
-        trigger: '.horizontal-scroll-section',
-        start: 'top top',
-        end: () => `+=${horizWrapper.scrollWidth - window.innerWidth}`,
-        onUpdate: (self) => {
-          activeCardIdx = Math.round(self.progress * 5);
+      // Counter animation
+      const counts = [
+        { id: '#count-1', target: 93, suffix: '%' },
+        { id: '#count-2', target: 3, suffix: 'x' },
+        { id: '#count-3', target: 340, suffix: '%' }
+      ];
+      counts.forEach(c => {
+        const el = document.querySelector(c.id);
+        if (!el) return;
+        let initialVal = { value: 0 };
+        gsap.to(initialVal, {
+          value: c.target,
+          duration: 2.2,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '#why-reviews',
+            start: 'top top',
+          },
+          onUpdate: () => {
+            el.innerHTML = Math.floor(initialVal.value) + c.suffix;
+          }
+        });
+      });
+
+      // 5. INTERACTIVE SPLIT WIPER PIN
+      const futureLayer = document.getElementById('future-layer');
+      const sliderHandle = document.getElementById('slider-handle');
+      if (futureLayer && sliderHandle) {
+        const wipeTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: '#comparison',
+            start: 'top top',
+            end: '+=100%',
+            pin: true,
+            scrub: 0.5,
+            invalidateOnRefresh: true
+          }
+        });
+        wipeTl.to(futureLayer, {
+          duration: 1,
+          ease: 'none',
+          onUpdate: function() {
+            const percent = this.progress() * 100;
+            futureLayer.style.setProperty('--wipe-pos', `${percent}%`);
+            sliderHandle.style.setProperty('--wipe-pos', `${percent}%`);
+          }
+        });
+        scrollTriggersInstance.push(wipeTl.scrollTrigger);
+      }
+
+      // 6. SECTORES (Horizontal scroll pin & click arrow controllers)
+      const horizWrapper = document.getElementById('horizontal-cards-wrapper');
+      if (horizWrapper) {
+        const getScrollAmount = () => {
+          let cardsWidth = horizWrapper.scrollWidth;
+          return -(cardsWidth - window.innerWidth + window.innerWidth * 0.15);
+        };
+        const horizTl = gsap.to(horizWrapper, {
+          x: getScrollAmount,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '.horizontal-scroll-section',
+            start: 'top top',
+            end: () => `+=${horizWrapper.scrollWidth - window.innerWidth}`,
+            pin: true,
+            scrub: 1,
+            invalidateOnRefresh: true
+          }
+        });
+        scrollTriggersInstance.push(horizTl.scrollTrigger);
+
+        const triggerST = horizTl.scrollTrigger;
+        let activeCardIdx = 0;
+
+        ScrollTrigger.create({
+          trigger: '.horizontal-scroll-section',
+          start: 'top top',
+          end: () => `+=${horizWrapper.scrollWidth - window.innerWidth}`,
+          onUpdate: (self) => {
+            activeCardIdx = Math.round(self.progress * 5);
+          }
+        });
+
+        const btnNext = document.getElementById('sector-next');
+        const btnPrev = document.getElementById('sector-prev');
+        if (btnNext && btnPrev) {
+          // Unbind existing listeners by replacement
+          const newBtnNext = btnNext.cloneNode(true);
+          const newBtnPrev = btnPrev.cloneNode(true);
+          btnNext.parentNode.replaceChild(newBtnNext, btnNext);
+          btnPrev.parentNode.replaceChild(newBtnPrev, btnPrev);
+
+          newBtnNext.addEventListener('click', () => {
+            activeCardIdx = Math.min(activeCardIdx + 1, 5);
+            const targetProgress = activeCardIdx / 5;
+            const targetScroll = triggerST.start + (targetProgress * (triggerST.end - triggerST.start));
+            gsap.to(window, { scrollTo: targetScroll, duration: 0.8, ease: 'power2.out' });
+          });
+
+          newBtnPrev.addEventListener('click', () => {
+            activeCardIdx = Math.max(activeCardIdx - 1, 0);
+            const targetProgress = activeCardIdx / 5;
+            const targetScroll = triggerST.start + (targetProgress * (triggerST.end - triggerST.start));
+            gsap.to(window, { scrollTo: targetScroll, duration: 0.8, ease: 'power2.out' });
+          });
+        }
+      }
+
+      // 7. TIMELINE STEP-BY-STEP PIN reveal
+      const timelineTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: '#timeline',
+          start: 'top top',
+          end: '+=120%',
+          pin: true,
+          scrub: 1,
+          invalidateOnRefresh: true
+        }
+      });
+      timelineTl.to('#timeline-paint-line', { attr: { x2: 1000 }, duration: 1.5, ease: 'none' }, 0);
+      timelineTl.to('#timeline-step-0', { className: 'timeline-step active', duration: 0.3 }, 0.1);
+      timelineTl.to('#timeline-step-1', { className: 'timeline-step active', duration: 0.3 }, 0.6);
+      timelineTl.to('#timeline-step-2', { className: 'timeline-step active', duration: 0.3 }, 1.1);
+      scrollTriggersInstance.push(timelineTl.scrollTrigger);
+    });
+
+    // --------------------------------------------------
+    // MOBILE / TABLET LAYOUT SMOOTH FADE SCROLL REVEALS
+    // --------------------------------------------------
+    mm.add("(max-width: 1024px)", () => {
+      // Reset any manual transformations applied by desktop timeline logic
+      const phone = document.getElementById('tapping-phone-mockup');
+      const horizWrapper = document.getElementById('horizontal-cards-wrapper');
+      if (phone) phone.style.transform = '';
+      if (horizWrapper) horizWrapper.style.transform = '';
+
+      // Reset step visuals state: all active & static
+      setActiveVisualStage(1);
+      const stepIds = ['#solution-step-1', '#solution-step-2', '#solution-step-3'];
+      stepIds.forEach((stepId, idx) => {
+        const stepEl = document.querySelector(stepId);
+        if (stepEl) {
+          stepEl.style.opacity = '1';
+          stepEl.style.visibility = 'visible';
+          stepEl.style.transform = 'none';
         }
       });
 
-      const btnNext = document.getElementById('sector-next');
-      const btnPrev = document.getElementById('sector-prev');
+      // Simple Problem cards stagger entrance
+      const problemTl = gsap.from('.problem-card', {
+        opacity: 0,
+        y: 35,
+        stagger: 0.15,
+        duration: 0.8,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: '#problem-cards-container',
+          start: 'top 85%'
+        }
+      });
+      scrollTriggersInstance.push(problemTl.scrollTrigger);
 
-      if (btnNext && btnPrev) {
-        btnNext.addEventListener('click', () => {
-          activeCardIdx = Math.min(activeCardIdx + 1, 5);
-          const targetProgress = activeCardIdx / 5;
-          const targetScroll = triggerST.start + (targetProgress * (triggerST.end - triggerST.start));
-          
-          gsap.to(window, {
-            scrollTo: targetScroll,
-            duration: 0.8,
-            ease: 'power2.out'
-          });
+      // Cases cases-grid fade reveal
+      const casesTl = gsap.from('.case-card', {
+        opacity: 0,
+        y: 30,
+        stagger: 0.12,
+        duration: 0.8,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: '#cases-grid',
+          start: 'top 85%'
+        }
+      });
+      scrollTriggersInstance.push(casesTl.scrollTrigger);
+
+      // Testimonial cards stagger entrance
+      const testTl = gsap.from('.testimonial-card', {
+        opacity: 0,
+        y: 30,
+        stagger: 0.15,
+        duration: 0.8,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: '#testimonials-slider',
+          start: 'top 85%'
+        }
+      });
+      scrollTriggersInstance.push(testTl.scrollTrigger);
+
+      // Reviews map counter animation and popup entrances
+      const reviewsTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: '#why-reviews',
+          start: 'top 85%',
+        }
+      });
+      reviewsTl.to('#popup-notif-1', { opacity: 1, scale: 1, y: 0, duration: 0.5 }, 0.1)
+               .to('#popup-notif-2', { opacity: 1, scale: 1, y: 0, duration: 0.5 }, 0.4)
+               .to('#popup-notif-3', { opacity: 1, scale: 1, y: 0, duration: 0.5 }, 0.7);
+
+      // Counter animation for mobile
+      const counts = [
+        { id: '#count-1', target: 93, suffix: '%' },
+        { id: '#count-2', target: 3, suffix: 'x' },
+        { id: '#count-3', target: 340, suffix: '%' }
+      ];
+      counts.forEach(c => {
+        const el = document.querySelector(c.id);
+        if (!el) return;
+        let initialVal = { value: 0 };
+        gsap.to(initialVal, {
+          value: c.target,
+          duration: 1.8,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: '#why-reviews',
+            start: 'top 85%',
+          },
+          onUpdate: () => {
+            el.innerHTML = Math.floor(initialVal.value) + c.suffix;
+          }
         });
+      });
+      scrollTriggersInstance.push(reviewsTl.scrollTrigger);
 
-        btnPrev.addEventListener('click', () => {
-          activeCardIdx = Math.max(activeCardIdx - 1, 0);
-          const targetProgress = activeCardIdx / 5;
-          const targetScroll = triggerST.start + (targetProgress * (triggerST.end - triggerST.start));
-          
-          gsap.to(window, {
-            scrollTo: targetScroll,
-            duration: 0.8,
-            ease: 'power2.out'
-          });
+      // Mobile timeline steps entrances (since they are stacked vertically, make them fade in as scrolled)
+      const timelineSteps = document.querySelectorAll('.timeline-step');
+      timelineSteps.forEach((step, idx) => {
+        const stepTl = gsap.to(step, {
+          className: 'timeline-step active',
+          duration: 0.4,
+          scrollTrigger: {
+            trigger: step,
+            start: 'top 80%',
+          }
         });
-      }
-    }
-
-    // 7. TIMELINE STEP-BY-STEP PIN reveal
-    const timelineTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: '#timeline',
-        start: 'top top',
-        end: '+=120%',
-        pin: true,
-        scrub: 1,
-        invalidateOnRefresh: true
-      }
+        scrollTriggersInstance.push(stepTl.scrollTrigger);
+      });
     });
-
-    timelineTl.to('#timeline-paint-line', {
-      attr: { x2: 1000 },
-      duration: 1.5,
-      ease: 'none'
-    }, 0);
-
-    timelineTl.to('#timeline-step-0', { className: 'timeline-step active', duration: 0.3 }, 0.1);
-    timelineTl.to('#timeline-step-1', { className: 'timeline-step active', duration: 0.3 }, 0.6);
-    timelineTl.to('#timeline-step-2', { className: 'timeline-step active', duration: 0.3 }, 1.1);
-
-    scrollTriggersInstance.push(timelineTl.scrollTrigger);
   }
 
   // Mobile Hamburger Navigation Drawer Toggler
