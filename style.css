@@ -2221,6 +2221,105 @@ footer {
   100% { transform: scale(1); opacity: 1; }
 }
 
+/* Immersive Spaceship cockpit drone & thematic scrolling transitions */
+:root, body {
+  transition: background-color 1.2s ease, --bg-secondary 1.2s ease;
+}
+
+.shockwave-ring {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: 15vw;
+  height: 15vw;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 255, 219, 0.35) 0%, rgba(27, 56, 196, 0.1) 50%, rgba(0, 0, 0, 0) 100%);
+  border: 2px solid var(--accent-2);
+  box-shadow: 0 0 50px rgba(0, 255, 219, 0.4), inset 0 0 30px rgba(0, 255, 219, 0.2);
+  pointer-events: none;
+  opacity: 0;
+  z-index: 99;
+  will-change: transform, opacity;
+}
+
+.nfc-ops-badge {
+  font-size: 0.62rem;
+  color: var(--accent-2);
+  font-family: var(--font-body);
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-left: 0.8rem;
+  padding: 0.2rem 0.6rem;
+  background: rgba(0, 255, 219, 0.05);
+  border: 1px solid rgba(0, 255, 219, 0.15);
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: 0 0 8px rgba(0, 255, 219, 0.1);
+  opacity: 0; /* Revealed dynamically after 3 seconds */
+  transform: translateY(5px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.nfc-ops-badge.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.btn-space-drone {
+  background: var(--bg-glass);
+  border: 1px solid rgba(0, 255, 219, 0.25);
+  backdrop-filter: var(--blur-glass);
+  -webkit-backdrop-filter: var(--blur-glass);
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.82rem;
+  color: var(--accent-2);
+  font-family: var(--font-body);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: var(--transition-smooth);
+  cursor: pointer;
+}
+
+.btn-space-drone:hover {
+  background: rgba(0, 255, 219, 0.08);
+  box-shadow: 0 0 15px rgba(0, 255, 219, 0.3);
+  transform: translateY(-2px);
+}
+
+.drone-wave-bar {
+  width: 3px;
+  height: 12px;
+  background: var(--accent-2);
+  border-radius: 2px;
+  display: inline-block;
+  transition: height 0.3s ease;
+}
+
+.btn-space-drone.active .bar-1 {
+  animation: droneEqualize 1s infinite alternate;
+}
+.btn-space-drone.active .bar-2 {
+  animation: droneEqualize 0.8s infinite alternate 0.2s;
+}
+.btn-space-drone.active .bar-3 {
+  animation: droneEqualize 1.2s infinite alternate 0.1s;
+}
+
+@keyframes droneEqualize {
+  0% { height: 4px; }
+  100% { height: 16px; }
+}
+
+.drone-text {
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+
 /* Responsive Solution Layout & Mobile Drawer Overrides */
 @media (max-width: 1024px) {
   /* Hide custom cursor elements on mobile / touch screen viewports */

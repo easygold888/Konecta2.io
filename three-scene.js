@@ -205,6 +205,45 @@ document.addEventListener('DOMContentLoaded', () => {
       renderer.render(scene, camera);
     };
 
+    // Expose global cinematic transition trigger for the 3-second Cosmic Awakening
+    window.triggerHeroCinematicTransition = () => {
+      // 1. Perspective Camera zoom in and out
+      gsap.timeline()
+        .to(camera.position, {
+          z: 4.5,
+          duration: 1.0,
+          ease: 'power2.inOut'
+        })
+        .to(camera.position, {
+          z: 7,
+          duration: 1.6,
+          ease: 'power3.out'
+        });
+
+      // 2. 3D double rotation sweep of objectGroup
+      gsap.to(objectGroup.rotation, {
+        y: objectGroup.rotation.y + Math.PI * 2,
+        x: objectGroup.rotation.x + Math.PI,
+        duration: 2.2,
+        ease: 'power3.inOut'
+      });
+
+      // 3. Explosive wireframe white flash and scale pulse
+      wireframeMaterial.color.setHex(0xffffff);
+      gsap.to(objectGroup.scale, {
+        x: 1.45,
+        y: 1.45,
+        z: 1.45,
+        duration: 1.0,
+        yoyo: true,
+        repeat: 1,
+        ease: 'power2.inOut',
+        onComplete: () => {
+          wireframeMaterial.color.setHex(0x00FFDB);
+        }
+      });
+    };
+
     animate();
 
     // Resize Handler

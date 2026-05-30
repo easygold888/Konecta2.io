@@ -191,7 +191,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         ctx.beginPath();
         let finalX = star.x - (parallaxX * star.speed * 8);
-        let finalY = star.y - (parallaxY * star.speed * 8) - (currentScrollY * star.speed);
+        let speedMult = window.starSpeedMultiplier || 1.0;
+        let finalY = star.y - (parallaxY * star.speed * 8) - (currentScrollY * star.speed) - (star.speed * speedMult * 6);
 
         finalX = (finalX + width) % width;
         finalY = (finalY + height) % height;
@@ -883,6 +884,205 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+  // --------------------------------------------------
+  // PROCEDURAL COSMIC AMBIENT DRONE SYNTHESIZER (Web Audio API)
+  // --------------------------------------------------
+  let audioCtx = null;
+  let spaceDrone = null;
+
+  const startSpaceDrone = () => {
+    try {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      
+      // Base Oscillators for the spaceship cockpit hum
+      const osc1 = audioCtx.createOscillator();
+      const osc2 = audioCtx.createOscillator();
+      const gainNode = audioCtx.createGain();
+      const filterNode = audioCtx.createBiquadFilter();
+      
+      osc1.type = 'sawtooth';
+      osc1.frequency.setValueAtTime(55, audioCtx.currentTime); // A1 note
+      
+      osc2.type = 'triangle';
+      osc2.frequency.setValueAtTime(110, audioCtx.currentTime); // A2 note
+      
+      // Modulation LFO for low-frequency filters sweep (nebulae effect)
+      const modulator = audioCtx.createOscillator();
+      const modGain = audioCtx.createGain();
+      modulator.frequency.setValueAtTime(0.08, audioCtx.currentTime); // very slow sweep (12s)
+      modGain.gain.setValueAtTime(120, audioCtx.currentTime);
+      
+      filterNode.type = 'lowpass';
+      filterNode.frequency.setValueAtTime(180, audioCtx.currentTime);
+      filterNode.Q.setValueAtTime(4, audioCtx.currentTime);
+      
+      // Connect modulation
+      modulator.connect(modGain);
+      modGain.connect(filterNode.frequency);
+      
+      osc1.connect(filterNode);
+      osc2.connect(filterNode);
+      filterNode.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+      
+      // Fade in volume smoothly over 3.5 seconds
+      gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+      gainNode.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 3.5);
+      
+      osc1.start();
+      osc2.start();
+      modulator.start();
+      
+      spaceDrone = { osc1, osc2, modulator, gainNode, filterNode };
+    } catch (err) {
+      console.warn("Web Audio API is not supported on this device.", err);
+    }
+  };
+
+  const stopSpaceDrone = () => {
+    if (spaceDrone && audioCtx) {
+      spaceDrone.gainNode.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 1.2);
+      setTimeout(() => {
+        if (spaceDrone) {
+          spaceDrone.osc1.stop();
+          spaceDrone.osc2.stop();
+          spaceDrone.modulator.stop();
+        }
+        if (audioCtx) {
+          audioCtx.close();
+        }
+        audioCtx = null;
+        spaceDrone = null;
+      }, 1300);
+    }
+  };
+
+  const droneToggleBtn = document.getElementById('drone-toggle');
+  if (droneToggleBtn) {
+    droneToggleBtn.addEventListener('click', () => {
+      droneToggleBtn.classList.toggle('active');
+      if (droneToggleBtn.classList.contains('active')) {
+        startSpaceDrone();
+      } else {
+        stopSpaceDrone();
+      }
+    });
+  }
+
+  // --------------------------------------------------
+  // 3-SECOND COSMIC AWAKENING (Cinematic Warp Transition)
+  // --------------------------------------------------
+  const triggerCosmicAwakening = () => {
+    // 1. Zoom and rotate Three.js Hero 3D object
+    if (typeof window.triggerHeroCinematicTransition === 'function') {
+      window.triggerHeroCinematicTransition();
+    }
+
+    // 2. Volumetric warp speed canvas starfield acceleration
+    window.starSpeedMultiplier = 1.0;
+    gsap.timeline()
+      .to(window, {
+        starSpeedMultiplier: 38.0,
+        duration: 0.9,
+        ease: 'power3.in'
+      })
+      .to(window, {
+        starSpeedMultiplier: 1.8, // cozy drifting active speed
+        duration: 1.6,
+        ease: 'power2.out'
+      });
+
+    // 3. Shockwave radial ring expansion
+    const shockwave = document.getElementById('shockwave-ring');
+    if (shockwave) {
+      gsap.timeline()
+        .set(shockwave, { scale: 0, opacity: 0.95 })
+        .to(shockwave, {
+          scale: 14,
+          opacity: 0,
+          duration: 1.8,
+          ease: 'power2.out'
+        });
+    }
+
+    // 4. Flash and expand background mesh nebulae
+    gsap.to('.blob-1', {
+      scale: 1.35,
+      opacity: 0.35,
+      duration: 1.2,
+      yoyo: true,
+      repeat: 1,
+      ease: 'power2.inOut'
+    });
+
+    // 5. Reveal [ NFC SYSTEM ONLINE ] Logo badge
+    const logoBadge = document.querySelector('.nfc-ops-badge');
+    if (logoBadge) {
+      logoBadge.classList.add('revealed');
+    }
+
+    // 6. Text dynamic glow effect reveal
+    gsap.from('#hero-content-group h1', {
+      textShadow: '0 0 50px rgba(0, 255, 219, 0.9)',
+      duration: 1.2,
+      ease: 'power2.out'
+    });
+  };
+
+  // Wait exactly 3 seconds (3000ms) after loading to trigger the cinematic space jump
+  setTimeout(triggerCosmicAwakening, 3000);
+
+  // --------------------------------------------------
+  // ATMOSPHERIC COSMIC THEME SCROLL SHIFTS (Space Sectors)
+  // --------------------------------------------------
+  const initSpaceScrollSectors = () => {
+    // Problem Sector: turns background to cosmic dark crimson
+    gsap.to(':root', {
+      '--bg-secondary': '#12040a',
+      scrollTrigger: {
+        trigger: '#problem',
+        start: 'top 80%',
+        end: 'bottom 20%',
+        scrub: 1
+      }
+    });
+
+    // Back to space blue for solution cases
+    gsap.to(':root', {
+      '--bg-secondary': '#05081b',
+      scrollTrigger: {
+        trigger: '#cases',
+        start: 'top 80%',
+        end: 'bottom 20%',
+        scrub: 1
+      }
+    });
+
+    // Reviews Sector: turns background to emerald stardust green
+    gsap.to(':root', {
+      '--bg-secondary': '#041c16',
+      scrollTrigger: {
+        trigger: '#why-reviews',
+        start: 'top 80%',
+        end: 'bottom 20%',
+        scrub: 1
+      }
+    });
+
+    // Waitlist Sector: turns background to corona cian solar blue
+    gsap.to(':root', {
+      '--bg-secondary': '#010c14',
+      scrollTrigger: {
+        trigger: '#cta-waitlist',
+        start: 'top 80%',
+        scrub: 1
+      }
+    });
+  };
+
+  // Run scroll shifts
+  initSpaceScrollSectors();
 
   // Initial rendering triggers
   renderDynamicContent(currentLang);
