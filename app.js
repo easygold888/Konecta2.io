@@ -50,12 +50,20 @@ document.addEventListener('DOMContentLoaded', () => {
   // Active Visual Stage Helper for interactive Solution Showcase
   const setActiveVisualStage = (stageNum) => {
     for (let i = 1; i <= 3; i++) {
-      const el = document.getElementById(`visual-stage-${i}`);
-      if (el) {
+      const visualEl = document.getElementById(`visual-stage-${i}`);
+      const stepEl = document.getElementById(`solution-step-${i}`);
+      if (visualEl) {
         if (i === stageNum) {
-          el.classList.add('active');
+          visualEl.classList.add('active');
         } else {
-          el.classList.remove('active');
+          visualEl.classList.remove('active');
+        }
+      }
+      if (stepEl) {
+        if (i === stageNum) {
+          stepEl.classList.add('active');
+        } else {
+          stepEl.classList.remove('active');
         }
       }
     }
@@ -483,7 +491,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isDesktop) {
       // Set initial state
       setActiveVisualStage(1);
-      gsap.set('.solution-step-item', { opacity: 0.25 });
 
       const solutionTl = gsap.timeline({
         scrollTrigger: {
@@ -528,17 +535,6 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         }
       });
-
-      // Animate Step 1 highlight
-      solutionTl.to('#solution-step-1', { opacity: 1, duration: 0.3 }, 0);
-      solutionTl.to('#solution-step-1', { opacity: 0.25, duration: 0.3 }, 0.5);
-
-      // Animate Step 2 highlight
-      solutionTl.to('#solution-step-2', { opacity: 1, duration: 0.3 }, 0.6);
-      solutionTl.to('#solution-step-2', { opacity: 0.25, duration: 0.3 }, 1.1);
-
-      // Animate Step 3 highlight
-      solutionTl.to('#solution-step-3', { opacity: 1, duration: 0.3 }, 1.2);
 
       scrollTriggersInstance.push(solutionTl.scrollTrigger);
     } else {

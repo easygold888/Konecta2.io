@@ -2157,17 +2157,32 @@ footer {
   z-index: 10;
 }
 
-/* Right Side: Steps Columns */
-.solution-steps-wrapper {
-  padding-left: 2rem;
+/* Right Side: Sticky Step Descriptions */
+.solution-text-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
 }
 
 .solution-step-item {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 100%;
   padding-right: 2rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1), transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.solution-step-item.active {
+  opacity: 1;
+  visibility: visible;
 }
 
 .solution-step-item h2 {
@@ -2216,13 +2231,20 @@ footer {
     margin-bottom: 2rem;
   }
 
-  .solution-step-item {
+  .solution-text-sticky {
+    position: relative;
     height: auto;
-    min-height: auto;
-    padding: 3rem 0;
+    display: block;
   }
 
-  .solution-steps-wrapper {
-    padding-left: 0;
+  .solution-step-item {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    padding-right: 0;
+    opacity: 1 !important;
+    visibility: visible !important;
+    margin-bottom: 3rem;
   }
 }
