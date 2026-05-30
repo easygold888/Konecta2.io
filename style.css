@@ -2254,6 +2254,81 @@ footer {
     box-shadow: 0 10px 30px rgba(0,0,0,0.4);
   }
 
+  /* Mobile step visual sub-components styling & animation starting states */
+  .mobile-step-visual .nfc-card-3d {
+    margin: 0 auto;
+    position: relative;
+    width: 290px;
+    height: 180px;
+    will-change: transform;
+  }
+
+  .mobile-step-visual .nfc-card-3d-bg {
+    transform: none;
+    position: relative;
+    margin: 0 auto 1.5rem;
+    width: 240px;
+    height: 150px;
+    opacity: 0.8;
+  }
+
+  .mobile-step-visual .tapping-phone-mockup {
+    position: relative;
+    margin: 0 auto;
+    width: 160px;
+    height: 320px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+    transform: translate(50px, 20px) rotate(-8deg); /* Starting state for scroll approach */
+    will-change: transform;
+  }
+
+  .mobile-step-visual .phone-notification-banner {
+    position: absolute;
+    top: -85px; /* Starting state (hidden) */
+    left: 5%;
+    width: 90%;
+    background: rgba(5, 8, 27, 0.95);
+    border: 1px solid rgba(0, 255, 219, 0.35);
+    border-radius: 14px;
+    padding: 0.6rem 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    box-shadow: 0 10px 30px rgba(0, 255, 219, 0.25);
+    transition: top 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 100;
+  }
+
+  .mobile-step-visual .success-phone-mockup {
+    margin: 0 auto;
+    width: 180px;
+    height: 360px;
+    border-radius: 38px;
+    border: 3px solid #10B981;
+    box-shadow: 0 0 40px rgba(16, 185, 129, 0.4), 0 35px 70px rgba(0, 0, 0, 0.7);
+    overflow: hidden;
+    position: relative;
+    background: #010207;
+  }
+
+  .mobile-step-visual .success-checkmark {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: #10B981;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1.2rem;
+    box-shadow: 0 0 25px rgba(16, 185, 129, 0.65);
+    transform: scale(0); /* Starting state (hidden) */
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+
   .solution-split-container {
     grid-template-columns: 1fr;
     gap: 0;

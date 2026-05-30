@@ -706,6 +706,70 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
 
+      // --- Dynamic local scroll triggers for mobile visual steps ---
+      // Step 1: Card 3D rotation based on scroll
+      const step1Card = document.querySelector('#solution-step-1 .mobile-step-visual .nfc-card-3d');
+      if (step1Card) {
+        const step1Tl = gsap.to(step1Card, {
+          rotateY: 18,
+          rotateX: 12,
+          y: -15,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '#solution-step-1',
+            start: 'top 80%',
+            end: 'bottom 20%',
+            scrub: 1
+          }
+        });
+        scrollTriggersInstance.push(step1Tl.scrollTrigger);
+      }
+
+      // Step 2: Scroll-driven tap approach & push notification drop
+      const step2Phone = document.querySelector('#solution-step-2 .mobile-step-visual .tapping-phone-mockup');
+      const step2Banner = document.querySelector('#solution-step-2 .mobile-step-visual .phone-notification-banner');
+      if (step2Phone) {
+        const step2Tl = gsap.to(step2Phone, {
+          x: 0,
+          y: 0,
+          rotation: 0,
+          ease: 'power1.out',
+          scrollTrigger: {
+            trigger: '#solution-step-2',
+            start: 'top 80%',
+            end: 'bottom 40%',
+            scrub: 0.5,
+            onUpdate: (self) => {
+              if (step2Banner) {
+                if (self.progress > 0.6) {
+                  step2Banner.style.top = '20px';
+                } else {
+                  step2Banner.style.top = '-85px';
+                }
+              }
+            }
+          }
+        });
+        scrollTriggersInstance.push(step2Tl.scrollTrigger);
+      }
+
+      // Step 3: Checkmark scale bounce on entrance
+      const step3Check = document.querySelector('#solution-step-3 .mobile-step-visual .success-checkmark');
+      if (step3Check) {
+        const step3Tl = gsap.to(step3Check, {
+          scale: 1,
+          opacity: 1,
+          duration: 0.8,
+          ease: 'back.out(1.7)',
+          scrollTrigger: {
+            trigger: '#solution-step-3',
+            start: 'top 75%',
+            toggleActions: 'play none none reverse'
+          }
+        });
+        scrollTriggersInstance.push(step3Tl.scrollTrigger);
+      }
+
       // Simple Problem cards stagger entrance
       const problemTl = gsap.from('.problem-card', {
         opacity: 0,
