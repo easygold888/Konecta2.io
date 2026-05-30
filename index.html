@@ -193,10 +193,91 @@
     </section>
 
     <!-- --------------------------------------------------
-         3. CASOS DE USO (Pinned Solution Grid)
+         3. CASOS DE USO (Scroll-Driven 3-Step Showcase)
          -------------------------------------------------- -->
-    <section id="solution" class="section-wrapper">
-      <div class="container" id="solution-pin-trigger">
+    <section id="solution" class="solution-interactive-section">
+      <div class="container solution-split-container">
+        
+        <!-- Left Side: Pinned Interactive Visuals -->
+        <div class="solution-visuals-sticky">
+          
+          <!-- Stage 1: Premium Floating NFC Card -->
+          <div class="solution-visual-stage stage-1-card" id="visual-stage-1">
+            <div class="nfc-card-3d">
+              <div class="nfc-card-glow"></div>
+              <div class="nfc-card-logo">⚡</div>
+              <div class="nfc-card-text">KONECTA2</div>
+              <div class="nfc-card-chip"></div>
+            </div>
+          </div>
+          
+          <!-- Stage 2: Hand/Phone Tapping and Notification -->
+          <div class="solution-visual-stage stage-2-tap" id="visual-stage-2">
+            <!-- Pinned card behind -->
+            <div class="nfc-card-3d-bg">
+              <div class="nfc-card-logo">⚡</div>
+            </div>
+            <!-- Approaching Phone with notch -->
+            <div class="tapping-phone-mockup" id="tapping-phone-mockup">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <div class="phone-notification-banner" id="phone-notification-banner">
+                  <div class="notif-icon">⚡</div>
+                  <div class="notif-content">
+                    <h5>Konecta2 NFC</h5>
+                    <p>Abriendo Reseñas...</p>
+                  </div>
+                </div>
+                <div class="phone-screen-logo-notif">
+                  <i data-lucide="smartphone"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Stage 3: Success Screen (Turn Emerald Green) -->
+          <div class="solution-visual-stage stage-3-success" id="visual-stage-3">
+            <div class="success-phone-mockup">
+              <div class="phone-notch"></div>
+              <div class="success-screen-bg">
+                <div class="success-glow-ring"></div>
+                <div class="success-checkmark">✓</div>
+                <h4>¡CONEXIÓN EXITOSA!</h4>
+                <p>Abriendo Google Maps</p>
+                <div class="success-stars">⭐⭐⭐⭐⭐</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Side: Scroll-Triggered Step Descriptions -->
+        <div class="solution-steps-wrapper">
+          <div class="solution-step-item" id="solution-step-1">
+            <div class="badge">Paso 1</div>
+            <h2>El Dispositivo Físico</h2>
+            <p>Coloca tu placa o tarjeta inteligente Konecta2 NFC en tu mostrador o entrégala a tus clientes. Diseñadas con materiales premium de alta resistencia y chips NFC de última generación.</p>
+          </div>
+          <div class="solution-step-item" id="solution-step-2">
+            <div class="badge">Paso 2</div>
+            <h2>El Tap y Notificación</h2>
+            <p>El cliente acerca su smartphone a pocos centímetros. De forma instantánea y nativa, su móvil detecta el chip emitiendo una onda electromagnética que despliega una notificación push inmediata.</p>
+          </div>
+          <div class="solution-step-item" id="solution-step-3">
+            <div class="badge">Paso 3</div>
+            <h2>Acción Completada</h2>
+            <p>¡Listo! La pantalla se ilumina y el cliente es dirigido directamente al enlace configurado (Google Maps, vCard, Menú Digital, Pago o WiFi) en menos de 1 segundo.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- --------------------------------------------------
+         3b. CASOS DE USO GRID (Compact Features)
+         -------------------------------------------------- -->
+    <section id="cases" class="section-wrapper" style="height: auto; padding: 8rem 0;">
+      <div class="container">
         <div class="badge" data-i18n="solution.badge">La Solución</div>
         <h2 class="section-title" data-i18n="solution.headline">Un solo tap. Acciones instantáneas.</h2>
         <p class="section-subtitle" data-i18n="solution.subheadline">Dispositivos NFC físicos que enlazan directamente a lo que tu negocio necesita en cada momento. Sin pasos extra.</p>

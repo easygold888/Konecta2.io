@@ -148,6 +148,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Active Visual Stage Helper for interactive Solution Showcase
+  const setActiveVisualStage = (stageNum) => {
+    for (let i = 1; i <= 3; i++) {
+      const el = document.getElementById(`visual-stage-${i}`);
+      if (el) {
+        if (i === stageNum) {
+          el.classList.add('active');
+        } else {
+          el.classList.remove('active');
+        }
+      }
+    }
+  };
+
   // --------------------------------------------------
   // 2D CANVAS NEON EXPLOSION PARTICLE ENGINE
   // --------------------------------------------------
@@ -716,7 +730,7 @@ document.addEventListener('DOMContentLoaded', () => {
       scrollTriggersInstance.push(headerTl.scrollTrigger);
     };
 
-    ['#problem', '#solution', '#why-reviews', '#comparison', '#timeline', '#testimonials'].forEach(sec => {
+    ['#problem', '#cases', '#why-reviews', '#comparison', '#timeline', '#testimonials'].forEach(sec => {
       animateHeaders(sec);
     });
 
@@ -754,39 +768,82 @@ document.addEventListener('DOMContentLoaded', () => {
       scrollTriggersInstance.push(problemTl.scrollTrigger);
     }
 
-    // 3. SOLUTION GRID PINNED REVEAL
+    // 3. SOLUTION INTERACTIVE 3-STEP SCROLL PIN
     if (isDesktop) {
+      // Set initial state
+      setActiveVisualStage(1);
+      gsap.set('.solution-step-item', { opacity: 0.25 });
+
       const solutionTl = gsap.timeline({
         scrollTrigger: {
           trigger: '#solution',
           start: 'top top',
-          end: '+=100%',
+          end: '+=200%', // pin for 2 full screen scroll lengths
           pin: true,
-          scrub: 1,
-          invalidateOnRefresh: true
+          scrub: 0.5,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            const progress = self.progress;
+
+            // Step 1: Active from 0.0 to 0.33
+            if (progress >= 0 && progress < 0.33) {
+              setActiveVisualStage(1);
+            } 
+            // Step 2: Active from 0.33 to 0.66
+            else if (progress >= 0.33 && progress < 0.66) {
+              setActiveVisualStage(2);
+              
+              // Phone approach translation on progress of Step 2
+              const step2Progress = (progress - 0.33) / 0.33;
+              const phone = document.getElementById('tapping-phone-mockup');
+              const banner = document.getElementById('phone-notification-banner');
+              if (phone) {
+                const xVal = 140 - (110 * step2Progress); // 140px to 30px
+                const rotVal = -12 + (12 * step2Progress); // -12deg to 0deg
+                phone.style.transform = `translate(${xVal}px, 40px) rotate(${rotVal}deg)`;
+              }
+              if (banner) {
+                if (step2Progress > 0.65) {
+                  banner.classList.add('slide-down');
+                } else {
+                  banner.classList.remove('slide-down');
+                }
+              }
+            } 
+            // Step 3: Active from 0.66 to 1.0
+            else if (progress >= 0.66) {
+              setActiveVisualStage(3);
+            }
+          }
         }
       });
-      solutionTl.from('.case-card', {
-        opacity: 0,
-        y: 40,
-        scale: 0.95,
-        stagger: 0.3,
-        duration: 1.5,
-        ease: 'power2.out'
-      });
+
+      // Animate Step 1 highlight
+      solutionTl.to('#solution-step-1', { opacity: 1, duration: 0.3 }, 0);
+      solutionTl.to('#solution-step-1', { opacity: 0.25, duration: 0.3 }, 0.5);
+
+      // Animate Step 2 highlight
+      solutionTl.to('#solution-step-2', { opacity: 1, duration: 0.3 }, 0.6);
+      solutionTl.to('#solution-step-2', { opacity: 0.25, duration: 0.3 }, 1.1);
+
+      // Animate Step 3 highlight
+      solutionTl.to('#solution-step-3', { opacity: 1, duration: 0.3 }, 1.2);
+
       scrollTriggersInstance.push(solutionTl.scrollTrigger);
     } else {
-      const solutionTl = gsap.from('.case-card', {
-        opacity: 0,
-        y: 40,
-        stagger: 0.15,
-        duration: 1,
-        scrollTrigger: {
-          trigger: '#cases-grid',
-          start: 'top 80%'
-        }
+      // Mobile fallback scroll triggers per step
+      setActiveVisualStage(1);
+      
+      const stepIds = ['#solution-step-1', '#solution-step-2', '#solution-step-3'];
+      stepIds.forEach((stepId, idx) => {
+        ScrollTrigger.create({
+          trigger: stepId,
+          start: 'top 60%',
+          end: 'bottom 60%',
+          onEnter: () => setActiveVisualStage(idx + 1),
+          onEnterBack: () => setActiveVisualStage(idx + 1)
+        });
       });
-      scrollTriggersInstance.push(solutionTl.scrollTrigger);
     }
 
     // 4. REVIEWS PINNED POPUP STORM
