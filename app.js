@@ -3,9 +3,6 @@
 // ----------------------------------------------------
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Lock scrollbar on boot for the interactive NFC tap intro
-  document.body.style.overflow = 'hidden';
-
   // Ensure GSAP and ScrollTrigger are loaded
   if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
     console.error('GSAP or ScrollTrigger is missing. Standard scrolling is used.');
@@ -19,41 +16,37 @@ document.addEventListener('DOMContentLoaded', () => {
   // State Management
   let currentLang = 'es'; // default Spanish
   let isTapCompleted = false;
+  let isIntroCompleted = false;
+
+  // Check session storage to see if they already completed the intro in this session
+  const isIntroCompletedStored = sessionStorage.getItem('k2_intro_completed') === 'true';
+  if (isIntroCompletedStored) {
+    isIntroCompleted = true;
+    const tapGate = document.getElementById('nfc-tap-experience');
+    if (tapGate) tapGate.style.display = 'none';
+    document.body.style.overflow = 'auto';
+  } else {
+    // Keep scroll unlocked so they can scroll to trigger the tap
+    document.body.style.overflow = 'auto';
+  }
 
   // Custom Cursor variables
   const cursor = document.querySelector('.custom-cursor');
   const cursorGlow = document.querySelector('.custom-cursor-glow');
   let cursorX = 0, cursorY = 0;
   let glowX = 0, glowY = 0;
-
-  // Proximity virtual smartphone variables
-  const phonePointer = document.getElementById('phone-pointer');
-  let phoneX = window.innerWidth * 0.75;
-  let phoneY = window.innerHeight * 0.5;
-  let targetPhoneX = window.innerWidth * 0.75;
-  let targetPhoneY = window.innerHeight * 0.5;
-
-  // Track coordinates
   let mouseX = window.innerWidth / 2;
   let mouseY = window.innerHeight / 2;
 
   window.addEventListener('mousemove', (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
-    
-    // Bind phone target coordinates to mouse unless tap is completed
-    if (!isTapCompleted) {
-      targetPhoneX = e.clientX;
-      targetPhoneY = e.clientY;
-    }
   });
 
-  // Main Cursor & Phone follower frame loop
-  const renderCursorAndPhone = () => {
-    // Normal cursor lerping
+  // Main Cursor frame loop
+  const renderCursor = () => {
     cursorX += (mouseX - cursorX) * 0.22;
     cursorY += (mouseY - cursorY) * 0.22;
-
     glowX += (mouseX - glowX) * 0.08;
     glowY += (mouseY - glowY) * 0.08;
 
@@ -66,78 +59,18 @@ document.addEventListener('DOMContentLoaded', () => {
       cursorGlow.style.top = `${glowY}px`;
     }
 
-    // Phone cursor follow lerping
-    if (phonePointer && !isTapCompleted) {
-      phoneX += (targetPhoneX - phoneX) * 0.15;
-      phoneY += (targetPhoneY - phoneY) * 0.15;
-
-      phonePointer.style.left = `${phoneX}px`;
-      phonePointer.style.top = `${phoneY}px`;
-
-      // Active proximity calculation
-      checkProximityToPlaque();
-    }
-
-    requestAnimationFrame(renderCursorAndPhone);
+    requestAnimationFrame(renderCursor);
   };
-  renderCursorAndPhone();
+  renderCursor();
 
-  // Proximity Proximity check between Phone Pointer and glowing NFC plaque
-  const checkProximityToPlaque = () => {
-    const plaqueZone = document.getElementById('glowing-plaque');
-    if (!plaqueZone) return;
-
-    // Plaque coordinates
-    const rect = plaqueZone.getBoundingClientRect();
-    const plaqueCenterX = rect.left + rect.width / 2;
-    const plaqueCenterY = rect.top + rect.height / 2;
-
-    // Pythagorean distance
-    const dx = phoneX - plaqueCenterX;
-    const dy = phoneY - plaqueCenterY;
-    const dist = Math.sqrt(dx * dx + dy * dy);
-
-    const ring1 = document.getElementById('mag-ring-1');
-    const ring2 = document.getElementById('mag-ring-2');
-    const ring3 = document.getElementById('mag-ring-3');
-
-    // Concentric ring proximity flashes
-    if (dist < 320) {
-      const speed = Math.max(0.3, (dist / 320) * 2.5); // rings pulse faster when closer
-      if (ring1) ring1.style.animationDuration = `${speed}s`;
-      if (ring2) ring2.style.animationDuration = `${speed + 0.5}s`;
-      if (ring3) ring3.style.animationDuration = `${speed + 1.0}s`;
-
-      plaqueZone.classList.add('glowing-nfc-plaque-approached');
-      
-      // Proximity electromagnetic ring highlight
-      [ring1, ring2, ring3].forEach(r => r && r.classList.add('vibrating'));
-    } else {
-      // Normal durations
-      if (ring1) ring1.style.animationDuration = '3s';
-      if (ring2) ring2.style.animationDuration = '3.5s';
-      if (ring3) ring3.style.animationDuration = '4s';
-
-      plaqueZone.classList.remove('glowing-nfc-plaque-approached');
-      [ring1, ring2, ring3].forEach(r => r && r.classList.remove('vibrating'));
-    }
-
-    // Proximity "Tap" threshold
-    if (dist < 90 && !isTapCompleted) {
-      triggerNFCTap(plaqueCenterX, plaqueCenterY);
-    }
-  };
-
-  // Trigger Proximity simulated Tap
-  const triggerNFCTap = (x, y) => {
-    isTapCompleted = true;
-
-    // Activate phone notched display loading state
-    if (phonePointer) {
-      phonePointer.classList.add('phone-active');
+  // Scroll Tap Trigger Functions
+  const triggerScrollTap = () => {
+    const phone = document.getElementById('scroll-phone-mockup');
+    if (phone) {
+      phone.classList.add('phone-active');
       const statusText = document.getElementById('phone-status');
       if (statusText) {
-        statusText.innerHTML = currentLang === 'es' ? 'CONECTANDO...' : 'CONNECTING...';
+        statusText.innerHTML = currentLang === 'es' ? '¡CONECTADO!' : 'CONNECTED!';
       }
     }
 
@@ -145,54 +78,73 @@ document.addEventListener('DOMContentLoaded', () => {
     const plaqueZone = document.getElementById('glowing-plaque');
     if (plaqueZone) {
       gsap.to(plaqueZone, {
-        x: '+=10',
+        x: '+=8',
         yoyo: true,
-        repeat: 9,
-        duration: 0.05,
+        repeat: 7,
+        duration: 0.04,
         onComplete: () => {
           gsap.to(plaqueZone, { x: 0, duration: 0.1 });
         }
       });
+      plaqueZone.classList.add('glowing-nfc-plaque-approached');
     }
 
-    // Trigger Canvas Neon Particle Blast
-    triggerParticleExplosion(x, y);
+    // Concentric rings flash and speed up
+    const rings = ['mag-ring-1', 'mag-ring-2', 'mag-ring-3'];
+    rings.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.classList.add('vibrating');
+    });
 
-    // Simulated high-speed connection timeout
-    setTimeout(() => {
+    // Trigger Canvas Neon Particle Blast at the center of the left column (25vw, 50vh)
+    triggerParticleExplosion(window.innerWidth * 0.25, window.innerHeight * 0.5);
+  };
+
+  const resetScrollTap = () => {
+    const phone = document.getElementById('scroll-phone-mockup');
+    if (phone) {
+      phone.classList.remove('phone-active');
       const statusText = document.getElementById('phone-status');
       if (statusText) {
-        statusText.innerHTML = currentLang === 'es' ? '¡CONECTADO!' : 'CONNECTED!';
+        statusText.innerHTML = currentLang === 'es' ? 'ACERCANDO...' : 'APPROACHING...';
       }
+    }
 
-      // Smoothly zoom/fade gateway and reveal main landing
-      setTimeout(() => {
-        const tapGate = document.getElementById('nfc-tap-experience');
-        if (tapGate) {
-          tapGate.classList.add('tap-completed');
+    const plaqueZone = document.getElementById('glowing-plaque');
+    if (plaqueZone) {
+      plaqueZone.classList.remove('glowing-nfc-plaque-approached');
+    }
+
+    const rings = ['mag-ring-1', 'mag-ring-2', 'mag-ring-3'];
+    rings.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove('vibrating');
+    });
+  };
+
+  const hideIntroGateway = () => {
+    const tapGate = document.getElementById('nfc-tap-experience');
+    if (tapGate) {
+      gsap.to(tapGate, {
+        opacity: 0,
+        duration: 0.4,
+        onComplete: () => {
+          tapGate.style.display = 'none';
+          document.body.style.overflow = 'auto';
+          ScrollTrigger.refresh();
+          window.scrollTo(0, 0); // smooth reset to landing page top
         }
-
-        // Restore scrollbar
-        document.body.style.overflow = 'auto';
-
-        // Re-align ScrollTrigger positions
-        ScrollTrigger.refresh();
-      }, 800);
-
-    }, 1300);
+      });
+    }
   };
 
   // Skip Intro immediately
   const skipBtn = document.getElementById('skip-intro-trigger');
   if (skipBtn) {
     skipBtn.addEventListener('click', () => {
-      isTapCompleted = true;
-      const tapGate = document.getElementById('nfc-tap-experience');
-      if (tapGate) {
-        tapGate.classList.add('tap-completed');
-      }
-      document.body.style.overflow = 'auto';
-      ScrollTrigger.refresh();
+      isIntroCompleted = true;
+      sessionStorage.setItem('k2_intro_completed', 'true');
+      hideIntroGateway();
     });
   }
 
@@ -617,6 +569,118 @@ document.addEventListener('DOMContentLoaded', () => {
     scrollTriggersInstance = [];
 
     const isDesktop = window.innerWidth > 1024;
+
+    // 0. NFC TAP EXPERIENCE INTRO SCROLL PINNING
+    const tapGate = document.getElementById('nfc-tap-experience');
+    const isIntroCompletedStored = sessionStorage.getItem('k2_intro_completed') === 'true';
+
+    if (tapGate && !isIntroCompleted && !isIntroCompletedStored) {
+      tapGate.style.display = 'grid';
+
+      // Initial settings for scroll animation
+      gsap.set('#scroll-phone-mockup', {
+        x: '45vw',
+        y: 250,
+        rotation: 12,
+        scale: 1,
+        opacity: 1
+      });
+      gsap.set('#shockwave-ring', {
+        scale: 0,
+        opacity: 0
+      });
+      gsap.set('#glowing-plaque', {
+        scale: 1,
+        opacity: 1,
+        x: 0,
+        y: 0
+      });
+      gsap.set('.magnetic-ring', {
+        scale: 1,
+        opacity: 1
+      });
+      gsap.set('.tap-helper-text', {
+        opacity: 1,
+        y: 0
+      });
+
+      const tapTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: '#nfc-tap-experience',
+          start: 'top top',
+          end: '+=150%',
+          pin: true,
+          scrub: 0.5,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            const progress = self.progress;
+
+            // Concentric rings speed up as phone gets closer (0 -> 0.5 progress)
+            const ring1 = document.getElementById('mag-ring-1');
+            const ring2 = document.getElementById('mag-ring-2');
+            const ring3 = document.getElementById('mag-ring-3');
+            if (progress < 0.5) {
+              const speed = Math.max(0.2, 3.0 * (1.0 - progress * 2.0));
+              if (ring1) ring1.style.animationDuration = `${speed}s`;
+              if (ring2) ring2.style.animationDuration = `${speed + 0.3}s`;
+              if (ring3) ring3.style.animationDuration = `${speed + 0.6}s`;
+            }
+
+            // Trigger NFC Tap exactly at 50% scroll progress
+            if (progress >= 0.5 && !isTapCompleted) {
+              isTapCompleted = true;
+              triggerScrollTap();
+            } else if (progress < 0.5 && isTapCompleted) {
+              isTapCompleted = false;
+              resetScrollTap();
+            }
+
+            // If we scrolled all the way to 100%, complete and hide the intro
+            if (progress >= 0.99 && !isIntroCompleted) {
+              isIntroCompleted = true;
+              sessionStorage.setItem('k2_intro_completed', 'true');
+              hideIntroGateway();
+            }
+          }
+        }
+      });
+
+      // Animate phone slide-in from bottom-right (0 to 50% of scroll timeline)
+      tapTl.to('#scroll-phone-mockup', {
+        x: 0,
+        y: 0,
+        rotation: 0,
+        duration: 1,
+        ease: 'power1.out'
+      }, 0);
+
+      // Shockwave expands exactly when phone touches the plaque (at progress 0.5)
+      tapTl.to('#shockwave-ring', {
+        scale: 6,
+        opacity: 1,
+        duration: 0.2,
+        ease: 'power2.out'
+      }, 1);
+      tapTl.to('#shockwave-ring', {
+        opacity: 0,
+        duration: 0.2
+      }, 1.2);
+
+      // Zoom-in spatial dissolve (50% to 100% of scroll timeline)
+      tapTl.to(['#scroll-phone-mockup', '#glowing-plaque', '.magnetic-ring', '.tap-helper-text'], {
+        scale: 3.5,
+        opacity: 0,
+        stagger: 0.05,
+        duration: 1,
+        ease: 'power2.in'
+      }, 1.3);
+
+      scrollTriggersInstance.push(tapTl.scrollTrigger);
+    } else {
+      if (tapGate) {
+        tapGate.style.display = 'none';
+      }
+    }
 
     // 1. HERO PINNED EXPERIENCE
     const heroTl = gsap.timeline({

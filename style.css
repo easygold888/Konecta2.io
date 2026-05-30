@@ -115,8 +115,8 @@ body {
    CUSTOM CURSOR & GLOW
    ---------------------------------------------------- */
 .custom-cursor {
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   background: var(--accent-2); /* Neon cyan cursor core */
   border-radius: 50%;
   position: fixed;
@@ -130,9 +130,9 @@ body {
 }
 
 .custom-cursor-glow {
-  width: 250px;
-  height: 250px;
-  background: radial-gradient(circle, rgba(0, 255, 219, 0.15) 0%, rgba(27, 56, 196, 0.05) 50%, rgba(0, 0, 0, 0) 100%);
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(0, 255, 219, 0.12) 0%, rgba(27, 56, 196, 0.04) 50%, rgba(0, 0, 0, 0) 100%);
   position: fixed;
   top: 0;
   left: 0;
@@ -401,32 +401,22 @@ nav a:hover::after {
 }
 
 /* ----------------------------------------------------
-   ⚡ INTERACTIVE NFC TAP EXPERIENCE PORTAL (Cinematic Gateway)
+   ⚡ HYPER-REALISTIC SCROLL-DRIVEN NFC TAP INTRO GATEWAY
    ---------------------------------------------------- */
 #nfc-tap-experience {
-  position: fixed;
-  top: 0;
-  left: 0;
+  position: relative; /* Standard height flow, pinned by GSAP */
   width: 100vw;
   height: 100vh;
   background-color: #010208;
-  z-index: 2000; /* Over everything */
+  z-index: 100;
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
   justify-items: center;
   overflow: hidden;
-  transition: transform 1.2s cubic-bezier(0.85, 0, 0.15, 1), opacity 1s ease;
 }
 
-/* Transition active completion */
-#nfc-tap-experience.tap-completed {
-  transform: scale(1.6);
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* Plaque Container & magnetic field rings */
+/* Plaque Container & electromagnetic rings */
 .nfc-plaque-wrapper {
   position: relative;
   display: flex;
@@ -477,7 +467,7 @@ nav a:hover::after {
   letter-spacing: 1px;
 }
 
-/* Concentric Concentric Electromagnetic Magnetic rings */
+/* Concentric Electromagnetic Magnetic rings */
 .magnetic-ring {
   position: absolute;
   top: 50%;
@@ -510,14 +500,39 @@ nav a:hover::after {
   animation-delay: 1.2s;
 }
 
-/* Fast pulsing active vibration when phone gets close */
+/* Vibrating ring flashes */
 .magnetic-ring.vibrating {
   border-color: rgba(0, 255, 219, 0.6) !important;
   border-style: solid;
 }
 
-/* Cursor-Bound Smartphone Mockup */
-.phone-cursor {
+/* Scroll-Driven Expanding Shockwave Ripple */
+.shockwave-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 255, 219, 0.4) 0%, transparent 70%);
+  border: 2px solid var(--accent-2);
+  pointer-events: none;
+  opacity: 0;
+  z-index: 5;
+}
+
+/* Scroll-Driven Smartphone Mockup */
+.phone-scroll-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.scroll-phone-mockup {
   position: absolute;
   width: 170px;
   height: 340px;
@@ -525,10 +540,10 @@ nav a:hover::after {
   background: rgba(255, 255, 255, 0.03);
   border: 3px solid rgba(255, 255, 255, 0.15);
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
-  pointer-events: none;
-  z-index: 2010;
+  z-index: 15;
   overflow: hidden;
-  transform: translate(-50%, -50%);
+  /* Driven by GSAP ScrollTrigger timeline */
+  transform: translate(0px, 0px) rotate(0deg);
 }
 
 .phone-notch {
@@ -561,7 +576,7 @@ nav a:hover::after {
   color: var(--text-light);
   margin-bottom: 0.8rem;
   opacity: 0.25;
-  transition: opacity 0.5s ease, color 0.5s ease;
+  transition: opacity 0.4s ease, color 0.4s ease;
 }
 
 .phone-screen h4 {
@@ -581,26 +596,26 @@ nav a:hover::after {
   left: 50%;
   transform: translate(-50%, -50%);
   opacity: 0;
-  transition: opacity 0.5s ease;
+  transition: opacity 0.4s ease;
 }
 
-/* Activated smartphone styling upon Proximity Tap contact */
-.phone-cursor.phone-active {
+/* Active screen styles triggered by GSAP timeline states */
+.scroll-phone-mockup.phone-active {
   border-color: var(--accent-2);
   box-shadow: 0 0 35px rgba(0, 255, 219, 0.35);
 }
 
-.phone-cursor.phone-active .phone-screen-logo {
+.scroll-phone-mockup.phone-active .phone-screen-logo {
   opacity: 1;
   color: var(--accent-2);
   animation: phonePulse 1.2s infinite ease-in-out;
 }
 
-.phone-cursor.phone-active .phone-screen h4 {
+.scroll-phone-mockup.phone-active .phone-screen h4 {
   color: var(--text-light);
 }
 
-.phone-cursor.phone-active .phone-screen-glow {
+.scroll-phone-mockup.phone-active .phone-screen-glow {
   opacity: 1;
 }
 
@@ -1582,6 +1597,61 @@ nav a:hover::after {
 }
 
 /* ----------------------------------------------------
+   FOOTER
+   ---------------------------------------------------- */
+footer {
+  background: var(--bg-dark);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 4rem 0 3rem;
+  color: #718096;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.footer-top .logo {
+  color: #FFFFFF;
+}
+
+.footer-tagline {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #A0AEC0;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.footer-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.footer-links a {
+  color: #718096;
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+
+.footer-links a:hover {
+  color: #FFFFFF;
+}
+
+/* ----------------------------------------------------
    ANIMATION KEYFRAMES & HELPERS
    ---------------------------------------------------- */
 @keyframes floatPlaque {
@@ -1632,7 +1702,7 @@ nav a:hover::after {
     gap: 3rem;
   }
 
-  .phone-cursor {
+  .scroll-phone-mockup {
     display: none; /* Fallback: skip phone tracker on touch mobile screens */
   }
 
