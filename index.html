@@ -68,25 +68,30 @@
   </div>
 
   <!-- --------------------------------------------------
-       HEADER & NAVIGATION BAR (Bounded)
+       HEADER & NAVIGATION BAR (Bounded Smart Header)
        -------------------------------------------------- -->
   <header>
     <div class="container header-container">
       <a href="#" class="logo">
         <span>K</span>onecta2<div class="logo-dot"></div>
       </a>
-      <nav>
-        <a href="#problem" data-i18n="nav.problems">El Problema</a>
-        <a href="#solution" data-i18n="nav.features">Casos de Uso</a>
-        <a href="#why-reviews" data-i18n="nav.benefits">Beneficios</a>
-        <a href="#industries" data-i18n="nav.industries">Sectores</a>
-        <a href="#timeline" data-i18n="nav.howItWorks">Cómo Funciona</a>
-        <a href="#testimonials" data-i18n="nav.reviews">Reseñas</a>
-      </nav>
-      <div class="nav-actions">
-        <button class="btn-lang" id="lang-toggle">EN</button>
-        <a href="#cta-waitlist" class="btn-primary" data-i18n="hero.cta">Empieza con Konecta2 →</a>
+      
+      <!-- Smart Header Wrapper (Hides on Scroll-Down, stays Logo) -->
+      <div class="header-nav-wrap" id="header-nav-wrap">
+        <nav>
+          <a href="#problem" data-i18n="nav.problems">El Problema</a>
+          <a href="#solution" data-i18n="nav.features">Casos de Uso</a>
+          <a href="#why-reviews" data-i18n="nav.benefits">Beneficios</a>
+          <a href="#industries" data-i18n="nav.industries">Sectores</a>
+          <a href="#timeline" data-i18n="nav.howItWorks">Cómo Funciona</a>
+          <a href="#testimonials" data-i18n="nav.reviews">Reseñas</a>
+        </nav>
+        <div class="nav-actions">
+          <button class="btn-lang" id="lang-toggle">EN</button>
+          <a href="#cta-waitlist" class="btn-primary" data-i18n="hero.cta">Empieza con Konecta2 →</a>
+        </div>
       </div>
+      
       <button class="hamburger">
         <span></span>
         <span></span>
@@ -274,14 +279,24 @@
     </section>
 
     <!-- --------------------------------------------------
-         6. SECTORES (Industrias Horizontal)
+         6. SECTORES (Industrias Pinned Scroll & Navigation Arrows)
          -------------------------------------------------- -->
     <section id="industries" class="horizontal-scroll-section">
-      <div class="pin-container">
+      <div class="pin-container" id="sectors-pin-trigger">
         <div class="pin-header">
           <div class="badge" data-i18n="industries.badge">Versatilidad</div>
           <h2 class="section-title" data-i18n="industries.headline">¿Para quién es Konecta2?</h2>
           <p class="section-subtitle" data-i18n="industries.subheadline">Cualquier negocio o profesional que interactúe con el público en el mundo físico puede beneficiarse de la velocidad NFC.</p>
+          
+          <!-- Interactive Arrow controls -->
+          <div class="sector-arrows-container">
+            <button class="sector-arrow arrow-left" id="sector-prev" aria-label="Previous Sector">
+              <i data-lucide="chevron-left"></i>
+            </button>
+            <button class="sector-arrow arrow-right" id="sector-next" aria-label="Next Sector">
+              <i data-lucide="chevron-right"></i>
+            </button>
+          </div>
         </div>
         <div class="horizontal-cards-wrapper" id="horizontal-cards-wrapper">
           <!-- Rendered dynamically by app.js -->
@@ -301,7 +316,7 @@
         <div class="timeline-container">
           <svg class="timeline-svg-path" viewBox="0 0 1000 10" preserveAspectRatio="none">
             <line x1="0" y1="5" x2="1000" y2="5" stroke="rgba(30, 62, 196, 0.15)" stroke-width="4"></line>
-            <line x1="0" y1="5" x2="0" y2="5" id="timeline-paint-line" stroke="var(--accent-1)" stroke-width="4"></line>
+            <line x1="0" y1="5" x2="0" y2="5" id="timeline-paint-line" stroke="var(--accent-2)" stroke-width="4"></line>
           </svg>
           <div class="timeline-steps" id="timeline-steps">
             <!-- Rendered dynamically by app.js -->
@@ -375,9 +390,10 @@
   <!-- Three.js (r128) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   
-  <!-- GSAP Core & ScrollTrigger (3.12.2) -->
+  <!-- GSAP Core, ScrollTrigger & ScrollToPlugin (3.12.2) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
   
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>

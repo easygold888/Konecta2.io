@@ -3,12 +3,15 @@
 // ----------------------------------------------------
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Ensure GSAP and ScrollTrigger are loaded
+  // Ensure GSAP, ScrollTrigger and ScrollToPlugin are loaded
   if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-    console.error('GSAP or ScrollTrigger is missing. Standard scrolling is used.');
+    console.error('GSAP or ScrollTrigger is missing. Scrolling animations cannot be initialized.');
     return;
   }
   gsap.registerPlugin(ScrollTrigger);
+  if (typeof ScrollToPlugin !== 'undefined') {
+    gsap.registerPlugin(ScrollToPlugin);
+  }
 
   // State Management
   let currentLang = 'es'; // default Spanish
@@ -51,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Add Hover Scaling listeners
   const updateCursorHoverListeners = () => {
-    const hoverElements = document.querySelectorAll('a, button, .glass-card, .case-card, .wipe-comparison-inner, input');
+    const hoverElements = document.querySelectorAll('a, button, .glass-card, .case-card, .wipe-comparison-inner, .sector-arrow, input');
     hoverElements.forEach(el => {
       el.removeEventListener('mouseenter', addCursorHover);
       el.removeEventListener('mouseleave', removeCursorHover);
@@ -63,6 +66,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const addCursorHover = () => cursor && cursor.classList.add('hovered');
   const removeCursorHover = () => cursor && cursor.classList.remove('hovered');
+
+  // --------------------------------------------------
+  // SMART HEADER NAVIGATION MENU (Hide/Show on Scroll)
+  // --------------------------------------------------
+  const initSmartHeader = () => {
+    const navWrap = document.getElementById('header-nav-wrap');
+    if (!navWrap) return;
+
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+      const currentScrollY = window.scrollY;
+
+      // Scroll Down (Hide nav wrapper, keep Logo)
+      if (currentScrollY > 80 && currentScrollY > lastScrollY) {
+        navWrap.classList.add('nav-hidden');
+      } 
+      // Scroll Up (Show nav wrapper)
+      else if (currentScrollY < lastScrollY) {
+        navWrap.classList.remove('nav-hidden');
+      }
+
+      lastScrollY = currentScrollY;
+    }, { passive: true });
+  };
+  initSmartHeader();
 
   // --------------------------------------------------
   // INFINITE SPACE BACKGROUND CANVAS (Starfield Parallax)
@@ -99,7 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let lastScrollY = window.scrollY;
 
     window.addEventListener('mousemove', (e) => {
-      // Small offsets
       targetParallaxX = (e.clientX - window.innerWidth / 2) * 0.06;
       targetParallaxY = (e.clientY - window.innerHeight / 2) * 0.06;
     });
@@ -107,35 +135,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const drawStars = () => {
       ctx.clearRect(0, 0, width, height);
 
-      // Smooth mouse lerp
       parallaxX += (targetParallaxX - parallaxX) * 0.05;
       parallaxY += (targetParallaxY - parallaxY) * 0.05;
 
-      // Handle vertical scroll travel speeds
       const currentScrollY = window.scrollY;
-      const scrollDiff = currentScrollY - lastScrollY;
       lastScrollY = currentScrollY;
 
-      // Render stars
       stars.forEach(star => {
-        // Apply twinkling
         star.opacity += star.twinkleRate * star.twinkleDir;
         if (star.opacity > 1 || star.opacity < 0.2) {
           star.twinkleDir *= -1;
         }
 
-        // Draw star dot
         ctx.beginPath();
-        // Base coordinate + mouse parallax + vertical scroll offset
         let finalX = star.x - parallaxX;
         let finalY = star.y - parallaxY - (currentScrollY * star.speed);
 
-        // Continuous wrapping loops
         finalX = (finalX + width) % width;
         finalY = (finalY + height) % height;
 
-        ctx.fillStyle = `rgba(30, 56, 196, ${star.opacity})`; // Neon blue stars
-        // 10% pure white high contrast points
+        ctx.fillStyle = `rgba(0, 255, 219, ${star.opacity})`; // Neon Cyan stars
         if (star.size > 1.6) {
           ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
         }
@@ -149,7 +168,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     drawStars();
 
-    // Resize Canvas handler
     window.addEventListener('resize', () => {
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
@@ -383,7 +401,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let scrollTriggersInstance = [];
 
   function initScrollAnimations() {
-    // Clear any previous triggers first to prevent duplicates during re-render
     scrollTriggersInstance.forEach(t => t.kill());
     scrollTriggersInstance = [];
 
@@ -427,7 +444,7 @@ document.addEventListener('DOMContentLoaded', () => {
       animateHeaders(sec);
     });
 
-    // 2. PROBLEM CARDS PINNED REVEAL (More Scroll Experience!)
+    // 2. PROBLEM CARDS PINNED REVEAL
     if (isDesktop) {
       const problemTl = gsap.timeline({
         scrollTrigger: {
@@ -439,7 +456,6 @@ document.addEventListener('DOMContentLoaded', () => {
           invalidateOnRefresh: true
         }
       });
-      // Staggered reveal of individual problem cards on scroll
       problemTl.from('.problem-card', {
         opacity: 0,
         y: 60,
@@ -449,7 +465,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       scrollTriggersInstance.push(problemTl.scrollTrigger);
     } else {
-      // Mobile fallback entry
       const problemTl = gsap.from('.problem-card', {
         opacity: 0,
         y: 40,
@@ -463,7 +478,7 @@ document.addEventListener('DOMContentLoaded', () => {
       scrollTriggersInstance.push(problemTl.scrollTrigger);
     }
 
-    // 3. SOLUTION GRID PINNED REVEAL (Stagger grid cards!)
+    // 3. SOLUTION GRID PINNED REVEAL
     if (isDesktop) {
       const solutionTl = gsap.timeline({
         scrollTrigger: {
@@ -544,7 +559,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }, 1.0);
 
-    // Counts counters
+    // Counts
     const counts = [
       { id: '#count-1', target: 93, suffix: '%' },
       { id: '#count-2', target: 3, suffix: 'x' },
@@ -598,7 +613,7 @@ document.addEventListener('DOMContentLoaded', () => {
       scrollTriggersInstance.push(wipeTl.scrollTrigger);
     }
 
-    // 6. SECTORES (Horizontal scroll pin)
+    // 6. SECTORES (Horizontal scroll pin & click arrow controllers)
     const horizWrapper = document.getElementById('horizontal-cards-wrapper');
     if (horizWrapper) {
       const getScrollAmount = () => {
@@ -619,6 +634,50 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
       scrollTriggersInstance.push(horizTl.scrollTrigger);
+
+      // Program Pinned Arrows matching ScrollTrigger progress
+      const triggerST = horizTl.scrollTrigger;
+      let activeCardIdx = 0;
+
+      // Track current card on scroll
+      ScrollTrigger.create({
+        trigger: '.horizontal-scroll-section',
+        start: 'top top',
+        end: () => `+=${horizWrapper.scrollWidth - window.innerWidth}`,
+        onUpdate: (self) => {
+          // Progress is 0 to 1, maps to 6 cards (0 to 5 indexes)
+          activeCardIdx = Math.round(self.progress * 5);
+        }
+      });
+
+      const btnNext = document.getElementById('sector-next');
+      const btnPrev = document.getElementById('sector-prev');
+
+      if (btnNext && btnPrev) {
+        btnNext.addEventListener('click', () => {
+          activeCardIdx = Math.min(activeCardIdx + 1, 5);
+          const targetProgress = activeCardIdx / 5;
+          const targetScroll = triggerST.start + (targetProgress * (triggerST.end - triggerST.start));
+          
+          gsap.to(window, {
+            scrollTo: targetScroll,
+            duration: 0.8,
+            ease: 'power2.out'
+          });
+        });
+
+        btnPrev.addEventListener('click', () => {
+          activeCardIdx = Math.max(activeCardIdx - 1, 0);
+          const targetProgress = activeCardIdx / 5;
+          const targetScroll = triggerST.start + (targetProgress * (triggerST.end - triggerST.start));
+          
+          gsap.to(window, {
+            scrollTo: targetScroll,
+            duration: 0.8,
+            ease: 'power2.out'
+          });
+        });
+      }
     }
 
     // 7. TIMELINE STEP-BY-STEP PIN reveal
@@ -646,6 +705,6 @@ document.addEventListener('DOMContentLoaded', () => {
     scrollTriggersInstance.push(timelineTl.scrollTrigger);
   }
 
-  // Initial rendering of components triggers the layout staggers
+  // Initial render of translations and triggers
   renderDynamicContent(currentLang);
 });

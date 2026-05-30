@@ -1,30 +1,30 @@
 /* ----------------------------------------------------
-   DESIGN SYSTEM & CSS VARIABLES (70-20-10 Cosmic Theme)
+   DESIGN SYSTEM & CSS VARIABLES ($500M Deep Space Revamp)
    ---------------------------------------------------- */
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap');
 
 :root {
-  /* --- 70% LIGHT BLUES (Cosmic light space nebula) --- */
-  --bg-primary: #E5EDFA;          /* Cosmic light blue-white */
-  --bg-secondary: #D4E2FA;        /* Space nebula light blue */
-  --bg-glass: rgba(229, 237, 250, 0.4);
-  --border-glass: rgba(229, 237, 250, 0.65);
-  --light-blue-shade: #C0D6F7;
-  --blur-glass: blur(24px);
+  /* --- 70% DEEP SPACE BLACK (Cosmic void base) --- */
+  --bg-primary: #030616;          /* Deepest cosmic void black */
+  --bg-secondary: #060a22;        /* Rich dark nebula background */
+  --bg-glass: rgba(255, 255, 255, 0.03); /* Translucent high-end glass shells */
+  --border-glass: rgba(255, 255, 255, 0.08);
+  --light-blue-shade: rgba(30, 56, 196, 0.2);
+  --blur-glass: blur(28px);
 
-  /* --- 20% DARK BLUES (Cosmic depth structures) --- */
-  --bg-dark: #050920;             /* Cosmic deep black-blue */
-  --bg-dark-glass: rgba(5, 9, 32, 0.85);
+  /* --- 20% VIBRANT NEBULAS (Depth highlights & slate shadows) --- */
+  --bg-dark: #02040f;             /* Void black accent */
+  --bg-dark-glass: rgba(3, 6, 22, 0.95);
   --accent-1: #1B38C4;            /* Royal cosmic blue */
-  --text-secondary: #1E2D60;      /* Dark slate-blue for subtext */
-  --glow-color: rgba(27, 56, 196, 0.22);
-  --shadow-color: rgba(5, 9, 32, 0.08);
+  --text-secondary: #8E9BB4;      /* High readability cosmic silver-blue */
+  --glow-color: rgba(27, 56, 196, 0.35);
+  --shadow-color: rgba(0, 0, 0, 0.6);
 
   /* --- 10% BLACK & WHITE HIGHLIGHTS (Star & neon points) --- */
-  --text-primary: #000000;        /* Pure black for high-contrast titles */
+  --text-primary: #FFFFFF;        /* Pure white for high-contrast titles */
   --text-light: #FFFFFF;          /* Pure white on dark cards */
   --accent-2: #00FFDB;            /* Glowing neon cyan NFC stars */
-  --border-glass-dark: rgba(255, 255, 255, 0.15);
+  --border-glass-dark: rgba(255, 255, 255, 0.12);
 
   --font-display: 'Syne', sans-serif;
   --font-body: 'Outfit', sans-serif;
@@ -59,7 +59,7 @@ body {
 /* Bounded content container */
 .container {
   width: 100%;
-  max-width: 1200px; /* Highly optimized bounded width */
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
   position: relative;
@@ -89,7 +89,7 @@ body {
   background: var(--bg-primary);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(27, 56, 196, 0.3);
+  background: rgba(27, 56, 196, 0.35);
   border-radius: 20px;
   border: 2px solid var(--bg-primary);
 }
@@ -115,9 +115,9 @@ body {
    CUSTOM CURSOR & GLOW
    ---------------------------------------------------- */
 .custom-cursor {
-  width: 16px;
-  height: 16px;
-  background: var(--text-primary);
+  width: 14px;
+  height: 14px;
+  background: var(--accent-2); /* Neon cyan cursor core */
   border-radius: 50%;
   position: fixed;
   top: 0;
@@ -126,13 +126,13 @@ body {
   z-index: 9999;
   transform: translate(-50%, -50%);
   transition: transform 0.1s ease, background-color 0.3s ease;
-  border: 2px solid var(--text-light);
+  box-shadow: 0 0 10px var(--accent-2);
 }
 
 .custom-cursor-glow {
   width: 250px;
   height: 250px;
-  background: radial-gradient(circle, rgba(27, 56, 196, 0.15) 0%, rgba(0, 255, 219, 0.05) 50%, rgba(0, 0, 0, 0) 100%);
+  background: radial-gradient(circle, rgba(0, 255, 219, 0.15) 0%, rgba(27, 56, 196, 0.05) 50%, rgba(0, 0, 0, 0) 100%);
   position: fixed;
   top: 0;
   left: 0;
@@ -143,8 +143,8 @@ body {
 
 .custom-cursor.hovered {
   transform: translate(-50%, -50%) scale(2.2);
-  background: var(--accent-2);
-  border-color: var(--bg-dark);
+  background: var(--text-light);
+  box-shadow: 0 0 15px var(--text-light);
 }
 
 /* ----------------------------------------------------
@@ -165,14 +165,14 @@ body {
   position: absolute;
   border-radius: 50%;
   filter: blur(140px);
-  opacity: 0.55;
+  opacity: 0.28;
   pointer-events: none;
 }
 
 .blob-1 {
   width: 650px;
   height: 650px;
-  background: radial-gradient(circle, var(--light-blue-shade) 0%, rgba(229, 237, 250, 0.1) 70%);
+  background: radial-gradient(circle, var(--accent-1) 0%, rgba(3, 6, 22, 0.1) 70%);
   top: -15%;
   right: -5%;
 }
@@ -180,13 +180,13 @@ body {
 .blob-2 {
   width: 550px;
   height: 550px;
-  background: radial-gradient(circle, var(--bg-secondary) 0%, rgba(229, 237, 250, 0.1) 70%);
+  background: radial-gradient(circle, var(--accent-3) 0%, rgba(3, 6, 22, 0.1) 70%);
   bottom: 5%;
   left: -10%;
 }
 
 /* ----------------------------------------------------
-   NAVBAR & BUTTONS
+   NAVBAR & SMART HEADER (Hide/Show Nav wrapper)
    ---------------------------------------------------- */
 header {
   position: fixed;
@@ -194,7 +194,7 @@ header {
   left: 0;
   width: 100%;
   z-index: 1000;
-  background: rgba(229, 237, 250, 0.25);
+  background: rgba(3, 6, 22, 0.35);
   backdrop-filter: var(--blur-glass);
   -webkit-backdrop-filter: var(--blur-glass);
   border-bottom: 1px solid var(--border-glass);
@@ -209,21 +209,23 @@ header {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
+  position: relative;
 }
 
 .logo {
   font-family: var(--font-display);
   font-size: 1.6rem;
   font-weight: 800;
-  color: var(--text-primary);
+  color: var(--text-light);
   text-decoration: none;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  z-index: 1010; /* Logo stays on top */
 }
 
 .logo span {
-  color: var(--accent-1);
+  color: var(--accent-2);
 }
 
 .logo-dot {
@@ -233,6 +235,21 @@ header {
   border-radius: 50%;
   display: inline-block;
   box-shadow: 0 0 10px var(--accent-2);
+}
+
+/* Smart header navigation menu wrapper */
+.header-nav-wrap {
+  display: flex;
+  align-items: center;
+  gap: 2.2rem;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+}
+
+/* Hidden state triggered by ScrollDirection */
+.header-nav-wrap.nav-hidden {
+  transform: translateY(-80px);
+  opacity: 0;
+  pointer-events: none;
 }
 
 nav {
@@ -251,7 +268,7 @@ nav a {
 }
 
 nav a:hover {
-  color: var(--text-primary);
+  color: var(--text-light);
 }
 
 nav a::after {
@@ -261,7 +278,7 @@ nav a::after {
   left: 0;
   width: 0;
   height: 2px;
-  background: var(--accent-1);
+  background: var(--accent-2);
   transition: var(--transition-smooth);
 }
 
@@ -313,8 +330,8 @@ nav a:hover::after {
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  background: #122894;
-  box-shadow: 0 12px 30px rgba(27, 56, 196, 0.4);
+  background: #1e3ec4;
+  box-shadow: 0 12px 30px rgba(30, 62, 196, 0.4);
 }
 
 .hamburger {
@@ -328,7 +345,7 @@ nav a:hover::after {
 .hamburger span {
   width: 25px;
   height: 3px;
-  background: var(--text-primary);
+  background: var(--text-light);
   border-radius: 2px;
   transition: var(--transition-smooth);
 }
@@ -340,9 +357,9 @@ nav a:hover::after {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: rgba(27, 56, 196, 0.08);
-  border: 1px solid rgba(27, 56, 196, 0.2);
-  color: var(--accent-1);
+  background: rgba(0, 255, 219, 0.06);
+  border: 1px solid rgba(0, 255, 219, 0.2);
+  color: var(--accent-2);
   font-weight: 600;
   font-size: 0.82rem;
   text-transform: uppercase;
@@ -361,6 +378,7 @@ nav a:hover::after {
   color: var(--text-primary);
   margin-bottom: 1rem;
   max-width: 900px;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.08);
 }
 
 .section-subtitle {
@@ -406,6 +424,7 @@ nav a:hover::after {
   line-height: 1.05;
   margin-bottom: 1.2rem;
   color: var(--text-primary);
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.12);
 }
 
 .hero-content p {
@@ -454,8 +473,8 @@ nav a:hover::after {
   flex-direction: column;
   position: relative;
   overflow: hidden;
-  background: rgba(229, 237, 250, 0.6);
-  border: 1px solid rgba(27, 56, 196, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .problem-card::before {
@@ -465,7 +484,7 @@ nav a:hover::after {
   left: 0;
   width: 100%;
   height: 4px;
-  background: linear-gradient(90deg, #F35B5B, var(--accent-1));
+  background: linear-gradient(90deg, #F35B5B, var(--accent-2));
   opacity: 0.7;
 }
 
@@ -473,8 +492,9 @@ nav a:hover::after {
   font-family: var(--font-display);
   font-size: 2.5rem;
   font-weight: 800;
-  color: rgba(27, 56, 196, 0.12);
+  color: rgba(0, 255, 219, 0.12);
   margin-bottom: 0.8rem;
+  text-shadow: 0 0 10px rgba(0, 255, 219, 0.2);
 }
 
 .problem-card h3 {
@@ -503,17 +523,18 @@ nav a:hover::after {
   overflow: hidden;
   cursor: pointer;
   padding: 1.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.07);
 }
 
 .case-icon {
   width: 44px;
   height: 44px;
-  background: rgba(27, 56, 196, 0.08);
+  background: rgba(0, 255, 219, 0.08);
   border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--accent-1);
+  color: var(--accent-2);
   margin-bottom: 1.4rem;
   transition: var(--transition-smooth);
 }
@@ -533,15 +554,15 @@ nav a:hover::after {
 
 .case-card:hover {
   transform: translateY(-6px);
-  border-color: rgba(27, 56, 196, 0.35);
-  box-shadow: 0 16px 35px rgba(27, 56, 196, 0.08);
+  border-color: rgba(0, 255, 219, 0.35);
+  box-shadow: 0 16px 35px rgba(0, 255, 219, 0.08);
 }
 
 .case-card:hover .case-icon {
-  background: var(--accent-1);
-  color: var(--text-light);
+  background: var(--accent-2);
+  color: var(--bg-primary);
   transform: rotate(8deg) scale(1.1);
-  box-shadow: 0 8px 18px var(--glow-color);
+  box-shadow: 0 8px 18px rgba(0, 255, 219, 0.3);
 }
 
 /* ----------------------------------------------------
@@ -583,9 +604,10 @@ nav a:hover::after {
   font-family: var(--font-display);
   font-size: 3.2rem;
   font-weight: 800;
-  color: var(--accent-1);
+  color: var(--accent-2);
   min-width: 130px;
   line-height: 1;
+  text-shadow: 0 0 15px rgba(0, 255, 219, 0.3);
 }
 
 .counter-label {
@@ -612,12 +634,13 @@ nav a:hover::after {
 }
 
 .maps-mock-header {
-  background: var(--bg-dark);
+  background: var(--bg-secondary);
   color: var(--text-light);
   padding: 1.2rem;
   display: flex;
   align-items: center;
   gap: 1rem;
+  border-bottom: 1px solid var(--border-glass);
 }
 
 .maps-mock-avatar {
@@ -629,7 +652,8 @@ nav a:hover::after {
   align-items: center;
   justify-content: center;
   font-weight: 800;
-  color: var(--bg-dark);
+  color: var(--bg-primary);
+  box-shadow: 0 0 10px var(--accent-2);
 }
 
 .maps-mock-title h4 {
@@ -643,7 +667,7 @@ nav a:hover::after {
 }
 
 .maps-mock-body {
-  background: #FFFFFF;
+  background: rgba(255, 255, 255, 0.02);
   padding: 1.8rem 1.2rem;
   text-align: center;
 }
@@ -660,7 +684,7 @@ nav a:hover::after {
 .rating-count {
   font-size: 2.5rem;
   font-weight: 800;
-  color: var(--text-primary);
+  color: var(--text-light);
   line-height: 1;
 }
 
@@ -681,14 +705,14 @@ nav a:hover::after {
 }
 
 .popup-notif {
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid var(--border-glass);
+  background: rgba(6, 10, 34, 0.95);
+  border: 1px solid var(--border-glass-dark);
   border-radius: 16px;
   padding: 0.85rem;
   display: flex;
   align-items: center;
   gap: 0.8rem;
-  box-shadow: 0 15px 35px rgba(5, 9, 32, 0.12);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
   margin-bottom: 0.8rem;
   opacity: 0;
   transform: translateY(30px) scale(0.9);
@@ -705,17 +729,19 @@ nav a:hover::after {
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background: var(--light-blue-shade);
+  background: var(--accent-1);
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
   font-size: 0.8rem;
+  color: var(--text-light);
 }
 
 .popup-content h5 {
   font-size: 0.85rem;
   font-weight: 700;
+  color: var(--text-light);
 }
 
 .popup-content p {
@@ -757,12 +783,12 @@ nav a:hover::after {
 }
 
 .layer-past {
-  background: var(--bg-secondary);
+  background: rgba(255, 255, 255, 0.02);
   filter: grayscale(0.85) contrast(0.9);
 }
 
 .layer-future {
-  background: linear-gradient(135deg, #DFE8F7 0%, #CADEFB 100%);
+  background: linear-gradient(135deg, rgba(6, 10, 36, 0.95) 0%, rgba(27, 56, 196, 0.15) 100%);
   z-index: 2;
   clip-path: polygon(0 0, var(--wipe-pos, 50%) 0, var(--wipe-pos, 50%) 100%, 0 100%);
 }
@@ -791,7 +817,7 @@ nav a:hover::after {
 }
 
 .layer-future h3 {
-  color: var(--accent-1);
+  color: var(--accent-2);
 }
 
 .comparison-layout-grid {
@@ -815,14 +841,14 @@ nav a:hover::after {
   color: var(--text-secondary);
   padding: 1rem;
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.07);
 }
 
-.side-future .comparison-list li {
-  background: rgba(27, 56, 196, 0.04);
-  border: 1px solid rgba(27, 56, 196, 0.1);
-  color: var(--text-primary);
+.layer-future .comparison-list li {
+  background: rgba(0, 255, 219, 0.03);
+  border: 1px solid rgba(0, 255, 219, 0.12);
+  color: var(--text-light);
 }
 
 .layer-past li svg {
@@ -843,11 +869,11 @@ nav a:hover::after {
   bottom: 0;
   left: var(--wipe-pos, 50%);
   width: 3px;
-  background: var(--accent-1);
+  background: var(--accent-2);
   z-index: 3;
   transform: translateX(-50%);
   pointer-events: none;
-  box-shadow: 0 0 15px var(--accent-1);
+  box-shadow: 0 0 15px var(--accent-2);
 }
 
 .wipe-handle-knob {
@@ -858,17 +884,18 @@ nav a:hover::after {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: var(--accent-1);
-  border: 4px solid var(--text-light);
+  background: var(--accent-2);
+  border: 4px solid var(--bg-primary);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-light);
-  box-shadow: 0 6px 18px rgba(5, 9, 32, 0.2);
+  color: var(--bg-primary);
+  font-weight: 800;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
 }
 
 /* ----------------------------------------------------
-   6. SECTORES (Horizontal Pin Scroll)
+   6. SECTORES (Horizontal Pin Scroll & Interactive Arrows)
    ---------------------------------------------------- */
 .horizontal-scroll-section {
   position: relative;
@@ -894,6 +921,40 @@ nav a:hover::after {
   justify-content: center;
   z-index: 10;
   margin-left: 6vw;
+}
+
+/* Interactive navigation arrows for sectors */
+.sector-arrows-container {
+  display: flex;
+  gap: 1.2rem;
+  margin-top: 2.2rem;
+}
+
+.sector-arrow {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-light);
+  transition: var(--transition-smooth);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.sector-arrow svg {
+  width: 22px;
+  height: 22px;
+}
+
+.sector-arrow:hover {
+  background: var(--accent-2);
+  border-color: var(--accent-2);
+  color: var(--bg-primary);
+  transform: scale(1.1);
+  box-shadow: 0 0 15px var(--accent-2);
 }
 
 .horizontal-cards-wrapper {
@@ -1007,25 +1068,25 @@ nav a:hover::after {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: var(--bg-primary);
-  border: 3px solid var(--light-blue-shade);
+  background: var(--bg-secondary);
+  border: 3px solid var(--border-glass);
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-display);
   font-size: 1.2rem;
   font-weight: 800;
-  color: var(--text-secondary);
+  color: var(--accent-2);
   margin-bottom: 1.8rem;
   box-shadow: 0 0 0 6px var(--bg-primary);
   transition: var(--transition-smooth);
 }
 
 .timeline-step.active .timeline-dot {
-  border-color: var(--accent-1);
-  background: var(--accent-1);
-  color: var(--text-light);
-  box-shadow: 0 0 20px var(--glow-color), 0 0 0 6px var(--bg-primary);
+  border-color: var(--accent-2);
+  background: var(--accent-2);
+  color: var(--bg-primary);
+  box-shadow: 0 0 20px rgba(0, 255, 219, 0.4), 0 0 0 6px var(--bg-primary);
 }
 
 .timeline-step h3 {
@@ -1057,12 +1118,13 @@ nav a:hover::after {
   justify-content: space-between;
   position: relative;
   padding: 1.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .testimonial-quote {
   font-size: 1.05rem;
   line-height: 1.6;
-  color: var(--text-primary);
+  color: var(--text-light);
   margin-bottom: 1.6rem;
   font-style: italic;
 }
@@ -1077,12 +1139,12 @@ nav a:hover::after {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: var(--light-blue-shade);
+  background: var(--accent-1);
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  color: var(--text-secondary);
+  color: var(--text-light);
   font-size: 0.95rem;
   border: 1px solid var(--border-glass);
 }
@@ -1090,7 +1152,7 @@ nav a:hover::after {
 .testimonial-author-name h4 {
   font-size: 0.95rem;
   font-weight: 700;
-  color: var(--text-primary);
+  color: var(--text-light);
 }
 
 .testimonial-author-name p {
@@ -1118,6 +1180,7 @@ nav a:hover::after {
   position: relative;
   overflow: hidden;
   padding: 0;
+  border-top: 1px solid var(--border-glass);
 }
 
 #cta-waitlist .container {
@@ -1135,7 +1198,7 @@ nav a:hover::after {
   left: -150px;
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(27, 56, 196, 0.2) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(0, 255, 219, 0.1) 0%, transparent 70%);
   filter: blur(100px);
   pointer-events: none;
 }
@@ -1170,6 +1233,7 @@ nav a:hover::after {
   line-height: 1.1;
   color: #FFFFFF;
   margin-bottom: 1.2rem;
+  text-shadow: 0 0 30px rgba(0, 255, 219, 0.15);
 }
 
 .waitlist-container p {
@@ -1335,12 +1399,13 @@ footer {
     padding: 0 1rem;
   }
 
-  nav {
-    display: none;
+  .header-nav-wrap {
+    display: none; /* Mobile menu overlay defaults standard */
   }
 
   .hamburger {
     display: flex;
+    z-index: 1010;
   }
 
   .section-wrapper {
