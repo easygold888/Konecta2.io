@@ -2,410 +2,410 @@ const translations = {
   es: {
     nav: {
       features: "Casos de Uso",
-      problems: "El Problema",
-      benefits: "Beneficios",
+      problems: "Filosofía",
+      benefits: "Seguridad",
       industries: "Sectores",
-      howItWorks: "Cómo Funciona",
-      reviews: "Reseñas",
+      howItWorks: "Metodología",
+      reviews: "Testimonios",
       langToggle: "EN"
     },
     hero: {
-      headline: "Un toque. Listo.",
-      subheadline: "NFC inteligente que elimina la fricción entre tus clientes y las acciones que hacen crecer tu negocio. Sin descargas, sin cámaras, sin esperas.",
-      cta: "Empieza con Konecta2 →",
-      badge: "Tecnología NFC de Siguiente Generación"
+      headline: "Acción inmediata. Cero fricción.",
+      subheadline: "Convertimos interacciones físicas en acciones digitales instantáneas y seguras. Comparte tu contacto, opiniones o accesos mediante tecnología NFC sin interrumpir tus conversaciones importantes.",
+      cta: "Empieza la Acción →",
+      badge: "AxionQuantLab — NFC & Research Solutions"
     },
     problem: {
-      badge: "Fricción diaria",
-      headline: "El costo oculto del papel y los códigos QR",
-      subheadline: "Las formas tradicionales de interactuar con tus clientes físicos tienen demasiados pasos intermedios. Cada paso es un cliente que desiste.",
+      badge: "La Barrera Digital",
+      headline: "El costo invisible de la fricción",
+      subheadline: "En un mundo que exige inmediatez, los métodos tradicionales desvían la atención. Cada segundo de distracción es una oportunidad perdida.",
       cards: [
         {
-          title: "Reseñas Perdidas",
-          desc: "Solo el 4% de tus clientes satisfechos se toma la molestia de buscar tu negocio, abrir Maps y dejar una reseña. El resto se va sin opinar."
+          title: "Conversaciones Desviadas",
+          desc: "Forzar a tu interlocutor a buscarte en redes, deletrear un email o escribir un teléfono corta el flujo y desvía el tema importante."
         },
         {
-          title: "Contactos Olvidados",
-          desc: "Compartir tu contacto digital hoy sigue siendo: tomar una foto → guardar de forma manual → quedar archivado en la agenda para siempre."
+          title: "Opiniones Perdidas",
+          desc: "Tus clientes quieren apoyarte, pero el laberinto de buscar tu local en Maps y abrir reseñas hace que la mayoría desista en el camino."
         },
         {
-          title: "La Fricción del QR",
-          desc: "Los códigos QR requieren abrir la cámara, enfocar, esperar a que cargue y lidiar con enlaces lentos. En el mundo real, nadie tiene esa paciencia."
+          title: "Fricción del QR Estático",
+          desc: "Enfocar un código, esperar a que cargue, lidiar con enlaces rotos o lentos... no es inmediatez, es una barrera para la acción."
         }
       ]
     },
     solution: {
-      badge: "La Solución",
-      headline: "Un solo tap. Acciones instantáneas.",
-      subheadline: "Dispositivos NFC físicos que enlazan directamente a lo que tu negocio necesita en cada momento. Sin pasos extra.",
+      badge: "Acción Sin Fricción",
+      headline: "Un solo tap. Respuestas seguras.",
+      subheadline: "Desarrollamos dispositivos NFC físicos y flujos simplificados que llevan a tu cliente directo al grano, protegiendo su seguridad.",
       cards: [
         {
-          title: "Reseñas Google",
-          desc: "Tap → formulario de reseñas de Google Maps abierto en segundos. Aumenta tu reputación en buscadores y LLMs."
+          title: "Contacto Express",
+          desc: "Comparte tu tarjeta digital durante una reunión importante. Un tap y tu vCard se guarda en su agenda sin desviar la conversación."
         },
         {
-          title: "Tarjeta de Contacto",
-          desc: "Tap → descarga directa de vCard al celular. Tu información de contacto se guarda en el acto sin digitación."
+          title: "Research a Medida",
+          desc: "Investigamos y diseñamos soluciones de acción personalizadas basadas en NFC para resolver cualquier problema operativo de tu empresa."
         },
         {
-          title: "Menú Digital",
-          desc: "Tap → menú interactivo moderno en la pantalla. Ideal para restaurantes y cafés que valoran el tiempo de sus comensales."
+          title: "Reseñas sin Desvíos",
+          desc: "Acceso instantáneo a tu formulario de Google Maps. Incrementa tu reputación en buscadores y motores de IA sin pasos extra."
         },
         {
-          title: "WiFi Instantáneo",
-          desc: "Tap → conexión automática a tu red inalámbrica local sin tener que escribir contraseñas complejas."
+          title: "Accesos y WiFi Seguro",
+          desc: "NFC con transferencia de datos segura. Conecta a clientes a redes internas o portales sin contraseñas a la vista."
         },
         {
-          title: "Links de Pago",
-          desc: "Tap → pasarela de pago o propinas abierta. Elimina la fricción financiera en segundos."
+          title: "Menú en un Instante",
+          desc: "Tus comensales ven tu carta al instante, sin abrir cámaras ni esperar cargas. Rapidez que respeta el tiempo del cliente."
         },
         {
-          title: "Redes Sociales",
-          desc: "Tap → tu perfil de Instagram, LinkedIn o TikTok en pantalla. Convierte visitas físicas en seguidores digitales."
+          title: "Links de Pago Inmediato",
+          desc: "Abre pasarelas de pago o propinas de forma inmediata, minimizando los pasos de transacción bajo altos estándares de seguridad."
         }
       ]
     },
     whyReviews: {
-      badge: "Visibilidad Orgánica",
-      headline: "Por qué las reseñas importan más que nunca",
-      subheadline: "En la era de los buscadores geolocalizados y las recomendaciones por Inteligencia Artificial, tu negocio solo existe si tiene opiniones activas.",
-      text1: "El comportamiento del consumidor ha cambiado radicalmente. Hoy en día, tu reputación online determina tu flujo de clientes físicos.",
-      text2: "Los motores de respuesta artificial (como ChatGPT, Gemini y Perplexity) priorizan y citan hasta 3 veces más a los negocios locales con valoraciones constantes en Maps.",
+      badge: "Seguridad y Research",
+      headline: "Diseño seguro enfocado en la acción",
+      subheadline: "No somos solo una tarjeta; somos un laboratorio de soluciones físicas y digitales que protegen la información mientras aceleran los resultados.",
+      text1: "En un mercado saturado, la inmediatez define quién avanza. Pero la inmediatez sin seguridad es un riesgo que tu marca no debe tomar.",
+      text2: "Nuestras placas y tarjetas NFC utilizan chips con cifrado de datos para garantizar que cada intercambio sea tan confiable como rápido.",
       stats: [
         {
           value: "93%",
-          label: "de los usuarios lee reseñas locales antes de tomar una decisión de compra."
+          label: "de los usuarios prefiere interacciones que tomen menos de 3 segundos."
         },
         {
           value: "3x",
-          label: "más menciones y recomendaciones por parte de buscadores impulsados por IA."
+          label: "más menciones en motores de respuesta IA para perfiles con datos estructurados."
         },
         {
           value: "+340%",
-          label: "de incremento promedio en reseñas de Google Maps en los primeros 30 días de uso."
+          label: "de aumento en conversiones locales en los primeros 30 días de implementación."
         }
       ]
     },
     pastVsFuture: {
-      badge: "Evolución",
-      headline: "El pasado de papel vs el futuro NFC",
-      subheadline: "Seguir usando tarjetas de papel o códigos QR estáticos es como enviar un fax en la era de los smartphones. Es hora de evolucionar.",
+      badge: "La Evolución",
+      headline: "Intercambio tradicional vs Filosofía AxionQuantLab",
+      subheadline: "Dejar que la fricción detenga una transacción comercial o de networking es cosa del pasado. Da el paso a la inmediatez segura.",
       past: {
-        title: "Tarjeta de Papel Tradicional",
+        title: "Papel o QR Tradicional",
         items: [
-          "El 88% termina en la basura en menos de 48 horas.",
-          "Fuerza al cliente a transcribir datos de forma manual.",
-          "Cero datos sobre cuántas personas la han leído.",
-          "Costo recurrente e ineficiente de reimpresión."
+          "Detiene el ritmo natural de una conversación importante.",
+          "Costo de reimpresión constante ante cualquier cambio de datos.",
+          "Sin métricas del impacto real de tus interacciones físicas.",
+          "Vulnerabilidad en la exposición de datos y contraseñas."
         ]
       },
       future: {
-        title: "Tecnología Konecta2 NFC",
+        title: "Dispositivos AxionQuantLab NFC",
         items: [
-          "Dura para siempre con materiales de alta gama.",
-          "Se añade directo a los contactos con un solo toque.",
-          "Mide cada interacción con analíticas de tap en vivo.",
-          "Enlace actualizable al instante sin volver a imprimir."
+          "Elimina la fricción: un tap y la acción se realiza de fondo.",
+          "Actualizaciones instantáneas desde la nube sin cambiar de tarjeta.",
+          "Analíticas avanzadas de interacción para medir la efectividad.",
+          "Datos cifrados y flujos de seguridad que protegen a tu cliente."
         ]
       }
     },
     industries: {
-      badge: "Versatilidad",
-      headline: "¿Para quién es Konecta2?",
-      subheadline: "Cualquier negocio o profesional que interactúe con el público en el mundo físico puede beneficiarse de la velocidad NFC.",
+      badge: "Sectores de Acción",
+      headline: "Soluciones NFC para cada desafío",
+      subheadline: "Adaptamos la tecnología NFC y realizamos investigación aplicada para resolver la fricción en cualquier sector comercial.",
       items: [
         {
+          title: "Corporativo & Networking",
+          desc: "Tarjetas de presentación inteligentes y seguras para concretar reuniones y leads sin romper la dinámica del evento."
+        },
+        {
           title: "Restaurantes & Cafés",
-          desc: "Lleva a los comensales a calificar sus platillos, conectarse a la red WiFi o consultar el menú sin demoras."
+          desc: "Menús limpios, pagos instantáneos en mesa y WiFi seguro con un toque, acelerando el flujo de comensales."
         },
         {
-          title: "Hoteles & Hospedajes",
-          desc: "Check-in exprés, guías turísticas digitales y reseñas rápidas en el lobby para escalar en TripAdvisor."
+          title: "Hoteles & Recepción",
+          desc: "Check-in sin esperas, guías locales instantáneas y recolección de reseñas en el lobby antes de que el cliente se retire."
         },
         {
-          title: "Profesionales & Freelancers",
-          desc: "Tarjetas de presentación inteligentes para congresos, reuniones comerciales y networking de alto impacto."
-        },
-        {
-          title: "Retail & Tiendas",
-          desc: "Incentiva a tus compradores a unirse a programas de fidelización o seguir tus redes sociales al pagar."
+          title: "Tiendas & Retail",
+          desc: "Programas de fidelización al instante y pagos ágiles con NFC para reducir las filas y mejorar la experiencia de compra."
         },
         {
           title: "Eventos & Conferencias",
-          desc: "Acreditaciones dinámicas, descarga de cronogramas y encuestas de satisfacción instantáneas."
+          desc: "Acreditaciones dinámicas, descargas de agendas del evento y encuestas de satisfacción inmediatas en las salas."
         },
         {
-          title: "Clínicas & Salud",
-          desc: "Agendamiento de citas futuras y reseñas de confianza sobre el servicio médico en salas de espera."
+          title: "Research & Custom NFC",
+          desc: "Desarrollamos soluciones NFC a medida para integraciones de control de acceso, logística u operaciones industriales."
         }
       ]
     },
     howItWorks: {
-      badge: "Simplicidad",
-      headline: "Configuración en 3 pasos sencillos",
-      subheadline: "Sin descargar aplicaciones complejas. Todo funciona de manera nativa en cualquier dispositivo moderno.",
+      badge: "Nuestra Metodología",
+      headline: "Desde la investigación a la acción en 3 pasos",
+      subheadline: "Trabajamos junto a tu negocio para integrar soluciones físicas intuitivas con flujos digitales seguros y libres de fricción.",
       steps: [
         {
           step: "01",
-          title: "Elige tu dispositivo",
-          desc: "Selecciona entre tarjetas inteligentes de bambú o metal, stickers de alta resistencia o placas de mostrador."
+          title: "Research & Diagnóstico",
+          desc: "Analizamos los puntos de fricción de tu negocio para determinar la mejor configuración física y de hardware NFC."
         },
         {
           step: "02",
-          title: "Enlaza en 2 minutos",
-          desc: "Accede a tu panel en la nube de Konecta2 y define el enlace de destino (Reviews, Contacto, Redes, WiFi o Pago)."
+          title: "Despliegue del Portal",
+          desc: "Configuramos tu portal seguro AxionQuantLab, enlazando tus dispositivos a flujos de contacto, pagos o valoraciones."
         },
         {
           step: "03",
-          title: "Coloca y Conecta",
-          desc: "Sitúa el dispositivo a la vista. Tus clientes solo necesitan acercar su móvil y la magia ocurre al instante."
+          title: "Acción en el Mundo Real",
+          desc: "Instalas tus dispositivos. Tus clientes solo tocan el dispositivo y experimentan inmediatez sin distracciones."
         }
       ]
     },
     testimonials: {
-      badge: "Casos de Éxito",
-      headline: "Opiniones que hablan por nosotros",
-      subheadline: "Negocios locales que han transformado la forma en que conectan con sus comunidades.",
+      badge: "Testimonios de Acción",
+      headline: "Resultados medibles, sin fricciones",
+      subheadline: "Empresas que han transformado sus procesos cotidianos en acciones digitales inmediatas.",
       list: [
         {
-          quote: "Pasamos de tener 45 reseñas en Google a más de 280 en solo un mes. El impacto en nuestro posicionamiento local ha sido brutal.",
-          author: "Andrés Restrepo",
-          role: "Propietario de Rosso Trattoria"
-        },
-        {
-          quote: "En los eventos corporativos, mis tarjetas tradicionales se perdían. Ahora con la tarjeta de bambú Konecta2, todos me guardan en el acto.",
+          quote: "La tarjeta de contacto AxionQuantLab me permite cerrar networking sin desviar el hilo de la conversación. Es inmediata, sobria y segura.",
           author: "Mariana Silva",
           role: "Consultora de Negocios"
         },
         {
-          quote: "Pusimos las placas NFC en la recepción del hotel. La cantidad de comentarios positivos en Google y TripAdvisor aumentó un 300%.",
-          author: "Carlos Mendoza",
-          role: "Gerente de Operaciones — Hotel Vista"
+          quote: "Buscábamos una solución que no distrajera a los comensales. Logramos que califiquen el servicio sin perder tiempo en Maps.",
+          author: "Andrés Restrepo",
+          role: "Director de Rosso Trattoria"
         },
         {
-          quote: "El sistema de WiFi por NFC ha reducido las quejas en caja. Un simple toque y el comensal está navegando sin preguntarnos la clave.",
+          quote: "El sistema NFC para WiFi de AxionQuantLab eliminó las preguntas por la clave en recepción, garantizando conexiones seguras.",
+          author: "Carlos Mendoza",
+          role: "Director de Experiencia — Hotel Vista"
+        },
+        {
+          quote: "Solicitamos un desarrollo de research a medida para el control de inventario en tienda con etiquetas NFC y redujo el tiempo operativo en un 60%.",
           author: "Sofía Gómez",
-          role: "Administradora de Café Urbano"
+          role: "Gerente de Operaciones — Café Urbano"
         }
       ]
     },
     waitlist: {
-      headline: "Únete a la revolución sin fricción",
-      subheadline: "Los primeros 100 negocios en registrarse obtienen un precio exclusivo de fundadores y envío prioritario. Asegura tu dispositivo hoy mismo.",
-      placeholder: "Ingresa tu correo electrónico profesional",
-      cta: "Quiero mi Konecta2 →",
-      subtext: "konecta2.io — conectados desde el primer tap",
-      success: "¡Registro exitoso! Te contactaremos muy pronto para configurar tu primer dispositivo NFC.",
-      invalidEmail: "Por favor, ingresa un correo electrónico válido."
+      headline: "Únete a la acción inteligente",
+      subheadline: "Agenda una sesión de consultoría o solicita tus primeros dispositivos de AxionQuantLab. Llevamos tus ideas al mundo de la inmediatez.",
+      placeholder: "Ingresa tu correo electrónico corporativo",
+      cta: "Quiero AxionQuantLab →",
+      subtext: "axionquantlab.com — acción sin fricción",
+      success: "¡Registro exitoso! Nuestro equipo de research se pondrá en contacto para diseñar tu solución NFC.",
+      invalidEmail: "Por favor, ingresa un correo electrónico corporativo válido."
     },
     footer: {
-      rights: "© 2026 Konecta2.io S.A.S. Todos los derechos reservados.",
-      tagline: "Toca. Conectados.",
+      rights: "© 2026 AxionQuantLab. Todos los derechos reservados.",
+      tagline: "Acción inmediata. Cero fricción.",
       legal: "Términos de Servicio | Privacidad"
     }
   },
   en: {
     nav: {
       features: "Use Cases",
-      problems: "The Problem",
-      benefits: "Benefits",
-      industries: "Industries",
-      howItWorks: "How it Works",
-      reviews: "Reviews",
+      problems: "Philosophy",
+      benefits: "Security",
+      industries: "Sectors",
+      howItWorks: "Methodology",
+      reviews: "Testimonials",
       langToggle: "ES"
     },
     hero: {
-      headline: "One tap. Connected.",
-      subheadline: "Smart NFC technology that removes the friction between your customers and the actions that grow your business. No downloads, no cameras, no waiting.",
-      cta: "Start with Konecta2 →",
-      badge: "Next-Gen NFC Technology"
+      headline: "Immediate action. Zero friction.",
+      subheadline: "Transform physical interactions into secure, instant digital actions. Share contacts, reviews, or access via NFC technology without interrupting your key conversations.",
+      cta: "Start the Action →",
+      badge: "AxionQuantLab — NFC & Research Solutions"
     },
     problem: {
-      badge: "Daily Friction",
-      headline: "The hidden cost of paper and static QR codes",
-      subheadline: "Traditional ways of interacting with physical customers have too many intermediate steps. Every step is a customer who gives up.",
+      badge: "The Digital Barrier",
+      headline: "The invisible cost of friction",
+      subheadline: "In an immediate world, traditional methods derail attention. Every second of distraction is a lost opportunity.",
       cards: [
         {
+          title: "Derailed Conversations",
+          desc: "Forcing others to look you up on social media, spell an email, or write down a number breaks the flow of an important conversation."
+        },
+        {
           title: "Lost Reviews",
-          desc: "Only 4% of satisfied customers take the time to search for your business, open Maps, and leave a review. The rest leave in silence."
+          desc: "Your customers want to support you, but the maze of searching on Maps and opening reviews makes most of them drop out."
         },
         {
-          title: "Forgotten Contacts",
-          desc: "Sharing your digital contact today still means: taking a photo → manually typing details → getting archived in contacts list forever."
-        },
-        {
-          title: "QR Friction",
-          desc: "QR codes require opening the camera, focusing, waiting for loading, and dealing with slow links. In the real world, nobody has that patience."
+          title: "Static QR Friction",
+          desc: "Focusing a code, waiting for it to load, dealing with slow or broken links... that is not immediacy; it's a barrier to action."
         }
       ]
     },
     solution: {
-      badge: "The Solution",
-      headline: "One single tap. Instant actions.",
-      subheadline: "Physical NFC devices that link directly to what your business needs at any given moment. No extra steps.",
+      badge: "Action Without Friction",
+      headline: "A single tap. Secure responses.",
+      subheadline: "We develop physical NFC devices and simplified flows that lead your customer straight to the point while protecting their security.",
       cards: [
         {
-          title: "Google Reviews",
-          desc: "Tap → Google Maps review form opened in seconds. Boost your reputation on search engines and LLM engines."
+          title: "Express Contact",
+          desc: "Share your digital card during key meetings. One tap and your vCard is saved in their contact list without disrupting the discussion."
         },
         {
-          title: "Contact Card",
-          desc: "Tap → direct vCard download to the phone. Your contact information is saved on the spot with zero manual entry."
+          title: "Custom Research",
+          desc: "We research and design custom NFC-based action solutions to solve operational bottlenecks in your company."
         },
         {
-          title: "Digital Menu",
-          desc: "Tap → modern interactive menu on their screens. Perfect for restaurants and cafés that value their patrons' time."
+          title: "Direct Reviews",
+          desc: "Instant access to your Google Maps page. Boost your local search ranking and AI recommendations with zero extra steps."
         },
         {
-          title: "Instant WiFi",
-          desc: "Tap → automatic connection to your local wireless network without having to type complex passwords."
+          title: "WiFi & Secure Access",
+          desc: "NFC with secure data transfer. Connect customers to internal networks or portals without displaying plain-text passwords."
         },
         {
-          title: "Payment Links",
-          desc: "Tap → payment or tipping gateway opened. Eliminate financial friction in seconds."
+          title: "Instant Menus",
+          desc: "Diners view your menu instantly without opening cameras or waiting. Speed that respects your customer's time."
         },
         {
-          title: "Social Networks",
-          desc: "Tap → your Instagram, LinkedIn, or TikTok profile on screen. Turn physical visitors into digital followers."
+          title: "Immediate Payment Links",
+          desc: "Open payment or tipping gateways instantly, minimizing transaction steps under rigorous security standards."
         }
       ]
     },
     whyReviews: {
-      badge: "Organic Visibility",
-      headline: "Why reviews matter more than ever",
-      subheadline: "In the era of geolocalized search engines and AI recommendations, your business only exists if it has active opinions.",
-      text1: "Consumer behavior has radically changed. Today, your online reputation determines your physical customer flow.",
-      text2: "AI response engines (like ChatGPT, Gemini, and Perplexity) prioritize and cite up to 3 times more local businesses with consistent high ratings.",
+      badge: "Security & Research",
+      headline: "Secure design engineered for action",
+      subheadline: "We are not just a card company; we are a lab designing physical and digital solutions that secure data while accelerating results.",
+      text1: "In a crowded market, immediacy defines who wins. But speed without security is a liability your brand shouldn't accept.",
+      text2: "Our NFC plaques and cards utilize chips with data encryption to ensure every exchange is as trustworthy as it is fast.",
       stats: [
         {
           value: "93%",
-          label: "of users read local reviews before making a purchase decision."
+          label: "of users prefer interactions that take less than 3 seconds."
         },
         {
           value: "3x",
-          label: "more citations and recommendations by AI-driven search engines."
+          label: "more citations in AI response engines for local businesses with structured data."
         },
         {
           value: "+340%",
-          label: "average increase in Google Maps reviews in the first 30 days of use."
+          label: "increase in local conversions in the first 30 days of implementation."
         }
       ]
     },
     pastVsFuture: {
-      badge: "Evolution",
-      headline: "The past of paper vs the future of NFC",
-      subheadline: "Continuing to use paper cards or static QR codes is like sending a fax in the smartphone era. It is time to evolve.",
+      badge: "The Evolution",
+      headline: "Traditional exchange vs AxionQuantLab Philosophy",
+      subheadline: "Allowing friction to disrupt a commercial transaction or networking moment is outdated. Move to secure immediacy.",
       past: {
-        title: "Traditional Paper Card",
+        title: "Traditional Paper or QR",
         items: [
-          "88% end up in the trash in less than 48 hours.",
-          "Forces the customer to type details manually.",
-          "Zero metrics on how many people actually read it.",
-          "Recurring, inefficient printing and design costs."
+          "Disrupts the natural flow of an important conversation.",
+          "Constant reprint costs for any data or link update.",
+          "Zero metrics on the real impact of physical interactions.",
+          "Vulnerabilities when showing plain-text logins or WiFi passwords."
         ]
       },
       future: {
-        title: "Konecta2 NFC Technology",
+        title: "AxionQuantLab NFC Devices",
         items: [
-          "Lasts forever using premium, high-grade materials.",
-          "Adds directly to contacts with a single tap.",
-          "Tracks every interaction with live tap analytics.",
-          "Instantly updateable link without reprinting."
+          "Removes friction: one tap and the action runs in the background.",
+          "Instant cloud updates without replacing your hardware.",
+          "Advanced analytics to measure interaction conversion rates.",
+          "Encrypted data and security flows that protect your clients."
         ]
       }
     },
     industries: {
-      badge: "Versatility",
-      headline: "Who is Konecta2 for?",
-      subheadline: "Any physical business or independent professional interacting with the public can benefit from NFC speed.",
+      badge: "Sectors of Action",
+      headline: "NFC solutions for every challenge",
+      subheadline: "We customize NFC technology and perform applied research to eliminate friction in any business sector.",
       items: [
         {
+          title: "Corporate & Networking",
+          desc: "Smart, secure business cards to book meetings and gather leads without breaking the rhythm of the event."
+        },
+        {
           title: "Restaurants & Cafés",
-          desc: "Prompt patrons to rate dishes, connect to the WiFi network, or read menus without delays."
+          desc: "Clean menus, instant table payments, and secure WiFi with a single tap, accelerating table turnover."
         },
         {
-          title: "Hotels & Lodging",
-          desc: "Express check-in, digital tourist guides, and rapid lobby reviews to climb up TripAdvisor rankings."
+          title: "Hotels & Reception",
+          desc: "Express check-in, instant digital local guides, and maps review collection in the lobby before check-out."
         },
         {
-          title: "Professionals & Freelancers",
-          desc: "Smart networking cards for conventions, commercial meetings, and high-impact business relations."
-        },
-        {
-          title: "Retail & Shops",
-          desc: "Encourage buyers to join loyalty programs or follow your social media profiles during payment."
+          title: "Shops & Retail",
+          desc: "Instant loyalty program signup and smooth NFC payments to reduce queues and improve shopping experiences."
         },
         {
           title: "Events & Conferences",
-          desc: "Dynamic accreditations, schedule downloads, and instant feedback survey forms."
+          desc: "Dynamic accreditations, schedule downloads, and immediate feedback surveys inside the presentation halls."
         },
         {
-          title: "Clinics & Healthcare",
-          desc: "Future appointment scheduling and trust-building reviews about medical care in waiting rooms."
+          title: "Research & Custom NFC",
+          desc: "We develop bespoke NFC systems for access control, inventory tracking, or industrial logistics."
         }
       ]
     },
     howItWorks: {
-      badge: "Simplicity",
-      headline: "Setup in 3 simple steps",
-      subheadline: "No complicated apps to download. Everything works natively on any modern smartphone.",
+      badge: "Our Methodology",
+      headline: "From research to action in 3 steps",
+      subheadline: "We work alongside your business to integrate intuitive hardware with secure, friction-free digital flows.",
       steps: [
         {
           step: "01",
-          title: "Choose your device",
-          desc: "Select between premium wood or metal cards, high-durability stickers, or counter plaques."
+          title: "Research & Assessment",
+          desc: "We analyze your business's friction points to determine the ideal NFC hardware and layout configuration."
         },
         {
           step: "02",
-          title: "Link in 2 minutes",
-          desc: "Access your Konecta2 cloud dashboard and define your destination link (Reviews, Contact, Socials, WiFi, or Payments)."
+          title: "Portal Deployment",
+          desc: "We set up your secure AxionQuantLab portal, linking your physical devices to contact, payment, or review flows."
         },
         {
           step: "03",
-          title: "Place and Connect",
-          desc: "Position the device in sight. Your customers just hold their phone close, and the magic happens."
+          title: "Real-World Action",
+          desc: "Install your devices. Your customers simply tap the device and experience immediacy with zero distraction."
         }
       ]
     },
     testimonials: {
-      badge: "Success Cases",
-      headline: "Reviews that speak for us",
-      subheadline: "Local businesses that have transformed the way they connect with their communities.",
+      badge: "Action Testimonials",
+      headline: "Measurable results, no friction",
+      subheadline: "Businesses that have converted daily tasks into immediate, secure digital actions.",
       list: [
         {
-          quote: "We went from 45 Google reviews to over 280 in just one month. The impact on our local search ranking has been spectacular.",
-          author: "Andrés Restrepo",
-          role: "Owner — Rosso Trattoria"
-        },
-        {
-          quote: "At corporate events, my paper cards were always lost. Now with my Konecta2 bamboo card, everyone saves my info on the spot.",
+          quote: "The AxionQuantLab contact card lets me close networking without losing the conversation's thread. It is sober, direct, and secure.",
           author: "Mariana Silva",
           role: "Business Consultant"
         },
         {
-          quote: "We put NFC plaques at the hotel reception. Positive reviews on Google and TripAdvisor increased by 300%.",
-          author: "Carlos Mendoza",
-          role: "Operations Manager — Vista Hotel"
+          quote: "We wanted a solution that wouldn't distract diners. We got them to rate the service without wasting time searching on Google.",
+          author: "Andrés Restrepo",
+          role: "Owner — Rosso Trattoria"
         },
         {
-          quote: "The NFC WiFi system has reduced queues at cash desks. One single tap and they are online without asking for passwords.",
+          quote: "The NFC WiFi system by AxionQuantLab eliminated questions for the password at reception while guaranteeing secure connections.",
+          author: "Carlos Mendoza",
+          role: "CX Director — Vista Hotel"
+        },
+        {
+          quote: "We requested custom research for retail inventory tracking using NFC tags, reducing operational times by 60%.",
           author: "Sofía Gómez",
-          role: "Administrator — Urbano Café"
+          role: "Operations Manager — Café Urbano"
         }
       ]
     },
     waitlist: {
-      headline: "Join the frictionless revolution",
-      subheadline: "The first 100 businesses to register get exclusive founder pricing and priority shipping. Secure your device today.",
-      placeholder: "Enter your professional email",
-      cta: "Get my Konecta2 →",
-      subtext: "konecta2.io — connected from the very first tap",
-      success: "Successfully registered! We will contact you soon to configure your first NFC device.",
-      invalidEmail: "Please enter a valid email address."
+      headline: "Join intelligent action",
+      subheadline: "Schedule a research consultation or order your first AxionQuantLab NFC devices. Let us bring your ideas to the immediate world.",
+      placeholder: "Enter your corporate email address",
+      cta: "Get AxionQuantLab →",
+      subtext: "axionquantlab.com — action without friction",
+      success: "Successfully registered! Our research team will reach out to design your custom NFC solution.",
+      invalidEmail: "Please enter a valid corporate email address."
     },
     footer: {
-      rights: "© 2026 Konecta2.io S.A.S. All rights reserved.",
-      tagline: "One tap. Connected.",
+      rights: "© 2026 AxionQuantLab. All rights reserved.",
+      tagline: "Immediate action. Zero friction.",
       legal: "Terms of Service | Privacy"
     }
   }

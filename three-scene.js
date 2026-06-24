@@ -36,13 +36,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // Bevelled metallic dark blue physical glass plate
   const cardGeo = new THREE.BoxGeometry(2.4, 1.48, 0.08);
   const cardMat = new THREE.MeshPhysicalMaterial({
-    color: 0x050a2b,          // Cosmic void deep blue
-    metalness: 0.95,
-    roughness: 0.08,
+    color: 0xffffff,          // Frosted light glass
+    metalness: 0.1,
+    roughness: 0.1,
     transparent: true,
-    opacity: 0.88,
-    transmission: 0.82,       // Refraction depth
-    thickness: 0.6,
+    opacity: 0.5,
+    transmission: 0.9,       // Refraction depth
+    thickness: 1.2,
     roughnessMap: null,
     clearcoat: 1.0,           // Gloss reflection layer
     clearcoatRoughness: 0.05,
@@ -65,11 +65,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Holographic neon cyan wireframe overlay
   const wireframeMat = new THREE.MeshBasicMaterial({
-    color: 0x00FFDB,          // Neon Cyan
+    color: 0x7C8BE7,          // Periwinkle
     wireframe: true,
     transparent: true,
-    opacity: 0.45,
-    blending: THREE.AdditiveBlending
+    opacity: 0.6,
+    blending: THREE.NormalBlending
   });
   const wireframeMesh = new THREE.Mesh(cardGeo, wireframeMat);
   wireframeMesh.scale.setScalar(1.004); // Avoid z-fighting z-overlap
@@ -86,11 +86,11 @@ document.addEventListener('DOMContentLoaded', () => {
   for (let i = 0; i < ringCount; i++) {
     const ringGeo = new THREE.RingGeometry(0.18 * (i + 1), 0.18 * (i + 1) + 0.012, 32);
     const ringMat = new THREE.MeshBasicMaterial({
-      color: 0x00FFDB,
+      color: 0x82C2A5,        // Sage Green
       transparent: true,
       opacity: 0.85 - (i * 0.22),
       side: THREE.DoubleSide,
-      blending: THREE.AdditiveBlending
+      blending: THREE.NormalBlending
     });
     const ringMesh = new THREE.Mesh(ringGeo, ringMat);
     nfcRingsGroup.add(ringMesh);
@@ -124,11 +124,11 @@ document.addEventListener('DOMContentLoaded', () => {
   particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
   const particleMat = new THREE.PointsMaterial({
-    color: 0x00FFDB,          // cyan star highlights
+    color: 0x7C8BE7,          // Soft Periwinkle particles
     size: 0.045,
     transparent: true,
-    opacity: 0.5,
-    blending: THREE.AdditiveBlending
+    opacity: 0.35,
+    blending: THREE.NormalBlending
   });
   window.heroParticleMat = particleMat;
 
@@ -139,20 +139,20 @@ document.addEventListener('DOMContentLoaded', () => {
   // --------------------------------------------------
   // 3. SCI-FI LIGHTING ENVIRONMENTS
   // --------------------------------------------------
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.45);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.75); // Brighter ambient for light theme
   scene.add(ambientLight);
 
   const keyLight = new THREE.DirectionalLight(0xffffff, 1.2);
   keyLight.position.set(5, 8, 5);
   scene.add(keyLight);
 
-  const cyanLight = new THREE.PointLight(0x00FFDB, 3.5, 15);
-  cyanLight.position.set(-4, -4, 4);
-  scene.add(cyanLight);
+  const sageLight = new THREE.PointLight(0x82C2A5, 3.0, 15); // Sage Green Point Light
+  sageLight.position.set(-4, -4, 4);
+  scene.add(sageLight);
 
-  const royalLight = new THREE.PointLight(0x1B38C4, 4.5, 15);
-  royalLight.position.set(4, 4, 4);
-  scene.add(royalLight);
+  const lilacLight = new THREE.PointLight(0xD1C4E9, 4.0, 15); // Soft Lilac Point Light
+  lilacLight.position.set(4, 4, 4);
+  scene.add(lilacLight);
 
   // Mouse tilt panning references
   let mouseX = 0, mouseY = 0;
@@ -279,7 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
       repeat: 1,
       ease: 'power2.inOut',
       onComplete: () => {
-        wireframeMat.color.setHex(0x00FFDB);
+        wireframeMat.color.setHex(0x7C8BE7);
       }
     });
   };

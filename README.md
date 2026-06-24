@@ -1,12 +1,12 @@
-# Konecta2.io
+# AxionQuantLab
 
-**NFC Technology for Seamless Customer Experiences**
+**NFC e Investigación Aplicada para Eliminar la Fricción**
 
-Konecta2.io is a cutting-edge solution that leverages Near Field Communication (NFC) technology to eliminate friction in customer interactions and streamline business processes.
+AxionQuantLab es una plataforma de soluciones físicas e investigación tecnológica basada en Near Field Communication (NFC) diseñada para eliminar la fricción operativa, agilizar el networking corporativo y facilitar interacciones rápidas y seguras.
 
-## 🎯 About
+## 🎯 Sobre Nosotros
 
-Konecta2.io harnesses the power of NFC technology to create frictionless customer experiences. Whether you're in retail, hospitality, or services, our platform enables quick, contactless interactions that improve customer satisfaction and operational efficiency.
+AxionQuantLab une la tecnología NFC y la investigación aplicada para crear flujos libres de fricción. Desarrollamos soluciones para networking empresarial, recopilación de reseñas locales y optimización del flujo de clientes en retail y hospitality, garantizando la inmediatez y la seguridad en cada interacción.
 
 ## ✨ Key Features
 
