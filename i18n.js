@@ -41,11 +41,11 @@ const translations = {
       cards: [
         {
           title: "Contacto Express",
-          desc: "Comparte tu tarjeta digital durante una reunión importante. Un tap y tu vCard se guarda en su agenda sin desviar la conversación."
+          desc: "Comparte tu AxiomCard digital durante una reunión importante. Un tap y tu vCard se guarda en su agenda sin desviar la conversación."
         },
         {
           title: "Research a Medida",
-          desc: "Investigamos y diseñamos soluciones de acción personalizadas basadas en NFC para resolver cualquier problema operativo de tu empresa."
+          desc: "Investigamos y diseñamos AxiomTags y soluciones de acción personalizadas basadas en NFC para resolver cualquier problema operativo de tu empresa."
         },
         {
           title: "Reseñas sin Desvíos",
@@ -68,9 +68,9 @@ const translations = {
     whyReviews: {
       badge: "Seguridad y Research",
       headline: "Diseño seguro enfocado en la acción",
-      subheadline: "No somos solo una tarjeta; somos un laboratorio de soluciones físicas y digitales que protegen la información mientras aceleran los resultados.",
+      subheadline: "No somos solo un AxiomCard; somos un laboratorio de soluciones físicas y digitales que protegen la información mientras aceleran los resultados.",
       text1: "En un mercado saturado, la inmediatez define quién avanza. Pero la inmediatez sin seguridad es un riesgo que tu marca no debe tomar.",
-      text2: "Nuestras placas y tarjetas NFC utilizan chips con cifrado de datos para garantizar que cada intercambio sea tan confiable como rápido.",
+      text2: "Nuestros AxiomCards y AxiomTags NFC utilizan chips con cifrado de datos para garantizar que cada intercambio sea tan confiable como rápido.",
       stats: [
         {
           value: "93%",
@@ -100,10 +100,10 @@ const translations = {
         ]
       },
       future: {
-        title: "Dispositivos AxionQuantLab NFC",
+        title: "AxiomCard & AxiomTag NFC",
         items: [
           "Elimina la fricción: un tap y la acción se realiza de fondo.",
-          "Actualizaciones instantáneas desde la nube sin cambiar de tarjeta.",
+          "Actualizaciones instantáneas desde la nube sin cambiar de AxiomCard.",
           "Analíticas avanzadas de interacción para medir la efectividad.",
           "Datos cifrados y flujos de seguridad que protegen a tu cliente."
         ]
@@ -116,7 +116,7 @@ const translations = {
       items: [
         {
           title: "Corporativo & Networking",
-          desc: "Tarjetas de presentación inteligentes y seguras para concretar reuniones y leads sin romper la dinámica del evento."
+          desc: "AxiomCards inteligentes y seguros para concretar reuniones y leads sin romper la dinámica del evento."
         },
         {
           title: "Restaurantes & Cafés",
@@ -136,29 +136,29 @@ const translations = {
         },
         {
           title: "Research & Custom NFC",
-          desc: "Desarrollamos soluciones NFC a medida para integraciones de control de acceso, logística u operaciones industriales."
+          desc: "Desarrollamos soluciones NFC a medida con AxiomTags para integraciones de control de acceso, logística u operaciones."
         }
       ]
     },
     howItWorks: {
       badge: "Nuestra Metodología",
       headline: "Desde la investigación a la acción en 3 pasos",
-      subheadline: "Trabajamos junto a tu negocio para integrar soluciones físicas intuitivas con flujos digitales seguros y libres de fricción.",
+      subheadline: "Trabajamos junto a tu negocio para integrar AxiomCards y AxiomTags con flujos digitales seguros y libres de fricción.",
       steps: [
         {
           step: "01",
           title: "Research & Diagnóstico",
-          desc: "Analizamos los puntos de fricción de tu negocio para determinar la mejor configuración física y de hardware NFC."
+          desc: "Analizamos los puntos de fricción de tu negocio para determinar la mejor configuración de hardware (AxiomCard o AxiomTag)."
         },
         {
           step: "02",
           title: "Despliegue del Portal",
-          desc: "Configuramos tu portal seguro AxionQuantLab, enlazando tus dispositivos a flujos de contacto, pagos o valoraciones."
+          desc: "Configuramos tu portal seguro AxionQuantLab, enlazando tus AxiomCards y AxiomTags a flujos de contacto, pagos o valoraciones."
         },
         {
           step: "03",
           title: "Acción en el Mundo Real",
-          desc: "Instalas tus dispositivos. Tus clientes solo tocan el dispositivo y experimentan inmediatez sin distracciones."
+          desc: "Colocas tus dispositivos. Tus clientes solo tocan con su móvil y experimentan inmediatez sin distracciones."
         }
       ]
     },
@@ -168,7 +168,7 @@ const translations = {
       subheadline: "Empresas que han transformado sus procesos cotidianos en acciones digitales inmediatas.",
       list: [
         {
-          quote: "La tarjeta de contacto AxionQuantLab me permite cerrar networking sin desviar el hilo de la conversación. Es inmediata, sobria y segura.",
+          quote: "La AxiomCard de contacto me permite cerrar networking sin desviar el hilo de la conversación. Es inmediata, sobria y segura.",
           author: "Mariana Silva",
           role: "Consultora de Negocios"
         },
@@ -183,7 +183,7 @@ const translations = {
           role: "Director de Experiencia — Hotel Vista"
         },
         {
-          quote: "Solicitamos un desarrollo de research a medida para el control de inventario en tienda con etiquetas NFC y redujo el tiempo operativo en un 60%.",
+          quote: "Solicitamos un desarrollo de research a medida para el control de inventario en tienda con AxiomTags y redujo el tiempo operativo en un 60%.",
           author: "Sofía Gómez",
           role: "Gerente de Operaciones — Café Urbano"
         }
@@ -191,7 +191,7 @@ const translations = {
     },
     waitlist: {
       headline: "Únete a la acción inteligente",
-      subheadline: "Agenda una sesión de consultoría o solicita tus primeros dispositivos de AxionQuantLab. Llevamos tus ideas al mundo de la inmediatez.",
+      subheadline: "Agenda una sesión de consultoría o solicita tus primeros AxiomCards y AxiomTags de AxionQuantLab. Llevamos tus ideas al mundo de la inmediatez.",
       placeholder: "Ingresa tu correo electrónico corporativo",
       cta: "Quiero AxionQuantLab →",
       subtext: "axionquantlab.com — acción sin fricción",
@@ -246,11 +246,11 @@ const translations = {
       cards: [
         {
           title: "Express Contact",
-          desc: "Share your digital card during key meetings. One tap and your vCard is saved in their contact list without disrupting the discussion."
+          desc: "Share your digital AxiomCard during key meetings. One tap and your vCard is saved in their contact list without disrupting the discussion."
         },
         {
           title: "Custom Research",
-          desc: "We research and design custom NFC-based action solutions to solve operational bottlenecks in your company."
+          desc: "We research and design custom NFC-based action solutions with AxiomTags to solve operational bottlenecks in your company."
         },
         {
           title: "Direct Reviews",
@@ -273,9 +273,9 @@ const translations = {
     whyReviews: {
       badge: "Security & Research",
       headline: "Secure design engineered for action",
-      subheadline: "We are not just a card company; we are a lab designing physical and digital solutions that secure data while accelerating results.",
+      subheadline: "We are not just an AxiomCard provider; we are a lab designing physical and digital solutions that secure data while accelerating results.",
       text1: "In a crowded market, immediacy defines who wins. But speed without security is a liability your brand shouldn't accept.",
-      text2: "Our NFC plaques and cards utilize chips with data encryption to ensure every exchange is as trustworthy as it is fast.",
+      text2: "Our AxiomCards and AxiomTags utilize chips with data encryption to ensure every exchange is as trustworthy as it is fast.",
       stats: [
         {
           value: "93%",
@@ -305,10 +305,10 @@ const translations = {
         ]
       },
       future: {
-        title: "AxionQuantLab NFC Devices",
+        title: "AxiomCard & AxiomTag NFC",
         items: [
           "Removes friction: one tap and the action runs in the background.",
-          "Instant cloud updates without replacing your hardware.",
+          "Instant cloud updates without replacing your AxiomCard.",
           "Advanced analytics to measure interaction conversion rates.",
           "Encrypted data and security flows that protect your clients."
         ]
@@ -321,14 +321,14 @@ const translations = {
       items: [
         {
           title: "Corporate & Networking",
-          desc: "Smart, secure business cards to book meetings and gather leads without breaking the rhythm of the event."
+          desc: "Smart, secure AxiomCards to book meetings and gather leads without breaking the rhythm of the event."
         },
         {
           title: "Restaurants & Cafés",
           desc: "Clean menus, instant table payments, and secure WiFi with a single tap, accelerating table turnover."
         },
         {
-          title: "Hotels & Reception",
+          title: "Hoteles & Reception",
           desc: "Express check-in, instant digital local guides, and maps review collection in the lobby before check-out."
         },
         {
@@ -341,29 +341,29 @@ const translations = {
         },
         {
           title: "Research & Custom NFC",
-          desc: "We develop bespoke NFC systems for access control, inventory tracking, or industrial logistics."
+          desc: "We develop bespoke NFC systems with AxiomTags for access control, inventory tracking, or industrial logistics."
         }
       ]
     },
     howItWorks: {
       badge: "Our Methodology",
       headline: "From research to action in 3 steps",
-      subheadline: "We work alongside your business to integrate intuitive hardware with secure, friction-free digital flows.",
+      subheadline: "We work alongside your business to integrate AxiomCards and AxiomTags with secure, friction-free digital flows.",
       steps: [
         {
           step: "01",
           title: "Research & Assessment",
-          desc: "We analyze your business's friction points to determine the ideal NFC hardware and layout configuration."
+          desc: "We analyze your business's friction points to determine the ideal NFC hardware configuration (AxiomCard or AxiomTag)."
         },
         {
           step: "02",
           title: "Portal Deployment",
-          desc: "We set up your secure AxionQuantLab portal, linking your physical devices to contact, payment, or review flows."
+          desc: "We set up your secure AxionQuantLab portal, linking your AxiomCards and AxiomTags to contact, payment, or review flows."
         },
         {
           step: "03",
           title: "Real-World Action",
-          desc: "Install your devices. Your customers simply tap the device and experience immediacy with zero distraction."
+          desc: "Install your devices. Your customers simply tap and experience immediacy with zero distraction."
         }
       ]
     },
@@ -373,7 +373,7 @@ const translations = {
       subheadline: "Businesses that have converted daily tasks into immediate, secure digital actions.",
       list: [
         {
-          quote: "The AxionQuantLab contact card lets me close networking without losing the conversation's thread. It is sober, direct, and secure.",
+          quote: "The AxiomCard lets me close networking without losing the conversation's thread. It is sober, direct, and secure.",
           author: "Mariana Silva",
           role: "Business Consultant"
         },
@@ -388,7 +388,7 @@ const translations = {
           role: "CX Director — Vista Hotel"
         },
         {
-          quote: "We requested custom research for retail inventory tracking using NFC tags, reducing operational times by 60%.",
+          quote: "We requested custom research for retail inventory tracking using AxiomTags, reducing operational times by 60%.",
           author: "Sofía Gómez",
           role: "Operations Manager — Café Urbano"
         }
@@ -396,9 +396,9 @@ const translations = {
     },
     waitlist: {
       headline: "Join intelligent action",
-      subheadline: "Schedule a research consultation or order your first AxionQuantLab NFC devices. Let us bring your ideas to the immediate world.",
+      subheadline: "Schedule a research consultation or order your first AxiomCards and AxiomTags. Let us bring your ideas to the immediate world.",
       placeholder: "Enter your corporate email address",
-      cta: "Get AxionQuantLab →",
+      cta: "Quiero AxionQuantLab →",
       subtext: "axionquantlab.com — action without friction",
       success: "Successfully registered! Our research team will reach out to design your custom NFC solution.",
       invalidEmail: "Please enter a valid corporate email address."
