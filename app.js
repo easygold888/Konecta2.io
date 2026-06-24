@@ -322,9 +322,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // ATMOSPHERIC COSMIC THEME SCROLL SHIFTS (Space Sectors)
   // --------------------------------------------------
   const initSpaceScrollSectors = () => {
-    // Problem Sector: turns background to soft pastel crimson/blush
+    // Problem Sector: turns background to cosmic dark crimson
     gsap.to(':root', {
-      '--bg-secondary': '#F7ECEF',
+      '--bg-secondary': '#12040a',
       scrollTrigger: {
         trigger: '#problem',
         start: 'top 80%',
@@ -333,9 +333,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Back to soft grey-blue for solution cases
+    // Back to space blue for solution cases
     gsap.to(':root', {
-      '--bg-secondary': '#EDF2F7',
+      '--bg-secondary': '#05081b',
       scrollTrigger: {
         trigger: '#cases',
         start: 'top 80%',
@@ -344,9 +344,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Reviews Sector: turns background to soft sage green
+    // Reviews Sector: turns background to emerald stardust green
     gsap.to(':root', {
-      '--bg-secondary': '#EAF2EE',
+      '--bg-secondary': '#041c16',
       scrollTrigger: {
         trigger: '#why-reviews',
         start: 'top 80%',
@@ -355,9 +355,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Waitlist Sector: turns background to soft periwinkle/lilac
+    // Waitlist Sector: turns background to corona cian solar blue
     gsap.to(':root', {
-      '--bg-secondary': '#ECEFFB',
+      '--bg-secondary': '#010c14',
       scrollTrigger: {
         trigger: '#cta-waitlist',
         start: 'top 80%',
@@ -432,8 +432,8 @@ document.addEventListener('DOMContentLoaded', () => {
             onUpdate: (self) => {
               const prog = self.progress;
               if (window.heroParticleMat) {
-                // Interpolate star colors from Periwinkle to Dusty Rose!
-                const c = new THREE.Color().lerpColors(new THREE.Color(0x7C8BE7), new THREE.Color(0xE5C3D1), prog);
+                // Interpolate star colors from Cyan to Crimson Red!
+                const c = new THREE.Color().lerpColors(new THREE.Color(0x00FFDB), new THREE.Color(0xFF3E3E), prog);
                 window.heroParticleMat.color.copy(c);
               }
               window.starSpeedMultiplier = 1.0 + (prog * 3.5); // Accelerate stars
@@ -479,9 +479,9 @@ document.addEventListener('DOMContentLoaded', () => {
           onUpdate: (self) => {
             const progress = self.progress;
             
-            // Revert particles to Periwinkle in solution zone
+            // Revert particles to Cyan in solution zone
             if (window.heroParticleMat) {
-              window.heroParticleMat.color.setHex(0x7C8BE7);
+              window.heroParticleMat.color.setHex(0x00FFDB);
             }
             window.starSpeedMultiplier = 1.0;
 
@@ -539,8 +539,8 @@ document.addEventListener('DOMContentLoaded', () => {
             onUpdate: (self) => {
               const prog = self.progress;
               if (window.heroParticleMat) {
-                // Morph to Sage Green
-                const c = new THREE.Color().lerpColors(new THREE.Color(0x7C8BE7), new THREE.Color(0x82C2A5), prog);
+                // Morph to Emerald Green
+                const c = new THREE.Color().lerpColors(new THREE.Color(0x00FFDB), new THREE.Color(0x10B981), prog);
                 window.heroParticleMat.color.copy(c);
               }
             }
@@ -931,20 +931,20 @@ document.addEventListener('DOMContentLoaded', () => {
       const gainNode = audioCtx.createGain();
       const filterNode = audioCtx.createBiquadFilter();
       
-      osc1.type = 'sine';
-      osc1.frequency.setValueAtTime(220, audioCtx.currentTime); // A3 note (Airy & peaceful)
+      osc1.type = 'sawtooth';
+      osc1.frequency.setValueAtTime(55, audioCtx.currentTime); // A1 note
       
-      osc2.type = 'sine';
-      osc2.frequency.setValueAtTime(330, audioCtx.currentTime); // E4 note (Clean fifth interval)
+      osc2.type = 'triangle';
+      osc2.frequency.setValueAtTime(110, audioCtx.currentTime); // A2 note
       
       const modulator = audioCtx.createOscillator();
       const modGain = audioCtx.createGain();
-      modulator.frequency.setValueAtTime(0.05, audioCtx.currentTime); // Very slow LFO sweep
-      modGain.gain.setValueAtTime(50, audioCtx.currentTime);
+      modulator.frequency.setValueAtTime(0.08, audioCtx.currentTime); // LFO sweep
+      modGain.gain.setValueAtTime(120, audioCtx.currentTime);
       
       filterNode.type = 'lowpass';
-      filterNode.frequency.setValueAtTime(400, audioCtx.currentTime);
-      filterNode.Q.setValueAtTime(1.5, audioCtx.currentTime);
+      filterNode.frequency.setValueAtTime(180, audioCtx.currentTime);
+      filterNode.Q.setValueAtTime(4, audioCtx.currentTime);
       
       modulator.connect(modGain);
       modGain.connect(filterNode.frequency);
@@ -955,7 +955,7 @@ document.addEventListener('DOMContentLoaded', () => {
       gainNode.connect(audioCtx.destination);
       
       gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-      gainNode.gain.linearRampToValueAtTime(0.04, audioCtx.currentTime + 4.0); // Soft fade-in
+      gainNode.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 3.5);
       
       osc1.start();
       osc2.start();
@@ -1051,7 +1051,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 6. Text dynamic glow effect reveal
     gsap.from('#hero-content-group h1', {
-      textShadow: '0 0 50px rgba(124, 139, 231, 0.6)',
+      textShadow: '0 0 50px rgba(0, 255, 219, 0.9)',
       duration: 1.2,
       ease: 'power2.out'
     });
