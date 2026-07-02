@@ -276,7 +276,7 @@ export default function IntroAnimation() {
     const contentY = useTransform(smoothMorph, [0.8, 1], [20, 0]);
 
     return (
-        <div ref={containerRef} className="relative w-full h-[220vh] bg-[#070A12] select-none">
+        <div ref={containerRef} className="relative w-full h-[220vh] bg-transparent select-none">
             
             {/* Sticky Wrapper */}
             <div className="sticky top-0 w-full h-screen overflow-hidden flex flex-col items-center justify-center perspective-1000">
