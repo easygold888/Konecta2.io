@@ -4,6 +4,7 @@ cd /d "%~dp0"
 
 echo ==========================================
 echo    ActionQuantlabs - Deploy a GitHub Pages
+echo    Rama de publicacion: gh-pages
 echo ==========================================
 echo.
 
@@ -23,7 +24,7 @@ if errorlevel 1 (
 
 REM --- Instalar dependencias si faltan ---
 if not exist "node_modules" (
-  echo [1/4] Instalando dependencias por primera vez...
+  echo [1/3] Instalando dependencias por primera vez...
   call npm install
   if errorlevel 1 (
     echo [ERROR] Fallo npm install.
@@ -31,52 +32,45 @@ if not exist "node_modules" (
     exit /b 1
   )
 ) else (
-  echo [1/4] Dependencias OK.
+  echo [1/3] Dependencias OK.
 )
 
-REM --- Mensaje de commit: usa lo que escribas despues del .bat, o un timestamp ---
+REM --- Mensaje del deploy: usa lo que escribas despues del .bat, o un timestamp ---
 set "MSG=%*"
-if "%MSG%"=="" set "MSG=deploy: actualizacion %DATE% %TIME%"
+if "%MSG%"=="" set "MSG=deploy %DATE% %TIME%"
 
-REM --- Guardar y subir el codigo fuente a la rama main ---
-echo [2/4] Guardando cambios en git (rama main)...
-git add -A
-git diff --cached --quiet
+REM --- Compilar el sitio desde cero (borra dist para evitar builds viejos) ---
+echo [2/3] Compilando el sitio (build limpio)...
+if exist "dist" rmdir /s /q "dist"
+call npm run build
 if errorlevel 1 (
-  git commit -m "%MSG%"
-  if errorlevel 1 (
-    echo [ERROR] Fallo el commit.
-    pause
-    exit /b 1
-  )
-) else (
-  echo        Sin cambios nuevos que guardar.
-)
-
-git push origin main
-if errorlevel 1 (
-  echo [ERROR] Fallo el push a origin main. Revisa tu conexion o credenciales de GitHub.
+  echo [ERROR] Fallo el build. No se publico nada.
   pause
   exit /b 1
 )
 
-REM --- Compilar y publicar dist en la rama gh-pages ---
-echo [3/4] Compilando el sitio (vite build)...
-echo [4/4] Publicando en GitHub Pages (rama gh-pages)...
-call npm run deploy
+REM --- Publicar dist en la rama gh-pages (lo que sirve GitHub Pages) ---
+REM   -b gh-pages  = rama destino
+REM   -o origin    = nombre del remoto (NO una URL)
+echo [3/3] Publicando en la rama gh-pages...
+call npx gh-pages -d dist -b gh-pages -o origin -m "%MSG%"
 if errorlevel 1 (
-  echo [ERROR] Fallo el deploy a GitHub Pages.
+  echo.
+  echo [ERROR] Fallo la publicacion en gh-pages.
+  echo   - Mira el mensaje de error de arriba para el detalle.
+  echo   - Si pide login, corre una vez:  git push origin main
+  echo     para que Windows guarde tus credenciales de GitHub, y reintenta.
   pause
   exit /b 1
 )
 
 echo.
 echo ==========================================
-echo    LISTO. Sitio desplegado con exito.
+echo    LISTO. Publicado en la rama gh-pages.
 echo    URL: https://easygold888.github.io/Konecta2.io/
 echo ==========================================
-echo    Nota: la primera vez, en GitHub abre
-echo    Settings ^> Pages y pon Source = rama "gh-pages".
-echo    Los cambios pueden tardar 1-2 min en verse.
+echo    Si no ves el cambio:
+echo      1) GitHub ^> Settings ^> Pages ^> Source = rama "gh-pages" (carpeta / root)
+echo      2) Espera 1-2 min y refresca con Ctrl+F5 (limpia cache)
 echo.
 pause
