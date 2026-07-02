@@ -41,7 +41,7 @@ if errorlevel 1 (
 
 REM --- Desplegar en Cloudflare Pages ---
 echo [3/3] Publicando en Cloudflare Pages...
-call npx wrangler pages deploy dist --project-name axiomquantlab
+call npx wrangler pages deploy dist --project-name axiomquantlabs
 if errorlevel 1 (
   echo [ERROR] Fallo la publicacion en Cloudflare Pages.
   pause
@@ -51,10 +51,10 @@ if errorlevel 1 (
 echo.
 echo ==========================================
 echo    LISTO. Publicado con exito en Cloudflare.
-echo    URL de prueba: https://axiomquantlab.pages.dev/
+echo    URL de prueba: https://axiomquantlabs.pages.dev/
 echo ==========================================
 echo    Recuerda asociar tu dominio propio en el Dashboard de Cloudflare:
-echo      1) Ve a Workers & Pages > axiomquantlab > Custom Domains
-echo      2) Asocia tu dominio (ej. axiomquantlab.xyz o www.axiomquantlab.xyz)
+echo      1) Ve a Workers & Pages > axiomquantlabs > Custom Domains
+echo      2) Asocia tu dominio (ej. axiomquantlabs.xyz o www.axiomquantlabs.xyz)
 echo.
 pause
