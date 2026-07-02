@@ -1,0 +1,1393 @@
+================================================================================
+ACTIONQUANTLABS — DOCUMENTO MAESTRO v1.0
+Sistema, Servicios, Marca y Contenido para Landing Page
+Cali, Colombia | 2025 | CONFIDENCIAL
+================================================================================
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BLOQUE 00 — IDENTIDAD FUNDAMENTAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+NOMBRE LEGAL
+  ActionQuantlabs
+
+NOMBRE COMERCIAL
+  ActionQuantlabs
+
+SIGLA INTERNA
+  AQL
+
+TAGLINE PRINCIPAL
+  "Conexiones inteligentes para negocios inteligentes."
+
+TAGLINES ALTERNATIVOS (por contexto)
+  - "Cada toque, una accion."                          → Universal, campanas generales
+  - "Touch. Connect. Done."                            → Internacional / ingles
+  - "Tu negocio, un toque."                            → Segmento negocios
+  - "La experiencia empieza aqui."                     → Hospitality
+  - "Sin reimprimir nada. Nunca."                      → Pitch de venta / comparativa
+  - "Infraestructura para el contacto humano."         → B2B / inversionistas
+
+CATEGORIA DE MERCADO
+  Infraestructura de Contacto Dinamico
+
+DESCRIPCION EN UNA LINEA
+  ActionQuantlabs convierte objetos NFC fisicos en puntos de acceso digitales
+  dinamicos, permanentes y gestionables en tiempo real.
+
+DESCRIPCION EN UN PARRAFO (para hero de landing)
+  ActionQuantlabs es una empresa tecnologica de Cali, Colombia, que desarrolla
+  hardware NFC y la plataforma de software que lo gestiona. Nuestros productos
+  convierten cada tarjeta o sticker fisico en una conexion inteligente:
+  actualizable, medible y permanente. Sin reimprimir. Sin reemplazar. Sin
+  friccion.
+
+PROPOSITO
+  Eliminar la friccion entre el mundo fisico y el digital, convirtiendo cada
+  toque en una accion inmediata, inteligente y memorable.
+
+MISION
+  Proveer infraestructura de conectividad fisico-digital para que personas y
+  negocios interactuen, gestionen y crezcan sin depender de formatos estaticos.
+
+VISION
+  Ser la infraestructura de contacto dinamico mas confiable de Latinoamerica
+  para 2030, creciendo desde Cali al mundo.
+
+PAIS DE ORIGEN
+  Colombia
+
+CIUDAD BASE
+  Cali, Valle del Cauca
+
+MERCADO PRIMARIO
+  Colombia
+
+MERCADO SECUNDARIO
+  LATAM (Mexico, Peru, Argentina, Chile, Ecuador)
+
+IDIOMA PRINCIPAL DE LA MARCA
+  Espanol
+
+IDIOMA SECUNDARIO
+  Ingles (proyeccion internacional)
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BLOQUE 01 — EL PROBLEMA QUE RESOLVEMOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+EL PROBLEMA CENTRAL
+  El mundo fisico esta atrapado en el pasado.
+  Los NFC y QR estaticos crean un ciclo costoso:
+    1. Se imprime o programa un NFC apuntando a un destino.
+    2. Se instala en donde el usuario lo necesita.
+    3. La informacion detras cambia (precio, horario, enlace, cargo).
+    4. El objeto fisico queda obsoleto.
+    5. Hay que reimprimir o reemplazar todo el lote.
+    6. Se repite indefinidamente.
+
+MANIFESTACIONES DEL PROBLEMA (ejemplos reales para landing)
+  → Un restaurante imprime 20 menus con QR. Cambia un precio. Los 20 son basura.
+  → Un profesional deja 50 tarjetas en una feria. Cambia de cargo. Las 50 son basura.
+  → Un hostal escribe el WiFi en una hoja. Cambia la clave. Hay que reescribirla.
+  → Un barbero paga disenador cada mes para actualizar su menu de servicios.
+  → Un hotel da el mismo pitch de WiFi a cada huesped que llega a recepcion.
+
+EL COSTO DE LA FRICCION
+  - Tiempo perdido en reimpresiones y actualizaciones manuales.
+  - Dinero gastado en materiales que quedan obsoletos.
+  - Oportunidades perdidas de contacto porque la informacion esta desactualizada.
+  - Frustracion del cliente que llega a informacion incorrecta.
+
+EL DIFERENCIADOR ABSOLUTO
+  ActionQuantlabs rompe el ciclo.
+  El objeto fisico (NFC) es permanente para siempre.
+  El destino digital lo controlas tu, en tiempo real, sin tocar el hardware.
+  Un solo objeto. Infinitas actualizaciones. Cero reimpresiones.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BLOQUE 02 — LA SOLUCION: PRODUCTOS Y SISTEMA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ARQUITECTURA DEL SISTEMA
+  El sistema ActionQuantlabs tiene tres capas:
+
+  CAPA 1 — HARDWARE FISICO
+    Los dispositivos NFC que se entregan al cliente.
+    Son permanentes. No se reemplazan. Son el punto de contacto fisico.
+
+  CAPA 2 — PLATAFORMA DIGITAL (AQL Hub)
+    El software donde el cliente gestiona a donde apunta cada dispositivo.
+    Se accede desde cualquier navegador. Sin app requerida.
+
+  CAPA 3 — DESTINO DINAMICO
+    La pagina o accion a donde lleva el NFC cuando alguien lo toca.
+    Puede ser un perfil, un menu, una reserva, WiFi, una resena de Google, etc.
+    Se cambia en segundos desde la plataforma. El hardware no se toca.
+
+--------------------------------------------------------------------------------
+
+PRODUCTO 01 — AXIOM CARD
+
+  NOMBRE COMPLETO: Axiom Card
+  CHIP: NTAG 214 (NFC Forum Type 2)
+  PARA QUIEN: Profesionales, ejecutivos, freelancers, emprendedores, creativos
+
+  ESPECIFICACIONES TECNICAS:
+    Chip:         NTAG 214
+    Memoria:      540 bytes de EEPROM
+    Frecuencia:   13.56 MHz (ISO 14443-3A)
+    Alcance:      Hasta 10cm de lectura
+    Durabilidad:  30 millones de ciclos de lectura/escritura
+    Formato:      ISO CR-80 (85.6 x 54mm — tamano estandar de tarjeta de credito)
+    Material:     PVC premium, 0.76mm de grosor
+    Seguridad:    Proteccion de escritura por contrasena configurable
+    Compatibilidad: Cualquier smartphone con NFC (Android e iPhone XS en adelante)
+
+  QUE PUEDE HACER LA AXIOM CARD:
+    → Compartir perfil de LinkedIn al toque
+    → Compartir Instagram, TikTok, YouTube, o cualquier red social
+    → Mostrar numero de telefono con click directo para llamar
+    → Abrir WhatsApp directo con mensaje pre-llenado
+    → Mostrar CV / portfolio digital
+    → Mostrar sitio web personal o de empresa
+    → Abrir formulario de contacto
+    → Mostrar todos los anteriores en una sola pagina personalizada (AQL Hub)
+    → Cambiar a donde apunta en cualquier momento desde la plataforma
+
+  PROMESA PRINCIPAL:
+    "Tu identidad digital completa. En un toque. Sin buscar usuario por usuario.
+     Sin volver a imprimir una sola tarjeta."
+
+  CASOS DE USO POR PERFIL:
+    Ejecutivos:        Primera impresion de clase mundial en cada reunion.
+    Freelancers:       Portfolio, redes y contacto en un solo toque.
+    Emprendedores:     Escala global desde el primer dia de operacion.
+    Vendedores:        Infinitas reuniones, cero tarjetas gastadas, siempre actualizado.
+    Creativos:         La tarjeta que muestra, no solo dice.
+
+  ANTES VS. DESPUES:
+    ANTES: Explica donde encontrarte en cada red social, una por una.
+    AHORA: La persona toca la card. Ve todo en 1 segundo.
+
+    ANTES: Reimprimes tarjetas cada vez que cambias de cargo.
+    AHORA: Editas en la plataforma. La card ya tiene el nuevo titulo.
+
+    ANTES: Te quedas sin tarjetas en tu reunion mas importante.
+    AHORA: Una sola card. Infinitas reuniones. Para siempre.
+
+    ANTES: Distribuyes tarjetas que van al cajero.
+    AHORA: La persona guarda tu contacto porque lo toca, no porque lo recibe.
+
+  CONTENIDO QUE PUEDE MOSTRAR EL PERFIL DIGITAL:
+    - Foto de perfil
+    - Nombre completo
+    - Cargo y empresa
+    - Ciudad y pais
+    - Enlace al sitio web
+    - Boton de WhatsApp
+    - Boton de llamada directa
+    - Correo electronico
+    - LinkedIn
+    - Instagram
+    - TikTok
+    - YouTube
+    - Portfolio / Behance / Dribbble
+    - CV descargable en PDF
+    - Cualquier enlace personalizado que el usuario quiera agregar
+
+--------------------------------------------------------------------------------
+
+PRODUCTO 02 — AXIOM TAG
+
+  NOMBRE COMPLETO: Axiom Tag
+  CHIP: NTAG 213 (NFC Forum Type 2)
+  PARA QUIEN: Negocios, restaurantes, barberias, hostales, hoteles, tiendas
+
+  ESPECIFICACIONES TECNICAS:
+    Chip:         NTAG 213
+    Memoria:      144 bytes de EEPROM
+    Frecuencia:   13.56 MHz (ISO 14443-3A)
+    Formato:      Sticker adhesivo circular
+    Tamano:       25mm o 38mm de diametro (segun aplicacion)
+    Resistencia:  Agua, humedad y temperatura (-25°C a +70°C)
+    Adhesivo:     Permanente. Compatible con cristal, madera, metal y plastico
+    Vida util:    Mas de 100,000 ciclos de escritura
+    Compatibilidad: Cualquier smartphone con NFC
+
+  QUE PUEDE HACER EL AXIOM TAG:
+    → Llevar al menu digital actualizado del restaurante
+    → Conectar al WiFi del establecimiento sin escribir contrasena
+    → Redirigir a resenas de Google (para que el cliente deje su resena)
+    → Abrir pagina de reservas del negocio
+    → Mostrar programa de fidelizacion / puntos
+    → Compartir ubicacion en Google Maps
+    → Abrir WhatsApp del negocio
+    → Mostrar carta de servicios actualizada (barberia, spa, etc.)
+    → Guiar al huesped desde la reserva hasta la puerta del hostal
+    → Mostrar informacion de check-in y check-out
+    → Cualquier URL o accion que el negocio configure en la plataforma
+
+  DONDE SE INSTALA EL AXIOM TAG:
+    Restaurante:    En cada mesa. El cliente escanea y ve el menu actualizado.
+    Barberia:       En el mostrador. El cliente reserva, ve precios o sigue en Instagram.
+    Hostal:         En el lobby. WiFi en un toque. En la cama: servicios del hostal.
+    Hotel boutique: En la llave de habitacion, en la mesa de noche, en el bano.
+    Tienda retail:  En la vitrina. El cliente ve disponibilidad, precios o catalogo.
+    Clinica/spa:    En recepcion. El cliente agenda cita o ve el portafolio de servicios.
+    Oficina:        En la puerta. Informacion de contacto, horarios, equipo.
+    Empaque:        En productos fisicos. Garantia, instrucciones, programa de puntos.
+    Tarjeta de habitacion: El huesped toca la llave y accede a todos los servicios.
+
+  PROMESA PRINCIPAL:
+    "Tu negocio en internet, en un toque. Sin saber de tecnologia.
+     Sin reimprimir absolutamente nada."
+
+  CASOS DE USO POR SEGMENTO:
+
+    RESTAURANTE / CAFE:
+      Problema:   Los menus impresos quedan obsoletos con cada cambio de precio.
+      Solucion:   Tag en cada mesa. El menu vive en la plataforma AQL Hub.
+                  Cambias un precio en segundos. El tag sigue funcionando.
+      Bonus:      Lleva al cliente directo a dejar resena en Google Maps.
+
+    BARBERIA / PELUQUERIA:
+      Problema:   El cliente no sabe como reservar. Las resenas de Google son pocas.
+      Solucion:   Tag en el mostrador. Reservas directas. Fidelizacion digital.
+      Bonus:      El cliente sigue la cuenta de Instagram en un toque.
+
+    HOSTAL / HOTEL BOUTIQUE:
+      Problema:   Repetir el WiFi a cada huesped. Check-in lento. Sin resenas.
+      Solucion:   Tag en el lobby: WiFi instantaneo. En la cama: servicios completos.
+      Bonus:      Tag en la confirmacion de reserva que guia puerta a puerta.
+
+    TIENDA / BOUTIQUE:
+      Problema:   El catalogo en papel queda desactualizado. Sin presencia digital.
+      Solucion:   Tag en vitrina. El cliente ve el catalogo completo actualizado.
+      Bonus:      Boton de WhatsApp directo para consultar disponibilidad.
+
+    CLINICA / CONSULTORIO:
+      Problema:   El paciente no sabe como agendar. El portafolio no es visible.
+      Solucion:   Tag en recepcion. Agendamiento directo. Portafolio de servicios.
+
+    EMPRESA / OFICINA:
+      Problema:   Visitantes no saben a quien contactar. Sin directorio actualizado.
+      Solucion:   Tag en la entrada. Directorio digital, contactos y horarios.
+
+--------------------------------------------------------------------------------
+
+PLATAFORMA — AQL HUB
+
+  QUE ES:
+    AQL Hub es el software de gestion en la nube donde el cliente controla
+    a donde apunta cada dispositivo NFC. Se accede desde cualquier navegador.
+    No requiere instalacion. No requiere conocimientos tecnicos.
+
+  FUNCIONES PRINCIPALES:
+
+    1. DASHBOARD UNIFICADO
+       Vista de todos los NFC del cliente en una sola pantalla.
+       Estado de cada dispositivo: activo, inactivo, cuantos toques tuvo.
+
+    2. DESTINOS DINAMICOS
+       Cambia a donde apunta cualquier NFC en segundos.
+       El hardware no se toca. La actualizacion es inmediata.
+       Sin limite de cambios. Sin costo adicional por actualizacion.
+
+    3. PERFIL DIGITAL PERSONALIZADO (para Axiom Card)
+       El cliente crea su pagina de aterrizaje con:
+         - Foto y nombre
+         - Cargo y empresa
+         - Todos sus enlaces y redes sociales
+         - Boton de WhatsApp, llamada, email
+         - CV descargable
+         - Cualquier enlace que quiera agregar
+       La pagina es responsive (se ve bien en cualquier pantalla).
+       El diseno usa el tema oscuro premium de ActionQuantlabs.
+
+    4. ANALYTICS DE CONTACTOS
+       Cuantas personas tocaron cada NFC.
+       Cuando ocurrieron los toques (dia, hora).
+       Desde que dispositivo (movil o desktop).
+       Historico de actividad por dispositivo.
+
+    5. GESTION DE NEGOCIOS (para Axiom Tag)
+       Configurar menu digital (enlace a PDF, carta en linea, etc.)
+       Configurar WiFi automatico
+       Configurar pagina de reservas
+       Configurar enlace a resenas de Google
+       Configurar programa de fidelizacion
+       Configurar cualquier URL o accion
+
+    6. MULTI-NFC
+       Una sola cuenta puede gestionar decenas o cientos de NFC.
+       Ideal para: cadenas de restaurantes, franquicias, equipos de ventas.
+       Cada NFC es independiente: puede apuntar a destinos distintos.
+
+    7. ACTUALIZACION EN TIEMPO REAL
+       El cambio en la plataforma se refleja inmediatamente en el NFC.
+       Sin demoras. Sin sincronizacion. Instantaneo.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BLOQUE 03 — MODELO DE NEGOCIO Y PRECIOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ESTRUCTURA DE INGRESOS
+
+  NIVEL 1 — HARDWARE ONLY
+    Que incluye:
+      - Dispositivo NFC fisico (Axiom Card o Axiom Tag)
+      - Acceso basico a la plataforma AQL Hub
+      - Configuracion inicial del destino
+    Para quien: Cliente que quiere probar o solo necesita redireccion simple.
+    Modelo: Venta unica del hardware. Sin suscripcion obligatoria.
+
+  NIVEL 2 — HARDWARE + PLATAFORMA ANUAL (RECOMENDADO)
+    Que incluye:
+      - Dispositivo NFC fisico (Axiom Card o Axiom Tag)
+      - Acceso completo a AQL Hub por 12 meses
+      - Perfil digital personalizado (para Axiom Card)
+      - Analytics de contactos
+      - Destinos dinamicos ilimitados (cambios sin restriccion)
+      - Gestion de negocios (menus, WiFi, reservas, etc.)
+      - Soporte prioritario
+    Para quien: Profesionales y negocios que quieren el sistema completo.
+    Modelo: Venta del hardware + suscripcion anual a la plataforma.
+
+  NIVEL 3 — RENOVACION ANUAL
+    Que incluye:
+      - Renovacion del acceso a AQL Hub por 12 meses adicionales
+      - El hardware ya es del cliente (no se paga de nuevo)
+      - Todas las funciones del Nivel 2
+    Para quien: Clientes activos que renuevan al vencer su periodo.
+    Modelo: Solo la plataforma. El hardware ya es permanente.
+
+NOTA CLAVE DEL MODELO:
+  El hardware es del cliente para siempre desde el momento de compra.
+  Funciona basico sin suscripcion.
+  La suscripcion anual desbloquea todo el potencial de la plataforma.
+  La recurrencia anual es el motor de crecimiento de AQL.
+
+VENTAJA COMPETITIVA DEL MODELO:
+  A diferencia de competidores que venden solo software (Linktree, Bento, HiHello),
+  ActionQuantlabs entrega hardware permanente + software.
+  El cliente nunca tiene que reemplazar el objeto fisico.
+  Cada renovacion es pura ganancia: el costo de adquisicion del hardware
+  ya esta amortizado desde el primer ano.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BLOQUE 04 — SEGMENTOS DE MERCADO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SEGMENTO 01 — EL PROFESIONAL
+
+  PERFILES:
+    Ejecutivos, gerentes, consultores, abogados, medicos, arquitectos,
+    ingenieros, freelancers, diseñadores, fotografos, coaches, emprendedores,
+    agentes de ventas, representantes comerciales, cualquier persona que
+    asiste a reuniones y hace networking.
+
+  PRODUCTO RECOMENDADO: Axiom Card NTAG 214
+
+  EL DOLOR:
+    - Explica donde encontrarlo en cada red social, una por una, en cada reunion.
+    - Distribuye tarjetas fisicas que van al cajero en 48 horas.
+    - Reimprimir tarjetas cada vez que cambia de cargo, empresa o telefono.
+    - Quedarse sin tarjetas justo en la reunion mas importante del ano.
+    - Tiene 5 redes sociales y nadie sabe cual es su usuario en ninguna.
+    - La primera impresion que da no refleja la calidad de su trabajo.
+
+  LA GANANCIA CON AQL:
+    - Toca la Axiom Card: redes, portfolio, CV y contacto en 1 segundo.
+    - Una sola tarjeta para toda la vida. Nunca mas reimprimir.
+    - Cambia de cargo en la plataforma. La tarjeta ya tiene el nuevo titulo.
+    - Infinitas reuniones. Un solo objeto. Cero desperdicio.
+    - Un solo enlace con todas sus redes. La persona encuentra todo sola.
+    - Primera impresion de clase mundial desde el primer dia.
+
+  MENSAJE CLAVE PARA ESTE SEGMENTO:
+    "Una tarjeta. Tu identidad digital completa. Para siempre."
+
+  OBJECIONES COMUNES Y RESPUESTAS:
+    "Ya tengo tarjetas impresas."
+      → Cuanto te cuesta reimprimir cada vez que algo cambia?
+         Con AQL, el objeto es permanente. El contenido, no.
+
+    "La gente puede buscarme en LinkedIn."
+      → Cuantas veces has deletreado tu nombre en una reunion?
+         Un toque y la persona tiene todo. Sin buscar. Sin deletrear.
+
+    "Es muy caro."
+      → Cuanto gastaste en tus ultimas 200 tarjetas impresas?
+         La Axiom Card reemplaza eso para siempre.
+
+--------------------------------------------------------------------------------
+
+SEGMENTO 02 — EL NEGOCIO
+
+  PERFILES:
+    Barberias, peluquerias, restaurantes, cafes, tiendas de ropa,
+    boutiques, estudios de fotografia, estudios de yoga, spas,
+    centros esteticos, consultorios medicos, odontologicos, clinicas,
+    gimnasios, papelerias, librerias, cualquier negocio fisico con
+    presencia en un punto de venta.
+
+  PRODUCTO RECOMENDADO: Axiom Tag NTAG 213
+
+  EL DOLOR:
+    - Paga disenador cada vez que cambia el menu o la carta de servicios.
+    - Pierde clientes que no saben como reservar cita o mesa.
+    - No aparece en Google porque gestionar resenas es complicado.
+    - Programas de fidelizacion manuales que nadie lleva al dia.
+    - Los clientes no siguen su Instagram porque no recuerdan el usuario.
+    - El WiFi lo repite verbalmente a cada cliente que entra.
+    - No tiene presencia digital coherente aunque atiende bien.
+
+  LA GANANCIA CON AQL:
+    - Cambia el menu en segundos desde el celular. Sin pagar disenador.
+    - Tag en el mostrador: el cliente reserva directo en un toque.
+    - Tag en caja: el cliente deja resena en Google en un toque.
+    - Fidelizacion digital automatica. Sin sellos de cartulina.
+    - El cliente sigue el Instagram en un toque, no de memoria.
+    - WiFi automatico: el cliente lo obtiene solo al tocar el tag.
+    - Presencia digital completa sin saber de tecnologia.
+
+  APLICACIONES FISICAS EN EL NEGOCIO:
+    Mesa del restaurante / cafe    → Menu digital actualizado
+    Mostrador de barberia          → Reservas, servicios, fidelizacion
+    Caja registradora              → Resenas de Google, Instagram, WhatsApp
+    Vitrina exterior               → Catalogo, horarios, informacion del negocio
+    Puerta de entrada              → Horarios, WhatsApp, redes sociales
+    Mesas del negocio              → WiFi automatico, carta de servicios
+
+  MENSAJE CLAVE PARA ESTE SEGMENTO:
+    "Tu negocio en internet. Sin saber de tecnologia. Sin reimprimir nada."
+
+  OBJECIONES COMUNES Y RESPUESTAS:
+    "Ya tengo un QR impreso."
+      → Cuanto cuesta reimprimir ese QR cada vez que cambias algo?
+         El Axiom Tag lo cambias en segundos, sin tocar el tag.
+
+    "Mis clientes no saben usar NFC."
+      → Cualquier celular moderno lee NFC con la camara o tocando.
+         Es mas facil que escanear un QR. Solo tocar.
+
+    "No necesito esto, me va bien."
+      → Cuantas resenas de Google tienes hoy?
+         El tag en caja lleva al cliente directo a dejarla. Sin esfuerzo.
+
+--------------------------------------------------------------------------------
+
+SEGMENTO 03 — HOSPITALITY
+
+  PERFILES:
+    Hostales, hoteles boutique, aparta-hoteles, glamping, fincas de turismo,
+    posadas, airbnbs gestionados, cualquier establecimiento de alojamiento
+    que quiera mejorar la experiencia del huesped y reducir la carga
+    operativa del equipo de recepcion.
+
+  PRODUCTO RECOMENDADO: Axiom Tag NTAG 213 + Axiom Card NTAG 214
+
+  EL DOLOR:
+    - Huespedes interrumpen en recepcion para pedir el WiFi.
+    - No saben como llegar al hostal desde el aeropuerto o terminal.
+    - Check-in lento y manual con formularios en papel.
+    - Huespedes no dejan resenas porque el proceso es tedioso.
+    - No hay forma de comunicar los servicios del establecimiento.
+    - Cada huesped llega sin contexto y hay que explicar todo desde cero.
+    - Las llaves o tarjetas de habitacion no hacen nada mas que abrir puertas.
+
+  LA GANANCIA CON AQL:
+    - WiFi en un toque desde la mesa del lobby. Sin preguntar. Sin repetir.
+    - Tag en la confirmacion de reserva: guia al huesped puerta a puerta.
+    - Check-in y check-out con formulario digital. Sin colas ni papeles.
+    - Tag en la cama lleva directo al formulario de resena en Google.
+    - Menu de servicios completo: restaurante, lavanderia, tours, actividades.
+    - La tarjeta de habitacion se convierte en el centro de la experiencia.
+    - Cada huesped llega informado. El equipo atiende, no explica.
+
+  APLICACIONES EN EL ESTABLECIMIENTO:
+    Lobby / recepcion       → WiFi automatico al llegar
+    Mesa del desayuno       → Menu y horarios del restaurante
+    Cama / mesa de noche    → Servicios del hostal, resena de Google
+    Bano de habitacion      → Servicios de lavanderia, amenidades
+    Puerta de habitacion    → Informacion del cuarto, checkout
+    Tarjeta de llave        → Todo lo anterior en la palma de la mano
+    Carta de confirmacion   → Guia de llegada puerta a puerta
+    Entrada del edificio    → Mapa del lugar, normas de convivencia
+
+  MENSAJE CLAVE PARA ESTE SEGMENTO:
+    "La experiencia del huesped empieza antes de que abran la boca."
+
+  APLICACION ESTRELLA — LA TARJETA DE HABITACION INTELIGENTE:
+    El huesped recibe una Axiom Card al hacer check-in.
+    Al tocarla con el celular, accede a:
+      → WiFi del establecimiento (conexion automatica)
+      → Mapa del lugar con todas las areas
+      → Menu del restaurante o desayuno
+      → Horarios de todas las instalaciones
+      → Numero de WhatsApp de recepcion
+      → Actividades y tours disponibles
+      → Formulario de checkout express
+      → Link para dejar resena en Google
+    Al finalizar la estadía, el huesped devuelve la card.
+    La card se reutiliza para el siguiente huesped. Para siempre.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BLOQUE 05 — COMO FUNCIONA (FLUJO TECNICO Y DE USUARIO)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+COMO FUNCIONA PARA EL CLIENTE AQL (el que compra el producto):
+
+  PASO 1 — COMPRA
+    El cliente elige su producto: Axiom Card o Axiom Tag.
+    Elige el plan: Hardware Only o Hardware + Plataforma Anual.
+    Realiza el pago y recibe el dispositivo fisico.
+
+  PASO 2 — ACTIVACION
+    El cliente accede a AQL Hub (plataforma web).
+    Crea su cuenta.
+    Registra su dispositivo con el codigo unico del NFC.
+
+  PASO 3 — CONFIGURACION
+    Para Axiom Card: crea su perfil digital.
+      → Sube foto, nombre, cargo, redes, links.
+    Para Axiom Tag: configura el destino.
+      → Elige a donde apunta: menu, WiFi, reservas, resenas, etc.
+
+  PASO 4 — USO
+    El cliente entrega su Axiom Card en reuniones.
+    O instala su Axiom Tag en el punto de venta.
+    Cada persona que toca el NFC con el celular accede al destino configurado.
+
+  PASO 5 — ACTUALIZACION (cuando algo cambia)
+    El cliente entra a AQL Hub desde cualquier dispositivo.
+    Edita el perfil o cambia el destino del Tag.
+    El cambio es inmediato. El NFC ya apunta al nuevo lugar.
+    El objeto fisico nunca se toca, nunca se reemplaza.
+
+  PASO 6 — ANALITICA
+    El cliente revisa cuantas personas tocaron su NFC.
+    Ve picos de actividad, horas de mayor contacto.
+    Usa los datos para tomar decisiones sobre su presencia digital.
+
+  PASO 7 — RENOVACION
+    Al vencer el ano, el cliente recibe notificacion de renovacion.
+    Solo renueva el acceso a la plataforma.
+    El hardware ya es suyo para siempre. No paga nada por el dispositivo.
+
+--------------------------------------------------------------------------------
+
+COMO FUNCIONA PARA EL USUARIO FINAL (el que toca el NFC):
+
+  PASO 1 — TOCA
+    El usuario acerca su celular al NFC (Axiom Card o Axiom Tag).
+    No necesita app. No necesita escanear. Solo toca o acerca.
+    Compatible con: iPhone XS en adelante, Android con NFC activado.
+
+  PASO 2 — ACCEDE
+    En menos de 1 segundo, el celular abre automaticamente:
+      → El perfil digital (en caso de Axiom Card)
+      → El menu, WiFi, reservas o accion configurada (en caso de Tag)
+
+  PASO 3 — ACTUA
+    El usuario interactua con el contenido:
+      → Guarda el contacto
+      → Sigue en Instagram
+      → Hace click en WhatsApp
+      → Se conecta al WiFi
+      → Hace una reserva
+      → Deja una resena
+      → Descarga el CV
+      → Ve el menu
+    Todo desde su celular. Sin apps. Sin cuentas. Sin fricciones.
+
+--------------------------------------------------------------------------------
+
+TECNOLOGIA DETRAS DEL SISTEMA:
+
+  PROTOCOLO NFC: ISO 14443-3A (NFC Forum Type 2)
+  FRECUENCIA: 13.56 MHz
+  LECTURA: Sin contacto. Acercar el celular al dispositivo.
+  ESCRITURA: Solo desde AQL Hub con autenticacion del propietario.
+  SEGURIDAD: Proteccion de escritura por contrasena en chips NTAG 214.
+  URL DINAMICA: Cada NFC tiene una URL unica de AQL que redirige al destino actual.
+  REDIRECCION: La URL del NFC siempre es la misma. El destino final cambia en la plataforma.
+  LATENCIA DE ACTUALIZACION: Inmediata. Menos de 1 segundo desde que se guarda el cambio.
+  UPTIME DE PLATAFORMA: Target 99.9% de disponibilidad.
+  ACCESO A LA PLATAFORMA: Web (cualquier navegador). Sin app requerida.
+  COMPATIBILIDAD MOVIL: iPhone XS (iOS 14+) y Android (NFC activado, Android 6+).
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BLOQUE 06 — COMPARATIVA Y POSICIONAMIENTO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ACTIONQUANTLABS VS. ALTERNATIVAS
+
+  CARACTERISTICA                    NFC Generico    Linktree    HiHello     AQL
+  ─────────────────────────────────────────────────────────────────────────────
+  Hardware fisico NFC               Si              No          No          Si
+  Perfil digital personalizable     No              Si          Si          Si
+  Destino NFC actualizable          No              N/A         N/A         Si
+  Gestion de negocios               No              No          No          Si
+  WiFi / menus / reservas           No              No          No          Si
+  Multi-NFC por cuenta              No              No          No          Si
+  Analytics de contactos            No              Basico      Basico      Si
+  Funciona sin app del usuario      Si              Si          Si          Si
+  Plataforma en espanol LATAM       N/A             No          No          Si
+  Sin suscripcion obligatoria       Si              No          No          Si
+  Hardware permanente (no reemplazar) No            N/A         N/A         Si
+
+VENTAJA ESTRATEGICA:
+  ActionQuantlabs es el unico actor que combina:
+  → Hardware NFC permanente de calidad
+  → Plataforma de gestion dinamica en tiempo real
+  → Enfoque especifico en el contexto LATAM
+  → Soporte y comunicacion en espanol
+
+POR QUE NO SOMOS UN LINKTREE CON NFC:
+  Linktree es software. No tiene hardware.
+  ActionQuantlabs tiene hardware permanente que dispara el software.
+  La diferencia: un link en bio requiere que la persona te busque.
+  Un NFC de ActionQuantlabs ocurre en el momento fisico del contacto.
+  No dependes de que la persona te recuerde o te busque.
+  Ocurre cuando dos personas se encuentran. En el momento real.
+
+POR QUE NO SOMOS UN NFC GENERICO:
+  Un NFC generico apunta a un destino fijo. Si cambia, se reemplaza.
+  ActionQuantlabs es un NFC con cerebro: cambia el destino sin cambiar el objeto.
+  Ademas, el NFC generico no tiene plataforma de gestion ni analytics.
+  Con AQL, el cliente ve cuantas personas tocaron su card y cuando.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BLOQUE 07 — CONTENIDO PARA LANDING PAGE (COPY LISTO PARA USAR)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SECCION: HERO (CABECERA PRINCIPAL)
+
+  HEADLINE OPCION A:
+    "Conexiones inteligentes para negocios inteligentes."
+
+  HEADLINE OPCION B:
+    "Un toque. Tu negocio entero."
+
+  HEADLINE OPCION C:
+    "El NFC que nunca queda obsoleto."
+
+  SUBHEADLINE:
+    "Convierte cualquier tarjeta NFC en un punto de acceso digital dinamico.
+     Actualizable en tiempo real. Sin reimprimir nada. Nunca."
+
+  CTA PRINCIPAL:
+    "Quiero mi Axiom Card"  /  "Conocer los productos"  /  "Empezar ahora"
+
+  CTA SECUNDARIO:
+    "Ver como funciona"
+
+--------------------------------------------------------------------------------
+
+SECCION: EL PROBLEMA (pain section)
+
+  TITULO:
+    "El mundo fisico tiene un defecto."
+
+  SUBTITULO:
+    "El NFC que compraste la semana pasada ya quedo obsoleto."
+
+  PUNTOS DE DOLOR (bullets o cards):
+    → Cambias el menu de tu restaurante. Toca reimprimir 30 QRs.
+    → Te ascendieron. Toca reimprimir 500 tarjetas.
+    → Cambias el WiFi del hostal. Toca actualizar el letrero.
+    → Tu sitio web cambio. El NFC generico sigue apuntando al viejo.
+    → Cada vez que algo cambia, pagas otra vez por lo mismo.
+
+  CIERRE DEL BLOQUE:
+    "La friccion que no ves te cuesta dinero, tiempo y clientes."
+
+--------------------------------------------------------------------------------
+
+SECCION: LA SOLUCION (product reveal)
+
+  TITULO:
+    "ActionQuantlabs rompe el ciclo."
+
+  SUBTITULO:
+    "El objeto fisico es permanente. El destino digital es tuyo."
+
+  DESCRIPCION:
+    "Con ActionQuantlabs, el NFC que instalas hoy funcionara en 10 anos.
+     Lo que cambia es lo que hay detras. Tu lo controlas en tiempo real
+     desde cualquier dispositivo. En segundos. Sin tocar el hardware."
+
+  TRES PILARES (cards o columnas):
+    [Pilar 1 — HARDWARE PERMANENTE]
+    "El objeto fisico que instalas nunca se reemplaza.
+     El costo se amortiza para siempre."
+
+    [Pilar 2 — DESTINO DINAMICO]
+    "Lo que vive detras del NFC lo editas tu en tiempo real.
+     Sin limite de cambios."
+
+    [Pilar 3 — PLATAFORMA UNIFICADA]
+    "Un solo dashboard para gestionar perfiles, menus, reservas,
+     WiFi y analytics."
+
+--------------------------------------------------------------------------------
+
+SECCION: PRODUCTOS
+
+  TITULO: "Dos productos. Una plataforma. Infinitas posibilidades."
+
+  --- AXIOM CARD ---
+  TITULO PRODUCTO: "Axiom Card"
+  CHIP: "NTAG 214"
+  BADGE: "PRO"
+  TAGLINE: "Tu identidad digital. En un toque."
+  DESCRIPCION:
+    "La tarjeta de presentacion que no caduca.
+     Comparte tu perfil, redes, CV y contacto en un solo toque.
+     Sin imprimir. Sin buscar usuarios. Sin quedarte sin tarjetas."
+  LISTA DE FEATURES:
+    ✓ Chip NTAG 214 — 540 bytes de memoria
+    ✓ Formato ISO CR-80 (tamano tarjeta de credito)
+    ✓ Compatible con iPhone y Android
+    ✓ Perfil digital personalizado en AQL Hub
+    ✓ Todas tus redes en un solo lugar
+    ✓ CV y portfolio descargable
+    ✓ Analytics: ve cuantas personas te contactaron
+    ✓ El hardware es tuyo para siempre
+  CTA: "Quiero mi Axiom Card"
+
+  --- AXIOM TAG ---
+  TITULO PRODUCTO: "Axiom Tag"
+  CHIP: "NTAG 213"
+  BADGE: "BUSINESS"
+  TAGLINE: "Gestion inteligente. Donde lo necesites."
+  DESCRIPCION:
+    "El nodo de infraestructura para tu negocio.
+     Menu, WiFi, reservas, fidelizacion y resenas de Google.
+     En un sticker que nunca queda obsoleto."
+  LISTA DE FEATURES:
+    ✓ Chip NTAG 213 — 144 bytes de memoria
+    ✓ Sticker adhesivo resistente al agua
+    ✓ Disponible en 25mm y 38mm
+    ✓ Compatible con cualquier superficie
+    ✓ Menu digital actualizable en segundos
+    ✓ WiFi automatico sin escribir contrasena
+    ✓ Reservas directas y programa de fidelizacion
+    ✓ Resenas de Google en un toque
+    ✓ El hardware es tuyo para siempre
+  CTA: "Quiero mis Axiom Tags"
+
+--------------------------------------------------------------------------------
+
+SECCION: COMO FUNCIONA (steps / proceso)
+
+  TITULO: "Tres pasos. Una sola vez."
+
+  PASO 1 — ACTIVA
+  "Recibe tu Axiom Card o Tag. Registralo en AQL Hub.
+   Configura a donde apunta en menos de 5 minutos."
+
+  PASO 2 — USA
+  "Entregalo, instalalo, ponlo en tu mesa.
+   Cada persona que lo toca accede instantaneamente."
+
+  PASO 3 — ACTUALIZA
+  "Algo cambio? Entra a AQL Hub. Edita en segundos.
+   El NFC fisico nunca se toca. Nunca se reemplaza."
+
+  NOTA DEBAJO:
+  "Sin app. Sin conocimientos tecnicos. Sin reimprimir nada. Nunca."
+
+--------------------------------------------------------------------------------
+
+SECCION: CASOS DE USO / PARA QUIEN
+
+  TITULO: "Hecho para ti. Sea quien seas."
+
+  [CARD — EL PROFESIONAL]
+  Icono: maletín o persona
+  Titulo: "Profesionales"
+  Tagline: "Tu identidad digital. En un toque."
+  Puntos:
+    → Ejecutivos y freelancers que van a reuniones
+    → Comparte perfil, CV y redes en 1 segundo
+    → Nunca mas reimprimir tarjetas
+
+  [CARD — EL NEGOCIO]
+  Icono: tienda o edificio
+  Titulo: "Negocios"
+  Tagline: "Tu negocio en internet. Sin complicaciones."
+  Puntos:
+    → Restaurantes, barberias, tiendas y consultorios
+    → Menu, reservas y fidelizacion en un toque
+    → Mas resenas de Google. Sin esfuerzo.
+
+  [CARD — HOSPITALITY]
+  Icono: cama o llave de habitacion
+  Titulo: "Hospitality"
+  Tagline: "La experiencia empieza antes de que hablen."
+  Puntos:
+    → Hostales y hoteles boutique
+    → WiFi instantaneo. Check-in digital.
+    → Huespedes informados desde el primer toque.
+
+--------------------------------------------------------------------------------
+
+SECCION: BENEFICIOS / POR QUE ACTIONQUANTLABS
+
+  TITULO: "Por que ActionQuantlabs y no cualquier NFC."
+
+  [BENEFICIO 1 — PERMANENCIA]
+  Icono: infinito o escudo
+  Titulo: "Hardware que dura para siempre"
+  Descripcion: "El objeto fisico nunca se reemplaza. Una sola inversion.
+                El costo se amortiza de forma perpetua."
+
+  [BENEFICIO 2 — DINAMISMO]
+  Icono: rayo o actualizar
+  Titulo: "Destino que cambia en segundos"
+  Descripcion: "Edita a donde apunta tu NFC desde cualquier dispositivo.
+                Cambios instantaneos. Sin limites."
+
+  [BENEFICIO 3 — CONTROL]
+  Icono: panel de control
+  Titulo: "Todo en un solo dashboard"
+  Descripcion: "Un lugar para gestionar todos tus NFC, ver analytics
+                y actualizar tu contenido sin conocimientos tecnicos."
+
+  [BENEFICIO 4 — ANALYTICS]
+  Icono: grafico
+  Titulo: "Sabe cuantos te contactaron"
+  Descripcion: "Ve cuantas personas tocaron tu NFC, cuando y desde donde.
+                Datos reales para tomar decisiones reales."
+
+  [BENEFICIO 5 — SIMPLICIDAD]
+  Icono: dedo tocando
+  Titulo: "Sin app. Sin friccion."
+  Descripcion: "El usuario final solo toca el NFC con el celular.
+                Sin descargar nada. Sin crear cuenta. Solo tocar."
+
+  [BENEFICIO 6 — LATAM FIRST]
+  Icono: mapa de sudamerica
+  Titulo: "Construido para LATAM"
+  Descripcion: "En espanol. Desde Cali. Entendemos el mercado,
+                los negocios y las necesidades de la region."
+
+--------------------------------------------------------------------------------
+
+SECCION: PREGUNTAS FRECUENTES (FAQ)
+
+  P: ¿Necesito descargar una app para usar el NFC?
+  R: No. Cualquier celular moderno con NFC lee los dispositivos de ActionQuantlabs
+     acercando el telefono. No requiere app ni cuenta.
+
+  P: ¿Funciona con iPhone?
+  R: Si. Compatible con iPhone XS en adelante (iOS 14+).
+     En la mayoria de modelos, basta con acercar el celular al NFC.
+
+  P: ¿Que pasa si pierdo mi Axiom Card?
+  R: El contenido de tu perfil vive en AQL Hub, no en la tarjeta fisica.
+     Si la pierdes, puedes desactivarla desde la plataforma y activar una nueva.
+     Tu perfil y toda tu informacion se conservan intactos.
+
+  P: ¿Cuantas veces puedo cambiar a donde apunta el NFC?
+  R: Las veces que quieras. No hay limite de actualizaciones.
+     Cada cambio en AQL Hub se refleja inmediatamente en el dispositivo.
+
+  P: ¿Que pasa si no renuevo la suscripcion anual?
+  R: El hardware sigue siendo tuyo y sigue funcionando con el destino que tenia configurado.
+     Lo que se desactiva son las funciones avanzadas de AQL Hub:
+     cambios de destino, analytics y gestion avanzada.
+
+  P: ¿Puedo tener varios NFC en una sola cuenta?
+  R: Si. AQL Hub permite gestionar multiples dispositivos desde una sola cuenta.
+     Cada uno puede apuntar a un destino diferente.
+
+  P: ¿El Axiom Tag funciona en cualquier superficie?
+  R: Funciona en la mayoria de superficies no metalicas: cristal, madera, plastico,
+     carton, ceramica. En superficies metalicas puede requerirse un separador.
+
+  P: ¿Que tecnologia usa?
+  R: Los chips NTAG 213 y NTAG 214 funcionan con el protocolo NFC ISO 14443-3A
+     a 13.56 MHz. Es el estandar mas extendido de NFC del mundo.
+
+  P: ¿Es seguro? ¿Alguien puede cambiar a donde apunta mi NFC?
+  R: La escritura del NFC esta protegida por contrasena en la plataforma AQL.
+     Solo el propietario de la cuenta puede cambiar el destino.
+
+  P: ¿En cuanto tiempo reciibo mi pedido?
+  R: Los tiempos de entrega dependen de la ciudad. En Cali: 24-48 horas.
+     En otras ciudades de Colombia: 2-5 dias habiles.
+
+  P: ¿Tienen factura electronica?
+  R: Si. ActionQuantlabs emite factura electronica para todos los pedidos.
+
+  P: ¿Puedo personalizar el diseno de la Axiom Card?
+  R: Las Axiom Cards vienen en el diseno premium de la marca.
+     Consulta sobre opciones de personalizacion para pedidos empresariales.
+
+--------------------------------------------------------------------------------
+
+SECCION: SOCIAL PROOF / TESTIMONIOS (estructura sugerida)
+
+  FORMATO RECOMENDADO PARA CADA TESTIMONIO:
+  [Foto] [Nombre] [Cargo] [Ciudad]
+  "[Cita concreta describiendo el resultado real obtenido]"
+
+  TESTIMONIOS SUGERIDOS (para llenar con testimonios reales):
+
+  Testimonios de profesionales:
+    "Deje de imprimir tarjetas. La Axiom Card la uso en cada reunion y la persona
+     tiene mi LinkedIn, WhatsApp y portfolio en segundos."
+    — [Nombre], [Cargo], [Ciudad]
+
+  Testimonios de negocios:
+    "Puse el Axiom Tag en cada mesa. Cuando cambiamos el menu, lo actualize
+     en 2 minutos desde el celular. Antes eso costaba $80.000 en reimprimir."
+    — [Nombre], [Negocio], [Ciudad]
+
+  Testimonios de hospitality:
+    "Nadie mas le pregunta el WiFi a mi equipo de recepcion. El Tag en el lobby
+     lo hace solo. Y las resenas de Google se triplicaron en el primer mes."
+    — [Nombre], [Hostal], [Ciudad]
+
+--------------------------------------------------------------------------------
+
+SECCION: METRICAS / NUMEROS DE IMPACTO
+
+  3.2M    PyMEs en Colombia que usan formatos impresos para conectar digitalmente.
+  60%     De los negocios reimprimen materiales de NFC/QR al menos una vez al ano.
+  0       Objetos fisicos reemplazados con ActionQuantlabs, una vez instalado.
+  ∞       Actualizaciones de destino digital sin costo adicional.
+  1       Toque para cualquier accion: perfil, menu, WiFi, reserva o resena.
+  30M     Ciclos de lectura garantizados por chip NTAG 214.
+
+--------------------------------------------------------------------------------
+
+SECCION: LLAMADA A LA ACCION FINAL (CTA section)
+
+  TITULO OPCION A:
+    "El proximo toque puede cambiarlo todo."
+
+  TITULO OPCION B:
+    "Tu primera conexion inteligente empieza hoy."
+
+  TITULO OPCION C:
+    "Deja de reimprimir. Empieza a conectar."
+
+  DESCRIPCION:
+    "Unete a los negocios y profesionales que ya convirtieron
+     sus conexiones fisicas en infraestructura inteligente."
+
+  CTA PRIMARIO: "Quiero mi Axiom Card"
+  CTA SECUNDARIO: "Quiero Axiom Tags para mi negocio"
+  CTA TERCIARIO: "Hablar con un asesor"
+
+--------------------------------------------------------------------------------
+
+SECCION: FOOTER
+
+  NAVEGACION SUGERIDA:
+    Productos | Como funciona | Para quien | Preguntas frecuentes | Contacto
+
+  INFORMACION DE CONTACTO:
+    Ciudad: Cali, Colombia
+    WhatsApp: [numero]
+    Email: [email]
+    Instagram: [usuario]
+    LinkedIn: [pagina]
+
+  TAGLINE FOOTER:
+    "Conexiones inteligentes para negocios inteligentes."
+    "Cali, Colombia | LATAM | 2025"
+
+  LEGAL:
+    © 2025 ActionQuantlabs. Todos los derechos reservados.
+    [Terminos y condiciones] [Politica de privacidad]
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BLOQUE 08 — SISTEMA DE IDENTIDAD VISUAL (para el desarrollador)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PALETA DE COLORES (HEX)
+
+  PRIMARIOS:
+    AQL Black          #070A12     → Fondo principal. El negro profundo de la marca.
+    AQL Blue           #2563EB     → Color de accion. CTAs, links, activos.
+    AQL Violet         #7C3AED     → Color premium. Jerarquia maxima, badges Pro.
+
+  SECUNDARIOS:
+    AQL Electric Cyan  #38BDF8     → Highlights, hover states, UI activa.
+    AQL White          #F1F5F9     → Texto principal sobre fondos oscuros.
+    AQL Gray           #94A3B8     → Texto secundario, subtitulos, descripciones.
+    AQL Slate          #1E293B     → Cards, divisores, fondos de seccion secundaria.
+    AQL Dark           #0D1117     → Fondo alternativo ligeramente mas claro.
+    AQL Card           #111827     → Fondo de cards y componentes.
+
+  ACENTOS FUNCIONALES:
+    Verde Exito        #4ADE80     → Validacion, confirmacion, estado correcto.
+    Rojo Alerta        #F87171     → Errores, alertas, estado incorrecto.
+    Ambar Premium      #F59E0B     → Badge Pro, upgrade, elementos premium.
+    Teal Hospitality   #0F766E     → Solo para contenido del segmento hospitality.
+
+  PROPORCION DE USO:
+    80% → Fondos oscuros (AQL Black + Slate + Card)
+    15% → Azules (AQL Blue + Electric Cyan)
+     5% → Violeta (solo momentos de maxima jerarquia)
+
+TIPOGRAFIA
+
+  FUENTE PRINCIPAL:        Inter (web) / Helvetica (sistema fallback)
+  ESTILO:                  Sans-serif geometrica, humanista
+  PESOS:
+    Regular 400            → Texto de cuerpo, descripciones, UI secundaria
+    Bold 700               → Titulares, CTAs, etiquetas cortas, datos clave
+
+  ESCALA TIPOGRAFICA:
+    Display / Hero         48px  Bold     → Portadas, hero sections
+    H1 Titular             32px  Bold     → Titulos principales de seccion
+    H2 Subtitulo           24px  Bold     → Subtitulos y encabezados
+    H3 Seccion             18px  Bold     → Titulos de cards y modulos
+    Body Large             16px  Regular  → Texto principal de parrafos
+    Body Regular           14px  Regular  → UI text, descripciones secundarias
+    Caption / Micro        11px  Regular  → Metadatos, notas, fechas
+
+  REGLAS DE USO:
+    - Etiquetas de seccion: SIEMPRE EN MAYUSCULAS con letter-spacing amplio
+    - CTAs y botones: siempre Bold
+    - Maximo 2 pesos tipograficos en un mismo componente
+    - Interlineado minimo: 1.5x el tamano de fuente en textos largos
+
+ESPACIADO Y ESTRUCTURA
+
+  MARGEN LATERAL:           50px desktop / 24px mobile
+  PADDING DE SECCION:       80px vertical desktop / 48px mobile
+  GAP ENTRE CARDS:          20px
+  BORDER RADIUS CARDS:      8px
+  BORDER RADIUS BOTONES:    6px
+
+SOMBRAS Y EFECTOS
+
+  CARD HOVER:               box-shadow sutil en azul 10% opacidad
+  CTA HOVER:                background ligeramente mas claro del color base
+  GLOW EFFECT:              Para elementos hero: radial gradient azul muy sutil
+  DIVIDERS:                 #1E293B, 0.5px de grosor, 100% del ancho del contenedor
+
+GRADIENTES SUGERIDOS
+
+  HERO BACKGROUND:          linear-gradient(180deg, #0E2154, #070A12)
+  CTA BUTTON:               linear-gradient(90deg, #2563EB, #7C3AED)
+  BADGE PRO:                linear-gradient(90deg, #7C3AED, #2563EB)
+  ACCENT BAR:               linear-gradient(90deg, #38BDF8, #7C3AED)
+  BOTTOM BAR:               linear-gradient(90deg, #7C3AED, #2563EB)
+
+COMPONENTES UI ESTANDAR
+
+  BOTON PRIMARIO:
+    Background: #2563EB
+    Texto: #F1F5F9 Bold
+    Padding: 12px 24px
+    Border-radius: 6px
+    Hover: background mas claro, leve scale(1.02)
+
+  BOTON SECUNDARIO:
+    Background: transparente
+    Border: 1px solid #2563EB
+    Texto: #2563EB Bold
+    Mismo padding y radius que primario
+
+  CARD PRODUCTO:
+    Background: #111827
+    Border-top: 3px solid [color del producto]
+    Border: 1px solid #1E293B
+    Padding: 24px
+    Border-radius: 8px
+
+  BADGE / PILL:
+    Background: [color del segmento]
+    Texto: #F1F5F9 Bold 6-7px
+    Padding: 4px 10px
+    Border-radius: 20px
+
+  SECCION DIVIDER:
+    Color: #1E293B
+    Grosor: 0.5px
+    Width: 100%
+
+GRID Y LAYOUT
+
+  DESKTOP:
+    Ancho maximo del contenedor: 1200px
+    Columnas de productos: 2 (side by side)
+    Columnas de features: 3 o 2
+    Columnas de segmentos: 3
+
+  TABLET:
+    Columnas de productos: 2
+    Columnas de features: 2
+    Columnas de segmentos: 2
+
+  MOBILE:
+    Todo en 1 columna
+    Stacking vertical de todos los componentes
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BLOQUE 09 — ESTRUCTURA SUGERIDA DE LA LANDING PAGE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ORDEN RECOMENDADO DE SECCIONES:
+
+  1.  NAVBAR
+      Logo + Navegacion + CTA "Quiero el mio"
+
+  2.  HERO SECTION
+      Headline principal + Subheadline + CTA primario y secundario
+      Fondo: oscuro con glow azul sutil
+
+  3.  SOCIAL PROOF BAR
+      Logos o nombres de primeros clientes / "X negocios ya conectados"
+
+  4.  EL PROBLEMA (pain section)
+      Titulo impactante + bullets del dolor
+      Tono: oscuro, directo, sin adornos
+
+  5.  LA SOLUCION (reveal section)
+      Los tres pilares: Hardware Permanente / Destino Dinamico / Plataforma
+      Fondo ligeramente diferente para marcar la transicion
+
+  6.  PRODUCTOS (product showcase)
+      Axiom Card vs. Axiom Tag en dos columnas
+      Specs + features + CTA de cada uno
+      Badge del chip en cada producto
+
+  7.  COMO FUNCIONA (3 pasos)
+      Activa / Usa / Actualiza
+      Iconos + descripcion breve de cada paso
+
+  8.  PARA QUIEN (segmentos)
+      3 cards: Profesional / Negocio / Hospitality
+      Cada una con el dolor y la ganancia
+
+  9.  BENEFICIOS (why us)
+      6 features en grid 3x2
+      Iconos + titulo corto + descripcion breve
+
+  10. METRICAS / NUMEROS
+      Los datos de impacto en grande (3.2M, 0, ∞, 1)
+
+  11. TESTIMONIOS
+      3-4 testimonios de clientes reales
+      Foto + nombre + cargo + cita
+
+  12. COMPARATIVA (opcional pero poderosa)
+      Tabla AQL vs. alternativas
+      La columna de AQL siempre en azul destacada
+
+  13. FAQ
+      8-10 preguntas frecuentes en accordion
+
+  14. CTA FINAL
+      Titulo impactante + descripcion breve + dos botones
+      Fondo: gradiente oscuro azul-violeta
+
+  15. FOOTER
+      Logo + navegacion + redes + legal
+
+NOTA SOBRE EL FLUJO EMOCIONAL:
+  La landing sigue el patron PROBLEMA → AGITACION → SOLUCION → PRUEBA → ACCION
+  Nunca mostrar el precio antes de haber establecido el valor.
+  El CTA principal debe repetirse: en el hero, despues de productos, y al final.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BLOQUE 10 — SEO Y METADATA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TITLE TAG SUGERIDO:
+  "ActionQuantlabs — Conexiones NFC inteligentes para negocios en Colombia"
+
+META DESCRIPTION:
+  "Convierte tus tarjetas NFC en conexiones digitales dinamicas.
+   Actualiza el destino en segundos sin reimprimir nada.
+   Para profesionales, negocios y hospitality en Cali y Colombia."
+
+KEYWORDS PRINCIPALES:
+  tarjetas NFC Colombia
+  NFC para negocios
+  tarjeta digital NFC Cali
+  NFC dinamico Colombia
+  perfil digital NFC
+  menu digital NFC restaurante
+  WiFi NFC hostal
+  ActionQuantlabs
+  tarjetas de presentacion NFC
+  conexiones inteligentes NFC
+
+OG TAGS SUGERIDOS:
+  og:title    → "ActionQuantlabs — Conexiones inteligentes para negocios inteligentes."
+  og:description → "NFC que nunca queda obsoleto. Actualizable en tiempo real."
+  og:image    → Imagen del logo con fondo oscuro premium de marca
+  og:type     → website
+  og:url      → https://actionquantlabs.com (o el dominio real)
+
+SCHEMA MARKUP RECOMENDADO:
+  Organization schema con: name, url, logo, contactPoint, sameAs (redes)
+  Product schema para Axiom Card y Axiom Tag
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BLOQUE 11 — REDES SOCIALES Y CONTENIDO DIGITAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PILARES DE CONTENIDO PARA REDES:
+
+  PILAR 1 — EDUCACION
+    Contenido que explica el problema y la solucion.
+    Formato: carrusel, video corto, comparativas.
+    Ejemplos:
+      "Por que tu QR impreso ya no sirve"
+      "Que es un NFC dinamico y por que importa"
+      "5 cosas que puedes hacer con una Axiom Card"
+
+  PILAR 2 — CASOS DE USO
+    Mostrar como funciona en contextos reales.
+    Formato: video demostracion, before/after, testimonios.
+    Ejemplos:
+      "Asi actualiza un restaurante su menu sin reimprimir"
+      "El hostal que elimino el WiFi verbal"
+      "El ejecutivo que lleva 6 meses sin imprimir una tarjeta"
+
+  PILAR 3 — PRODUCTO
+    Mostrar el hardware y la plataforma.
+    Formato: fotos de producto, mockups, demos de la app.
+    Ejemplos:
+      "Axiom Card vs. tarjeta de presentacion tradicional"
+      "Asi se ve el dashboard de AQL Hub"
+      "Unboxing de la Axiom Card"
+
+  PILAR 4 — COMUNIDAD Y CULTURA
+    Posicionar AQL como empresa tech de Cali con vision global.
+    Formato: behind the scenes, team, valores, milestones.
+    Ejemplos:
+      "Por que construimos esto desde Cali"
+      "Lo que aprendimos de los primeros 50 clientes"
+
+TON EN REDES SOCIALES:
+  → Directo y concreto. Sin rodeos.
+  → Datos y ejemplos reales sobre frases genericas.
+  → Aspiracional pero basado en resultados.
+  → Primera persona plural: "construimos", "creemos", "entregamos".
+  → Sin hashtags excesivos. Maximo 5 relevantes por post.
+  → Emoji usados con medida, no como decoracion.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BLOQUE 12 — GLOSARIO INTERNO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TERMINOS INTERNOS DE LA MARCA:
+
+  AQL Hub               La plataforma de software donde el cliente gestiona sus NFC.
+  Axiom Card            Producto NFC en formato tarjeta. Chip NTAG 214. Para profesionales.
+  Axiom Tag             Producto NFC en formato sticker. Chip NTAG 213. Para negocios.
+  Destino dinamico      La URL o accion a donde apunta el NFC. Se cambia en la plataforma.
+  Hardware permanente   El objeto fisico NFC que nunca necesita reemplazarse.
+  Infraestructura       La capa de tecnologia que conecta el mundo fisico y digital.
+  Contacto dinamico     La categoria de mercado que AQL ocupa y define.
+  Toque                 El momento en que un usuario acerca su celular al NFC.
+  Nodo                  Un dispositivo NFC individual gestionado en AQL Hub.
+  Plan Hardware Only    Compra del dispositivo sin suscripcion anual completa.
+  Plan Anual            Hardware + acceso completo a AQL Hub por 12 meses.
+  Renovacion            El pago anual solo de la plataforma (sin volver a pagar hardware).
+  ARR                   Annual Recurring Revenue. La metrica de recurrencia de AQL.
+
+TERMINOS QUE NO USAMOS:
+
+  "Linktree con NFC"    → Somos infraestructura, no un link en bio con gadget.
+  "Gadget"              → Nuestros productos son infraestructura, no gadgets.
+  "Tarjeta magica"      → Evitar lenguaje de magia o truco. Somos tecnologia precisa.
+  "Revolucionario"      → Adjetivo vacio. Usamos datos y casos reales en su lugar.
+  "Soluciones"          → Muy generico. Usamos el nombre del producto o la accion concreta.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BLOQUE 13 — RESTRICCIONES DE MARCA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+LO QUE ACTIONQUANTLABS SI ES:
+  → Infraestructura de contacto dinamico
+  → Una plataforma que convierte objetos fisicos en nodos inteligentes
+  → La solucion que elimina la dependencia de formatos estaticos
+  → Un sistema de gestion de presencia digital para negocios y profesionales
+  → Una empresa tecnologica latinoamericana con ambicion global
+  → La capa invisible que conecta el mundo fisico con el digital
+
+LO QUE ACTIONQUANTLABS NO ES:
+  → Un Linktree con chip NFC
+  → Una empresa de tarjetas de presentacion digitales
+  → Un gadget tecnologico novedoso sin modelo de negocio sostenible
+  → Solo para profesionales (ignorando negocios y hospitality)
+  → Una solucion de marketing digital generica
+  → Una startup regional sin vision de escala internacional
+
+RESTRICCIONES DEL LOGO:
+  → Nunca en colores fuera de las versiones aprobadas (oscura y clara)
+  → Nunca estirar, comprimir o rotar el simbolo
+  → Nunca sobre fondos de bajo contraste sin overlay
+  → Nunca reemplazar la tipografia "ActionQuantlabs" por otra fuente
+  → Zona de exclusion: espacio libre alrededor del logo equivalente
+    a la altura de la "A" del logotipo en todos los lados
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BLOQUE 14 — INFORMACION OPERATIVA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TIEMPOS DE ENTREGA (referencia inicial):
+  Cali:              24-48 horas habiles
+  Colombia (otras):  2-5 dias habiles
+  Internacional:     A definir segun destino
+
+CANALES DE VENTA:
+  - Landing page / sitio web (principal)
+  - WhatsApp Business (consultas y pedidos directos)
+  - Instagram Direct (consultas iniciales)
+  - Visitas comerciales (para cuentas empresariales y hospitality)
+
+CANALES DE SOPORTE:
+  - WhatsApp Business
+  - Email
+  - Chat en la plataforma AQL Hub (futuro)
+
+PROCESO DE ONBOARDING DEL CLIENTE:
+  1. El cliente compra online o via WhatsApp.
+  2. Se le envia el dispositivo fisico.
+  3. Recibe email/mensaje con link de activacion en AQL Hub.
+  4. Crea su cuenta y configura su primer perfil o destino.
+  5. El equipo AQL ofrece soporte en el proceso si es necesario.
+  6. El cliente empieza a usar su NFC.
+
+GARANTIA Y SOPORTE:
+  - Los dispositivos NFC tienen garantia de funcionamiento.
+  - La plataforma AQL Hub tiene soporte tecnico durante el periodo activo.
+  - En caso de defecto de fabrica, se reemplaza el dispositivo.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FIN DEL DOCUMENTO
+ActionQuantlabs — Documento Maestro v1.0 — 2025
+Cali, Colombia | LATAM | El Mundo
+"Conexiones inteligentes para negocios inteligentes."
+================================================================================

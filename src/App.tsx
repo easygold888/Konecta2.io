@@ -1,6 +1,4 @@
 import { useState } from "react";
-import IntroAnimation from "./components/ui/scroll-morph-hero";
-import { HeroParallax } from "./components/ui/hero-parallax";
 import { Navbar, Footer } from "./components/ui/navigation";
 import { SpaceGlobeCanvas } from "./components/ui/space-globe-canvas";
 
@@ -86,25 +84,82 @@ function App() {
   ];
 
   return (
-    <div className="w-full min-h-screen bg-transparent text-[#F1F5F9] font-sans antialiased flex flex-col items-center">
-      {/* 3D Canvas Globe Background (Spans across all sections below the Hero) */}
+    <div className="w-full min-h-screen bg-transparent text-[#F1F5F9] font-sans antialiased flex flex-col items-center overflow-x-hidden">
+      {/* Globo 3D — estrella del hero, backdrop vivo en el resto del sitio */}
       <SpaceGlobeCanvas />
 
-      {/* 1. Navbar */}
+      {/* Scrim de contraste: deja ver el globo arriba y oscurece hacia abajo para máxima legibilidad */}
+      <div className="fixed inset-0 -z-[5] pointer-events-none bg-gradient-to-b from-[#070A12]/5 via-[#070A12]/70 to-[#070A12]/95" />
+
+      {/* Navbar */}
       <Navbar />
 
-      {/* 2. Hero Section (Scroll Morphing) - Set to transparent to reveal space background */}
-      <section id="hero" className="w-full relative bg-transparent">
-        <IntroAnimation />
-      </section>
+      {/* 1. HERO — Globo protagonista + mensaje central */}
+      <section id="hero" className="relative w-full min-h-[92vh] flex items-center z-10">
+        <div className="w-full max-w-7xl mx-auto px-6 md:px-12 grid md:grid-cols-2 gap-10 items-center py-24 md:py-0">
+          <div className="text-center md:text-left flex flex-col items-center md:items-start">
+            <span className="inline-flex items-center gap-2 rounded-full border border-[#2563EB]/30 bg-[#2563EB]/10 px-4 py-1.5 text-[11px] font-bold tracking-[0.2em] uppercase text-[#38BDF8] backdrop-blur-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#38BDF8] animate-pulse" />
+              Infraestructura de Contacto Dinámico
+            </span>
 
-      {/* 3. Malla Parallax (Aceternity Parallax Wall) - Dynamic scroll wall */}
-      <section id="products-parallax" className="w-full relative bg-transparent">
-        <HeroParallax />
+            <h1 className="mt-6 text-5xl md:text-7xl font-extrabold leading-[1.05] tracking-tight text-[#F1F5F9] [text-shadow:0_2px_40px_rgba(7,10,18,0.9)]">
+              Cada toque,
+              <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#38BDF8] via-[#2563EB] to-[#7C3AED]">
+                una acción.
+              </span>
+            </h1>
+
+            <p className="mt-6 max-w-xl text-base md:text-lg text-[#94A3B8] leading-relaxed [text-shadow:0_1px_20px_rgba(7,10,18,0.9)]">
+              El objeto físico es permanente. El destino lo editas tú, en tiempo real.
+              Hardware NFC + AQL Hub, desde Cali para toda Latinoamérica.
+            </p>
+
+            <div className="mt-9 flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center md:justify-start">
+              <a
+                href="#cta"
+                className="group relative inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg text-sm font-bold text-[#F1F5F9] overflow-hidden shadow-lg shadow-[#2563EB]/20"
+              >
+                <span className="absolute inset-0 bg-gradient-to-r from-[#2563EB] to-[#7C3AED]" />
+                <span className="absolute inset-0 bg-[#38BDF8] opacity-0 group-hover:opacity-20 transition-opacity duration-300" />
+                <span className="relative">Quiero mi Axiom</span>
+                <svg className="relative" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
+              </a>
+              <a
+                href="#products"
+                className="inline-flex items-center justify-center px-7 py-3.5 rounded-lg text-sm font-bold text-[#F1F5F9] border border-gray-700/50 bg-[#0B1120]/40 backdrop-blur-md hover:border-gray-500/70 transition"
+              >
+                Ver dispositivos
+              </a>
+            </div>
+
+            <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 justify-center md:justify-start text-xs text-[#94A3B8]">
+              {["Sin app para tus clientes", "iPhone & Android", "Soporte en español · Cali"].map((t) => (
+                <span key={t} className="flex items-center gap-2">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" strokeWidth="3"><polyline points="20 6 9 17 4 12" /></svg>
+                  {t}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* El globo vive en el canvas fijo detrás; esta columna reserva su espacio en desktop */}
+          <div className="hidden md:block h-[60vh]" aria-hidden />
+        </div>
+
+        {/* Indicador de scroll */}
+        <a
+          href="#el-problema"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[#94A3B8] hover:text-[#38BDF8] transition-colors"
+        >
+          <span className="text-[10px] font-bold tracking-[0.3em] uppercase">Desliza</span>
+          <svg className="animate-bounce" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9" /></svg>
+        </a>
       </section>
 
       {/* 4. El Problema (Pain Section) */}
-      <section className="w-full max-w-7xl px-6 md:px-12 py-24 text-left border-t border-gray-900/30 bg-transparent relative z-10">
+      <section id="el-problema" className="w-full max-w-7xl px-6 md:px-12 py-24 text-left border-t border-gray-900/30 bg-transparent relative z-10">
         <div className="max-w-3xl mb-16">
           <span className="text-[#38BDF8] text-xs font-bold tracking-[0.25em] uppercase">El Problema</span>
           <h2 className="text-3xl md:text-5xl font-extrabold mt-3 leading-tight">
@@ -117,7 +172,7 @@ function App() {
 
         {/* Pain Cards Grid - Glassmorphism style */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-[#111827]/10 border border-gray-800/20 rounded-xl p-8 backdrop-blur-md transition-all duration-300 hover:border-gray-700/40 hover:shadow-2xl hover:shadow-[#2563EB]/5">
+          <div className="bg-[#0E1526]/70 border border-gray-700/40 rounded-xl p-8 backdrop-blur-md transition-all duration-300 hover:border-gray-700/40 hover:shadow-2xl hover:shadow-[#2563EB]/5">
             <div className="w-10 h-10 rounded-lg bg-red-500/10 flex items-center justify-center text-red-400 mb-6">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
             </div>
@@ -127,7 +182,7 @@ function App() {
             </p>
           </div>
 
-          <div className="bg-[#111827]/10 border border-gray-800/20 rounded-xl p-8 backdrop-blur-md transition-all duration-300 hover:border-gray-700/40 hover:shadow-2xl hover:shadow-[#2563EB]/5">
+          <div className="bg-[#0E1526]/70 border border-gray-700/40 rounded-xl p-8 backdrop-blur-md transition-all duration-300 hover:border-gray-700/40 hover:shadow-2xl hover:shadow-[#2563EB]/5">
             <div className="w-10 h-10 rounded-lg bg-red-500/10 flex items-center justify-center text-red-400 mb-6">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
             </div>
@@ -137,7 +192,7 @@ function App() {
             </p>
           </div>
 
-          <div className="bg-[#111827]/10 border border-gray-800/20 rounded-xl p-8 backdrop-blur-md transition-all duration-300 hover:border-gray-700/40 hover:shadow-2xl hover:shadow-[#2563EB]/5">
+          <div className="bg-[#0E1526]/70 border border-gray-700/40 rounded-xl p-8 backdrop-blur-md transition-all duration-300 hover:border-gray-700/40 hover:shadow-2xl hover:shadow-[#2563EB]/5">
             <div className="w-10 h-10 rounded-lg bg-red-500/10 flex items-center justify-center text-red-400 mb-6">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
             </div>
@@ -150,7 +205,7 @@ function App() {
       </section>
 
       {/* 5. La Solución (Reveal Section / Pillars) - Transparent to show the globe rotating behind it */}
-      <section className="w-full py-24 bg-transparent relative z-10">
+      <section id="la-solucion" className="w-full py-24 bg-transparent relative z-10">
         <div className="w-full max-w-7xl px-6 md:px-12 text-left">
           <div className="max-w-3xl mb-16">
             <span className="text-[#38BDF8] text-xs font-bold tracking-[0.25em] uppercase">La Solución</span>
@@ -164,21 +219,21 @@ function App() {
 
           {/* Three Layers Pillars */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="flex flex-col gap-4 text-left bg-gray-900/5 p-6 rounded-xl border border-gray-800/10 backdrop-blur-sm">
+            <div className="flex flex-col gap-4 text-left bg-[#0E1526]/60 p-6 rounded-xl border border-gray-800/10 backdrop-blur-sm">
               <span className="text-5xl font-extrabold text-[#2563EB]/40">01</span>
               <h3 className="text-xl font-bold text-[#F1F5F9]">Capa 1: Hardware Permanente</h3>
               <p className="text-sm text-[#94A3B8] leading-relaxed">
                 Nuestras Axiom Cards y Axiom Tags cuentan con chips NTAG de alta durabilidad encapsulados en materiales premium. Se instalan una vez y no requieren batería.
               </p>
             </div>
-            <div className="flex flex-col gap-4 text-left bg-gray-900/5 p-6 rounded-xl border border-gray-800/10 backdrop-blur-sm">
+            <div className="flex flex-col gap-4 text-left bg-[#0E1526]/60 p-6 rounded-xl border border-gray-800/10 backdrop-blur-sm">
               <span className="text-5xl font-extrabold text-[#2563EB]/40">02</span>
               <h3 className="text-xl font-bold text-[#F1F5F9]">Capa 2: AQL Hub (Plataforma)</h3>
               <p className="text-sm text-[#94A3B8] leading-relaxed">
                 El dashboard en la nube desde el cual gestionas todos tus dispositivos. Cambia a dónde apunta tu NFC, visualiza las analíticas y edita tu contenido sin conocimientos técnicos.
               </p>
             </div>
-            <div className="flex flex-col gap-4 text-left bg-gray-900/5 p-6 rounded-xl border border-gray-800/10 backdrop-blur-sm">
+            <div className="flex flex-col gap-4 text-left bg-[#0E1526]/60 p-6 rounded-xl border border-gray-800/10 backdrop-blur-sm">
               <span className="text-5xl font-extrabold text-[#2563EB]/40">03</span>
               <h3 className="text-xl font-bold text-[#F1F5F9]">Capa 3: Destino Dinámico</h3>
               <p className="text-sm text-[#94A3B8] leading-relaxed">
@@ -204,7 +259,7 @@ function App() {
         {/* Product Cards Compare */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {/* Axiom Card */}
-          <div className="bg-[#111827]/10 backdrop-blur-md border-t-4 border-t-[#2563EB] border border-gray-800/30 rounded-xl p-8 md:p-10 flex flex-col justify-between hover:shadow-2xl hover:shadow-[#2563EB]/5 transition-all">
+          <div className="bg-[#0E1526]/70 backdrop-blur-md border-t-4 border-t-[#2563EB] border border-gray-800/30 rounded-xl p-8 md:p-10 flex flex-col justify-between hover:shadow-2xl hover:shadow-[#2563EB]/5 transition-all">
             <div>
               <div className="flex justify-between items-center mb-6">
                 <span className="bg-[#2563EB]/15 text-[#38BDF8] text-[9px] font-bold tracking-wider uppercase px-3 py-1 rounded-full border border-[#2563EB]/30">
@@ -242,7 +297,7 @@ function App() {
           </div>
 
           {/* Axiom Tag */}
-          <div className="bg-[#111827]/10 backdrop-blur-md border-t-4 border-t-[#7C3AED] border border-gray-800/30 rounded-xl p-8 md:p-10 flex flex-col justify-between hover:shadow-2xl hover:shadow-[#7C3AED]/5 transition-all">
+          <div className="bg-[#0E1526]/70 backdrop-blur-md border-t-4 border-t-[#7C3AED] border border-gray-800/30 rounded-xl p-8 md:p-10 flex flex-col justify-between hover:shadow-2xl hover:shadow-[#7C3AED]/5 transition-all">
             <div>
               <div className="flex justify-between items-center mb-6">
                 <span className="bg-[#7C3AED]/15 text-[#c084fc] text-[9px] font-bold tracking-wider uppercase px-3 py-1 rounded-full border border-[#7C3AED]/30">
@@ -295,7 +350,7 @@ function App() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mt-12 relative">
-            <div className="flex flex-col gap-4 text-left bg-gray-900/5 p-6 rounded-xl border border-gray-800/10 backdrop-blur-sm">
+            <div className="flex flex-col gap-4 text-left bg-[#0E1526]/60 p-6 rounded-xl border border-gray-800/10 backdrop-blur-sm">
               <div className="w-12 h-12 rounded-full bg-[#2563EB]/10 border border-[#2563EB]/30 flex items-center justify-center text-[#38BDF8] font-bold text-lg">
                 1
               </div>
@@ -304,7 +359,7 @@ function App() {
                 Recibe tu Axiom Card o Tag. Escanea su código de vinculación único y regístralo en AQL Hub en solo 2 minutos.
               </p>
             </div>
-            <div className="flex flex-col gap-4 text-left bg-gray-900/5 p-6 rounded-xl border border-gray-800/10 backdrop-blur-sm">
+            <div className="flex flex-col gap-4 text-left bg-[#0E1526]/60 p-6 rounded-xl border border-gray-800/10 backdrop-blur-sm">
               <div className="w-12 h-12 rounded-full bg-[#2563EB]/10 border border-[#2563EB]/30 flex items-center justify-center text-[#38BDF8] font-bold text-lg">
                 2
               </div>
@@ -313,7 +368,7 @@ function App() {
                 Coloca los Tags en las mesas de tu negocio o guarda tu Axiom Card en la billetera. Cualquier celular moderno lo leerá al tacto.
               </p>
             </div>
-            <div className="flex flex-col gap-4 text-left bg-gray-900/5 p-6 rounded-xl border border-gray-800/10 backdrop-blur-sm">
+            <div className="flex flex-col gap-4 text-left bg-[#0E1526]/60 p-6 rounded-xl border border-gray-800/10 backdrop-blur-sm">
               <div className="w-12 h-12 rounded-full bg-[#2563EB]/10 border border-[#2563EB]/30 flex items-center justify-center text-[#38BDF8] font-bold text-lg">
                 3
               </div>
@@ -340,7 +395,7 @@ function App() {
 
         {/* Segments Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-[#111827]/10 border border-gray-800/20 backdrop-blur-md rounded-xl p-8 text-left hover:border-gray-700/40 transition-all flex flex-col justify-between">
+          <div className="bg-[#0E1526]/70 border border-gray-700/40 backdrop-blur-md rounded-xl p-8 text-left hover:border-gray-700/40 transition-all flex flex-col justify-between">
             <div>
               <h3 className="text-xl font-bold text-[#F1F5F9]">El Profesional</h3>
               <p className="text-xs text-[#38BDF8] font-mono tracking-wider uppercase mt-1">Identidad Digital</p>
@@ -353,7 +408,7 @@ function App() {
             </div>
           </div>
 
-          <div className="bg-[#111827]/10 border border-gray-800/20 backdrop-blur-md rounded-xl p-8 text-left hover:border-gray-700/40 transition-all flex flex-col justify-between">
+          <div className="bg-[#0E1526]/70 border border-gray-700/40 backdrop-blur-md rounded-xl p-8 text-left hover:border-gray-700/40 transition-all flex flex-col justify-between">
             <div>
               <h3 className="text-xl font-bold text-[#F1F5F9]">El Negocio</h3>
               <p className="text-xs text-[#38BDF8] font-mono tracking-wider uppercase mt-1">Gastronomía y Retail</p>
@@ -366,7 +421,7 @@ function App() {
             </div>
           </div>
 
-          <div className="bg-[#111827]/10 border border-gray-800/20 backdrop-blur-md rounded-xl p-8 text-left hover:border-gray-700/40 transition-all flex flex-col justify-between">
+          <div className="bg-[#0E1526]/70 border border-gray-700/40 backdrop-blur-md rounded-xl p-8 text-left hover:border-gray-700/40 transition-all flex flex-col justify-between">
             <div>
               <h3 className="text-xl font-bold text-[#F1F5F9]">Hospitality</h3>
               <p className="text-xs text-[#38BDF8] font-mono tracking-wider uppercase mt-1">Hotelería & Glampings</p>
@@ -396,37 +451,37 @@ function App() {
 
           {/* 6 Grid Benefits */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-[#111827]/5 border border-gray-800/10 p-6 rounded-xl backdrop-blur-sm">
+            <div className="bg-[#0E1526]/55 border border-gray-700/30 p-6 rounded-xl backdrop-blur-sm">
               <h4 className="font-bold text-[#F1F5F9]">Permanencia Absoluta</h4>
               <p className="text-xs text-[#94A3B8] mt-3 leading-relaxed">
                 El hardware físico nunca queda obsoleto. Una sola inversión amortizada perpetuamente.
               </p>
             </div>
-            <div className="bg-[#111827]/5 border border-gray-800/10 p-6 rounded-xl backdrop-blur-sm">
+            <div className="bg-[#0E1526]/55 border border-gray-700/30 p-6 rounded-xl backdrop-blur-sm">
               <h4 className="font-bold text-[#F1F5F9]">Destinos Dinámicos</h4>
               <p className="text-xs text-[#94A3B8] mt-3 leading-relaxed">
                 Modifica el destino a donde apunta tu dispositivo al instante desde cualquier lugar.
               </p>
             </div>
-            <div className="bg-[#111827]/5 border border-gray-800/10 p-6 rounded-xl backdrop-blur-sm">
+            <div className="bg-[#0E1526]/55 border border-gray-700/30 p-6 rounded-xl backdrop-blur-sm">
               <h4 className="font-bold text-[#F1F5F9]">Dashboard Centralizado</h4>
               <p className="text-xs text-[#94A3B8] mt-3 leading-relaxed">
                 Gestiona decenas de Axiom Cards y Tags de tu restaurante o equipo desde un solo panel.
               </p>
             </div>
-            <div className="bg-[#111827]/5 border border-gray-800/10 p-6 rounded-xl backdrop-blur-sm">
+            <div className="bg-[#0E1526]/55 border border-gray-700/30 p-6 rounded-xl backdrop-blur-sm">
               <h4 className="font-bold text-[#F1F5F9]">Métricas & Analíticas</h4>
               <p className="text-xs text-[#94A3B8] mt-3 leading-relaxed">
                 Sabe con precisión cuántas personas interactuaron, a qué hora y desde qué dispositivos.
               </p>
             </div>
-            <div className="bg-[#111827]/5 border border-gray-800/10 p-6 rounded-xl backdrop-blur-sm">
+            <div className="bg-[#0E1526]/55 border border-gray-700/30 p-6 rounded-xl backdrop-blur-sm">
               <h4 className="font-bold text-[#F1F5F9]">Fricción Cero</h4>
               <p className="text-xs text-[#94A3B8] mt-3 leading-relaxed">
                 Tus clientes no tienen que descargar ninguna app externa ni crear cuentas. Solo tocar.
               </p>
             </div>
-            <div className="bg-[#111827]/5 border border-gray-800/10 p-6 rounded-xl backdrop-blur-sm">
+            <div className="bg-[#0E1526]/55 border border-gray-700/30 p-6 rounded-xl backdrop-blur-sm">
               <h4 className="font-bold text-[#F1F5F9]">Optimizado para LATAM</h4>
               <p className="text-xs text-[#94A3B8] mt-3 leading-relaxed">
                 Soporte en español y servidores optimizados para garantizar latencia mínima en Latinoamérica.
@@ -465,7 +520,7 @@ function App() {
           <h2 className="text-2xl md:text-4xl font-extrabold mt-3">ActionQuantlabs vs Alternativas</h2>
         </div>
 
-        <div className="w-full overflow-x-auto rounded-xl border border-gray-800/20 bg-[#111827]/5 backdrop-blur-md">
+        <div className="w-full overflow-x-auto rounded-xl border border-gray-700/40 bg-[#0E1526]/70 backdrop-blur-md">
           <table className="w-full text-left border-collapse min-w-[600px]">
             <thead>
               <tr className="border-b border-gray-800/30 bg-gray-900/10 text-xs font-bold text-[#F1F5F9] uppercase">
@@ -502,7 +557,7 @@ function App() {
             return (
               <div
                 key={index}
-                className="border border-gray-800/20 bg-[#111827]/10 backdrop-blur-md rounded-xl overflow-hidden transition-all duration-300"
+                className="border border-gray-700/40 bg-[#0E1526]/70 backdrop-blur-md rounded-xl overflow-hidden transition-all duration-300"
               >
                 <button
                   onClick={() => toggleFaq(index)}
@@ -529,9 +584,8 @@ function App() {
       {/* 13. CTA Final */}
       <section id="cta" className="w-full max-w-5xl px-6 py-20 text-center relative z-10 bg-transparent">
         <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#2563EB]/40 to-[#7C3AED]/40 backdrop-blur-lg border border-gray-700/30 px-8 py-16 md:py-24 shadow-2xl flex flex-col items-center justify-center">
-          {/* Subtle overlay */}
           <div className="absolute inset-0 bg-[#070A12]/30 mix-blend-multiply"></div>
-          
+
           <div className="relative z-10 max-w-2xl flex flex-col items-center gap-6">
             <span className="text-xs font-extrabold tracking-[0.3em] text-[#38BDF8] uppercase leading-none">
               El futuro al tacto
@@ -542,10 +596,10 @@ function App() {
             <p className="text-sm md:text-base text-[#F1F5F9]/85 max-w-lg mt-2 leading-relaxed">
               Únete a los profesionales y negocios en Cali y Colombia que ya convirtieron sus interacciones físicas en conexiones inteligentes permanentes.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 mt-8 w-full justify-center">
               <a
-                href="https://wa.me/573000000000?text=Hola,%20quiero%20más%20información%20sobre%20las%20tarjetas%20y%20tags%20de%20ActionQuantlabs"
+                href="https://wa.me/573000000000?text=Hola,%20quiero%20m%C3%A1s%20informaci%C3%B3n%20sobre%20las%20tarjetas%20y%20tags%20de%20ActionQuantlabs"
                 target="_blank"
                 rel="noreferrer"
                 className="px-8 py-4 bg-[#070A12]/80 backdrop-blur-md text-[#F1F5F9] text-sm font-bold rounded-lg border border-gray-800/40 hover:border-gray-600/40 transition shadow-lg flex items-center justify-center gap-2"

@@ -12,9 +12,30 @@
 
 body {
   background-color: #070A12;
+  background-image: radial-gradient(120% 80% at 70% -10%, rgba(37, 99, 235, 0.12), transparent 60%);
   color: #F1F5F9;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
   margin: 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
+::selection {
+  background: rgba(37, 99, 235, 0.35);
+  color: #F1F5F9;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #070A12;
+}
+::-webkit-scrollbar-thumb {
+  background: #1E293B;
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2563EB;
+}

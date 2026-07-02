@@ -36,9 +36,9 @@ export const Navbar = () => {
               strokeWidth="6"
               strokeLinejoin="round"
             />
-            <line x1="33" y1="58" x2="67" y2="58" stroke="#38BDF8" strokeWidth="6" />
+            <line x1="36.7" y1="41.6" x2="63.3" y2="41.6" stroke="#38BDF8" strokeWidth="6" />
             <circle cx="50" cy="15" r="7" fill="#2563EB" />
-            <circle cx="50" cy="68" r="6" fill="#7C3AED" />
+            <circle cx="50" cy="52" r="6" fill="#7C3AED" />
           </svg>
           <div className="flex flex-col">
             <span className="text-[#F1F5F9] font-extrabold tracking-wider text-sm leading-none">
@@ -115,9 +115,9 @@ export const Footer = () => {
                 strokeWidth="6"
                 strokeLinejoin="round"
               />
-              <line x1="33" y1="58" x2="67" y2="58" stroke="#38BDF8" strokeWidth="6" />
+              <line x1="36.7" y1="41.6" x2="63.3" y2="41.6" stroke="#38BDF8" strokeWidth="6" />
               <circle cx="50" cy="15" r="7" fill="#2563EB" />
-              <circle cx="50" cy="68" r="6" fill="#7C3AED" />
+              <circle cx="50" cy="52" r="6" fill="#7C3AED" />
             </svg>
             <div className="flex flex-col text-left">
               <span className="text-[#F1F5F9] font-extrabold tracking-wider text-sm leading-none">
