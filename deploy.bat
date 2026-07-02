@@ -41,7 +41,7 @@ if errorlevel 1 (
 
 REM --- Desplegar en Cloudflare Pages ---
 echo [3/3] Publicando en Cloudflare Pages...
-call npx wrangler pages deploy dist --project-name konecta2-io
+call npx wrangler pages deploy dist --project-name axiomquantlab
 if errorlevel 1 (
   echo [ERROR] Fallo la publicacion en Cloudflare Pages.
   pause
@@ -51,10 +51,10 @@ if errorlevel 1 (
 echo.
 echo ==========================================
 echo    LISTO. Publicado con exito en Cloudflare.
-echo    URL de prueba: https://konecta2-io.pages.dev/
+echo    URL de prueba: https://axiomquantlab.pages.dev/
 echo ==========================================
 echo    Recuerda asociar tu dominio propio en el Dashboard de Cloudflare:
-echo      1) Ve a Workers & Pages > konecta2-io > Custom Domains
-echo      2) Asocia tu dominio (ej. konecta2.io o www.konecta2.io)
+echo      1) Ve a Workers & Pages > axiomquantlab > Custom Domains
+echo      2) Asocia tu dominio (ej. axiomquantlab.xyz o www.axiomquantlab.xyz)
 echo.
 pause
