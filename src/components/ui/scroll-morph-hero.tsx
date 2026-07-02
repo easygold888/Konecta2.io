@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo, useRef } from "react";
-import { motion, useTransform, useSpring, useMotionValue } from "framer-motion";
+import { motion, useTransform, useSpring, useMotionValue, useMotionValueEvent } from "framer-motion";
 
 // --- Types ---
 export type AnimationPhase = "scatter" | "line" | "circle" | "bottom-strip";
@@ -280,16 +280,17 @@ export default function IntroAnimation() {
     const [rotateValue, setRotateValue] = useState(0);
     const [parallaxValue, setParallaxValue] = useState(0);
 
-    useEffect(() => {
-        const unsubscribeMorph = smoothMorph.on("change", setMorphValue);
-        const unsubscribeRotate = smoothScrollRotate.on("change", setRotateValue);
-        const unsubscribeParallax = smoothMouseX.on("change", setParallaxValue);
-        return () => {
-            unsubscribeMorph();
-            unsubscribeRotate();
-            unsubscribeParallax();
-        };
-    }, [smoothMorph, smoothScrollRotate, smoothMouseX]);
+    useMotionValueEvent(smoothMorph, "change", (latest) => {
+        setMorphValue(latest);
+    });
+
+    useMotionValueEvent(smoothScrollRotate, "change", (latest) => {
+        setRotateValue(latest);
+    });
+
+    useMotionValueEvent(smoothMouseX, "change", (latest) => {
+        setParallaxValue(latest);
+    });
 
     // --- Content Opacity ---
     // Fade in content when arc is formed (morphValue > 0.8)
