@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo, useRef } from "react";
-import { motion, useTransform, useSpring, useMotionValue, useMotionValueEvent } from "framer-motion";
+import { motion, useTransform, useSpring, useMotionValue, useMotionValueEvent, useScroll } from "framer-motion";
 
 // --- Types ---
 export type AnimationPhase = "scatter" | "line" | "circle" | "bottom-strip";
@@ -122,7 +122,6 @@ function FlipCard({
 
 // --- Main Hero Component ---
 const TOTAL_IMAGES = 20;
-const MAX_SCROLL = 3000; // Virtual scroll range
 
 // Unsplash Images matching Axiom Brand Bible context:
 // Cards, tags, business meetings, luxury hotel, modern restaurants, technology chips, NFC interaction
@@ -182,63 +181,34 @@ export default function IntroAnimation() {
         return () => observer.disconnect();
     }, []);
 
-    // --- Virtual Scroll Logic ---
-    const virtualScroll = useMotionValue(0);
-    const scrollRef = useRef(0); // Keep track of scroll value without re-renders
+    // --- Native Scroll Logic ---
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start start", "end end"],
+    });
 
-    useEffect(() => {
-        const container = containerRef.current;
-        if (!container) return;
-
-        const handleWheel = (e: WheelEvent) => {
-            // Prevent default to stop browser overscroll/bounce
-            e.preventDefault();
-
-            const newScroll = Math.min(Math.max(scrollRef.current + e.deltaY, 0), MAX_SCROLL);
-            scrollRef.current = newScroll;
-            virtualScroll.set(newScroll);
-        };
-
-        // Touch support
-        let touchStartY = 0;
-        const handleTouchStart = (e: TouchEvent) => {
-            touchStartY = e.touches[0].clientY;
-        };
-        const handleTouchMove = (e: TouchEvent) => {
-            const touchY = e.touches[0].clientY;
-            const deltaY = touchStartY - touchY;
-            touchStartY = touchY;
-
-            const newScroll = Math.min(Math.max(scrollRef.current + deltaY, 0), MAX_SCROLL);
-            scrollRef.current = newScroll;
-            virtualScroll.set(newScroll);
-        };
-
-        // Attach listeners to container instead of window for portability
-        container.addEventListener("wheel", handleWheel, { passive: false });
-        container.addEventListener("touchstart", handleTouchStart, { passive: false });
-        container.addEventListener("touchmove", handleTouchMove, { passive: false });
-
-        return () => {
-            container.removeEventListener("wheel", handleWheel);
-            container.removeEventListener("touchstart", handleTouchStart);
-            container.removeEventListener("touchmove", handleTouchMove);
-        };
-    }, [virtualScroll]);
+    // Make transitions buttery-smooth
+    const smoothProgress = useSpring(scrollYProgress, { stiffness: 45, damping: 20, mass: 0.8 });
 
     // 1. Morph Progress: 0 (Circle) -> 1 (Bottom Arc)
-    // Happens between scroll 0 and 600
-    const morphProgress = useTransform(virtualScroll, [0, 600], [0, 1]);
-    const smoothMorph = useSpring(morphProgress, { stiffness: 40, damping: 20 });
+    // Occurs in the first 35% of the scroll
+    const morphProgress = useTransform(smoothProgress, [0, 0.35], [0, 1]);
+    const smoothMorph = morphProgress;
 
-    // 2. Scroll Rotation (Shuffling): Starts after morph (e.g., > 600)
-    // Rotates the bottom arc as user continues scrolling
-    const scrollRotate = useTransform(virtualScroll, [600, 3000], [0, 360]);
-    const smoothScrollRotate = useSpring(scrollRotate, { stiffness: 40, damping: 20 });
+    // 2. Scroll Rotation (Shuffling): Starts after morph (from 35% to 100%)
+    const scrollRotate = useTransform(smoothProgress, [0.35, 1], [0, 360]);
+    const smoothScrollRotate = scrollRotate;
 
     // --- Mouse Parallax ---
     const mouseX = useMotionValue(0);
     const smoothMouseX = useSpring(mouseX, { stiffness: 30, damping: 20 });
+
+    // Automatically transition to circle phase if the user starts scrolling
+    useMotionValueEvent(scrollYProgress, "change", (latest) => {
+        if (latest > 0.02 && introPhase !== "circle") {
+            setIntroPhase("circle");
+        }
+    });
 
     useEffect(() => {
         const container = containerRef.current;
@@ -259,10 +229,18 @@ export default function IntroAnimation() {
 
     // --- Intro Sequence ---
     useEffect(() => {
-        const timer1 = setTimeout(() => setIntroPhase("line"), 500);
-        const timer2 = setTimeout(() => setIntroPhase("circle"), 2500);
+        if (scrollYProgress.get() > 0.02) {
+            setIntroPhase("circle");
+            return;
+        }
+        const timer1 = setTimeout(() => {
+            if (scrollYProgress.get() <= 0.02) setIntroPhase("line");
+        }, 500);
+        const timer2 = setTimeout(() => {
+            if (scrollYProgress.get() <= 0.02) setIntroPhase("circle");
+        }, 2500);
         return () => { clearTimeout(timer1); clearTimeout(timer2); };
-    }, []);
+    }, [scrollYProgress]);
 
     // --- Random Scatter Positions ---
     const scatterPositions = useMemo(() => {
@@ -298,24 +276,10 @@ export default function IntroAnimation() {
     const contentY = useTransform(smoothMorph, [0.8, 1], [20, 0]);
 
     return (
-        <div ref={containerRef} className="relative w-full h-full bg-[#070A12] overflow-hidden select-none">
+        <div ref={containerRef} className="relative w-full h-[220vh] bg-[#070A12] select-none">
             
-            {/* Header Brand Logo */}
-            <div className="absolute top-8 left-8 z-20 flex items-center gap-3">
-                <svg width="32" height="32" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <polygon points="50,15 15,85 85,85" stroke="#2563EB" strokeWidth="6" strokeLinejoin="round" />
-                    <line x1="33" y1="58" x2="67" y2="58" stroke="#38BDF8" strokeWidth="6" />
-                    <circle cx="50" cy="15" r="7" fill="#2563EB" />
-                    <circle cx="50" cy="68" r="6" fill="#7C3AED" />
-                </svg>
-                <div className="flex flex-col">
-                    <span className="text-[#F1F5F9] font-extrabold tracking-wider text-sm leading-none">AXIOM</span>
-                    <span className="text-[#38BDF8] text-[8px] tracking-[0.25em] font-bold leading-none mt-1">QUANT LABS</span>
-                </div>
-            </div>
-
-            {/* Container */}
-            <div className="flex h-full w-full flex-col items-center justify-center perspective-1000">
+            {/* Sticky Wrapper */}
+            <div className="sticky top-0 w-full h-screen overflow-hidden flex flex-col items-center justify-center perspective-1000">
 
                 {/* Intro Text (Fades out) */}
                 <div className="absolute z-0 flex flex-col items-center justify-center text-center pointer-events-none top-1/2 -translate-y-1/2">
